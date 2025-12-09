@@ -5,11 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tee Sommelier PoC</title>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
-        label { display: block; margin-top: 15px; font-weight: bold; }
-        input[type="text"], textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
-        button { background-color: #4CAF50; color: white; padding: 12px 20px; margin-top: 20px; border: none; border-radius: 4px; cursor: pointer; }
-        .success { color: green; font-weight: bold; margin-top: 15px; }
+        /* CSS für ein sauberes Layout */
+        body { 
+            font-family: sans-serif; 
+            max-width: 600px; 
+            margin: 40px auto; 
+            padding: 20px; 
+            border: 1px solid #ccc; 
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+        label { 
+            display: block; 
+            margin-top: 15px; 
+            font-weight: bold; 
+        }
+        input[type="text"], textarea { 
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 5px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+        }
+        button { 
+            background-color: #4CAF50; 
+            color: white; 
+            padding: 12px 20px; 
+            margin-top: 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .success { 
+            color: green; 
+            font-weight: bold; 
+            margin-top: 15px; 
+            padding: 10px;
+            background-color: #e6ffe6;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -17,7 +56,7 @@
     <h2>🌱 Dein Individueller Tee-Sommelier</h2>
     <p>Fülle das Formular aus, um deine persönliche Teemischung zu erhalten. Das Ergebnis wird im Hintergrund von unserer KI berechnet.</p>
     
-    <form id="teaForm" action="https://n8n.srv1154643.hstgr.cloud/webhook/tee-analyse" method="POST">
+    <form id="teaForm" action="https://DEINE_N8N_WEBHOOK_URL" method="POST">
         
         <label for="gefuehl">1. Gefühl / Zustand:</label>
         <textarea id="gefuehl" name="gefuehl" rows="3" placeholder="Ich bin gestresst, kann abends nicht abschalten und habe leichte Magenprobleme." required></textarea>
@@ -39,16 +78,21 @@
         <button type="submit">Teemischung anfragen</button>
     </form>
     
-    <p id="successMessage" class="success" style="display: none;">Anfrage gesendet! Die KI arbeitet...</p>
+    <p id="successMessage" class="success" style="display: none;">Anfrage erfolgreich gesendet! Die KI arbeitet nun an deiner Teemischung.</p>
     
     <script>
         document.getElementById('teaForm').addEventListener('submit', function(e) {
-            // Verhindere das Standard-Formular-Senden
+            // Verhindere das Standard-Formular-Senden (wichtig für asynchrone Requests)
             e.preventDefault(); 
             
             // Sende das Formular asynchron
             fetch(this.action, {
                 method: 'POST',
+                // Füge den korrekten Header hinzu, damit n8n die URL-kodierten Daten liest
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                // Die Daten werden als URL-Parameter kodiert
                 body: new URLSearchParams(new FormData(this))
             })
             .then(response => {
@@ -57,8 +101,8 @@
                 document.getElementById('successMessage').style.display = 'block';
             })
             .catch(error => {
-                // Einfache Fehlermeldung
-                alert('Es gab ein Problem beim Senden der Daten.');
+                // Bei Fehlschlag (z.B. wegen CORS oder falscher URL)
+                alert('Es gab ein Problem beim Senden der Daten. Prüfe die n8n-URL und CORS-Einstellungen.');
                 console.error('Error:', error);
             });
         });
