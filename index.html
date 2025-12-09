@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tee Sommelier PoC</title>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        label { display: block; margin-top: 15px; font-weight: bold; }
+        input[type="text"], textarea { width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #4CAF50; color: white; padding: 12px 20px; margin-top: 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .success { color: green; font-weight: bold; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <h2>🌱 Dein Individueller Tee-Sommelier</h2>
+    <p>Fülle das Formular aus, um deine persönliche Teemischung zu erhalten. Das Ergebnis wird im Hintergrund von unserer KI berechnet.</p>
+    
+    <form id="teaForm" action="https://n8n.srv1154643.hstgr.cloud/webhook-test/tee-analyse" method="POST">
+        
+        <label for="gefuehl">1. Gefühl / Zustand:</label>
+        <textarea id="gefuehl" name="gefuehl" rows="3" placeholder="Ich bin gestresst, kann abends nicht abschalten und habe leichte Magenprobleme." required></textarea>
+
+        <label for="geschmack">2. Geschmacksvorliebe:</label>
+        <input type="text" id="geschmack" name="geschmack" placeholder="Minzig, frisch, nicht zu süß." required>
+
+        <label for="allergien">3. Allergien / No-Gos:</label>
+        <input type="text" id="allergien" name="allergien" placeholder="Kein Ingwer, keine Kamille." required>
+
+        <label for="koffein">4. Koffein erwünscht:</label>
+        <div>
+            <input type="radio" id="koffein-ja" name="koffein" value="Ja" required>
+            <label for="koffein-ja" style="display: inline; font-weight: normal;">Ja</label>
+            <input type="radio" id="koffein-nein" name="koffein" value="Nein" required style="margin-left: 20px;">
+            <label for="koffein-nein" style="display: inline; font-weight: normal;">Nein</label>
+        </div>
+
+        <button type="submit">Teemischung anfragen</button>
+    </form>
+    
+    <p id="successMessage" class="success" style="display: none;">Anfrage gesendet! Die KI arbeitet...</p>
+    
+    <script>
+        document.getElementById('teaForm').addEventListener('submit', function(e) {
+            // Verhindere das Standard-Formular-Senden
+            e.preventDefault(); 
+            
+            // Sende das Formular asynchron
+            fetch(this.action, {
+                method: 'POST',
+                body: new URLSearchParams(new FormData(this))
+            })
+            .then(response => {
+                // Bei Erfolg zeige die Nachricht an
+                document.getElementById('teaForm').style.display = 'none';
+                document.getElementById('successMessage').style.display = 'block';
+            })
+            .catch(error => {
+                // Einfache Fehlermeldung
+                alert('Es gab ein Problem beim Senden der Daten.');
+                console.error('Error:', error);
+            });
+        });
+    </script>
+
+</body>
+</html>
