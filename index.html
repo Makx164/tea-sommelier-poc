@@ -49,6 +49,17 @@
             background-color: #e6ffe6;
             border-radius: 4px;
         }
+        /* Style für das Endergebnis */
+        #teaResult {
+            margin-top: 30px;
+            padding: 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            background-color: #f9fff9;
+        }
+        #teaResult h2 {
+            color: #4CAF50;
+        }
     </style>
 </head>
 <body>
@@ -80,32 +91,71 @@
     
     <p id="successMessage" class="success" style="display: none;">Anfrage erfolgreich gesendet! Die KI arbeitet nun an deiner Teemischung.</p>
     
+    <div id="teaResult">
+        </div>
+
     <script>
         document.getElementById('teaForm').addEventListener('submit', function(e) {
-            // Verhindere das Standard-Formular-Senden (wichtig für asynchrone Requests)
             e.preventDefault(); 
             
-            // Sende das Formular asynchron
+            // Ladezustand anzeigen
+            document.getElementById('teaForm').style.display = 'none';
+            document.getElementById('successMessage').textContent = '🍵 Deine Teemischung wird erstellt... Dies kann einen Moment dauern.';
+            document.getElementById('successMessage').style.display = 'block';
+
             fetch(this.action, {
                 method: 'POST',
-                // Füge den korrekten Header hinzu, damit n8n die URL-kodierten Daten liest
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
-                // Die Daten werden als URL-Parameter kodiert
                 body: new URLSearchParams(new FormData(this))
             })
             .then(response => {
-                // Bei Erfolg zeige die Nachricht an
-                document.getElementById('teaForm').style.display = 'none';
-                document.getElementById('successMessage').style.display = 'block';
+                if (!response.ok) {
+                    throw new Error(`HTTP-Fehler! Status: ${response.status}`);
+                }
+                return response.json(); // WICHTIG: AntwORT ALS JSON LESEN
+            }) 
+            .then(result => {
+                // n8n gibt das Ergebnis im Body zurück. Wir nehmen das JSON aus dem ersten Item.
+                const finalData = result[0].json || result; // Passt sich an, falls n8n das JSON direkt oder verpackt zurückgibt
+
+                document.getElementById('successMessage').style.display = 'none';
+                document.getElementById('teaResult').innerHTML = formatTeaResult(finalData);
             })
             .catch(error => {
-                // Bei Fehlschlag (z.B. wegen CORS oder falscher URL)
-                alert('Es gab ein Problem beim Senden der Daten. Prüfe die n8n-URL und CORS-Einstellungen.');
+                document.getElementById('successMessage').style.display = 'none';
+                alert(`Es gab ein Problem beim Empfang des Rezepts: ${error.message}`);
                 console.error('Error:', error);
+                document.getElementById('teaForm').style.display = 'block'; 
             });
         });
+
+        // Funktion zur sauberen Darstellung des JSON-Ergebnisses
+        function formatTeaResult(data) {
+            if (!data || !data.titel) {
+                 return '<h3>Fehler: Ungültiges Rezeptformat erhalten. Konnte keine Teemischung erstellen.</h3>';
+            }
+
+            let html = `<h2>✅ ${data.titel}</h2>`;
+            html += `<p style="font-style: italic; color: #555;">${data.beschreibung}</p>`;
+            
+            // Zutatenliste formatieren
+            html += '<h4>Zutaten:</h4><ul style="list-style-type: none; padding-left: 0;">';
+            data.zutaten.forEach(item => {
+                html += `<li><span style="color: #4CAF50; font-size: 1.2em;">&bull;</span> <b>${item.name}</b> (${item.prozent}%) – <i>${item.grund}</i></li>`;
+            });
+            html += '</ul>';
+
+            // Zubereitung
+            const zubereitungText = Array.isArray(data.zubereitung) ? data.zubereitung.join(' ') : data.zubereitung;
+            html += `<h4>Zubereitung:</h4><p>${zubereitungText}</p>`;
+            
+            // Link zum Formular zurück
+            html += '<p><a href="#" onclick="window.location.reload(); return false;">&larr; Neue Mischung anfragen</a></p>';
+            
+            return html;
+        }
     </script>
 
 </body>
