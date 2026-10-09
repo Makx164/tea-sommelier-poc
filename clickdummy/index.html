@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tee-Sommelier – Dein persönlicher Tee (Clickdummy)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="demo-banner">Clickdummy · Beispieldaten · keine echte Bestellung</div>
+
+<header class="topbar">
+  <a class="logo" href="#start" data-go="start"><span class="logo-icon">🌱</span> Tee-Sommelier</a>
+  <nav class="topnav">
+    <a href="#start" data-go="start" class="hide-sm">So funktioniert's</a>
+    <button class="cart-btn" data-go="cart" aria-label="Warenkorb">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </nav>
+</header>
+
+<main>
+<!-- ============ LANDING ============ -->
+<section class="screen" id="screen-start">
+  <div class="hero">
+    <div class="hero-text">
+      <span class="eyebrow">KI-Teemischung · individuell abgefüllt</span>
+      <h1>Dein Tee.<br>Für genau <em>dein</em> Befinden.</h1>
+      <p class="lead">Sag uns, wie es dir geht und was du dir wünschst – unser Tee-Sommelier stellt in Sekunden eine Kräutermischung nur für dich zusammen. Frisch gemischt und zu dir nach Hause geschickt.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" data-go="step1">Meinen Tee zusammenstellen →</button>
+        <span class="hint">Dauert ca. 1 Minute · kostenlos</span>
+      </div>
+      <ul class="trust">
+        <li>🌿 Bio-Kräuter</li><li>✋ Von Hand gemischt</li><li>🚚 Versand in 2–3 Tagen</li>
+      </ul>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="cup-wrap">
+        <div class="steam"><span></span><span></span><span></span></div>
+        <div class="cup"><div class="tea-surface"></div></div>
+        <div class="cup-handle"></div>
+        <div class="saucer"></div>
+      </div>
+      <div class="float-card fc1">🍋 Zitronengras <b>20 %</b></div>
+      <div class="float-card fc2">🌼 Kamille <b>25 %</b></div>
+      <div class="float-card fc3">🌿 Melisse <b>35 %</b></div>
+    </div>
+  </div>
+
+  <div class="how">
+    <h2>So funktioniert's</h2>
+    <div class="how-grid">
+      <div class="how-card"><div class="how-num">1</div><h3>Befinden angeben</h3><p>Wähle aus, was dich gerade beschäftigt – von Stress bis Erkältung.</p></div>
+      <div class="how-card"><div class="how-num">2</div><h3>Wirkung &amp; Geschmack</h3><p>Beruhigend oder belebend? Fruchtig oder würzig? Mit oder ohne Koffein?</p></div>
+      <div class="how-card"><div class="how-num">3</div><h3>Deine Mischung</h3><p>Die KI kombiniert passende Kräuter – du bestellst mit einem Klick.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STEP 1 ============ -->
+<section class="screen" id="screen-step1">
+  <div class="wizard">
+    <div class="progress"><div class="progress-bar" style="width:33%"></div></div>
+    <p class="step-label">Schritt 1 von 2</p>
+    <h2>Wie geht es dir gerade?</h2>
+    <p class="sub">Wähle alles aus, was auf dich zutrifft.</p>
+    <div class="chips" id="symptomChips">
+      <button class="chip" data-val="Stress">😮‍💨 Stress</button>
+      <button class="chip" data-val="Schlafprobleme">🌙 Schlafprobleme</button>
+      <button class="chip" data-val="Erkältung">🤧 Erkältung</button>
+      <button class="chip" data-val="Verdauung">🫖 Verdauung</button>
+      <button class="chip" data-val="Kopfschmerzen">🤕 Kopfschmerzen</button>
+      <button class="chip" data-val="Müdigkeit">🥱 Müdigkeit</button>
+      <button class="chip" data-val="Innere Unruhe">🌀 Innere Unruhe</button>
+      <button class="chip" data-val="Konzentration">🎯 Konzentration</button>
+    </div>
+    <label class="field-label" for="freetext">Möchtest du noch etwas ergänzen? <span class="opt">(optional)</span></label>
+    <textarea id="freetext" rows="3" placeholder="z. B. „Ich kann abends schlecht abschalten und habe nach dem Essen oft ein Völlegefühl.“"></textarea>
+    <label class="field-label" for="nogos">Allergien / No-Gos <span class="opt">(optional)</span></label>
+    <input type="text" id="nogos" placeholder="z. B. kein Ingwer, keine Kamille">
+    <div class="wizard-nav">
+      <button class="btn btn-ghost" data-go="start">← Zurück</button>
+      <button class="btn btn-primary" id="toStep2">Weiter →</button>
+    </div>
+    <p class="error" id="err1" hidden>Bitte wähle mindestens einen Punkt aus oder beschreibe kurz dein Befinden.</p>
+  </div>
+</section>
+
+<!-- ============ STEP 2 ============ -->
+<section class="screen" id="screen-step2">
+  <div class="wizard">
+    <div class="progress"><div class="progress-bar" style="width:66%"></div></div>
+    <p class="step-label">Schritt 2 von 2</p>
+    <h2>Was soll dein Tee bewirken?</h2>
+    <p class="sub">Die erste Auswahl bestimmt den Charakter deiner Mischung.</p>
+    <div class="tiles" id="effectTiles">
+      <button class="tile" data-val="beruhigend"><span class="tile-ic">🌙</span>Beruhigend</button>
+      <button class="tile" data-val="belebend"><span class="tile-ic">⚡</span>Belebend</button>
+      <button class="tile" data-val="wärmend"><span class="tile-ic">🔥</span>Wärmend</button>
+      <button class="tile" data-val="Immunsystem"><span class="tile-ic">🛡️</span>Immunsystem</button>
+      <button class="tile" data-val="Fokus"><span class="tile-ic">🎯</span>Fokus</button>
+    </div>
+
+    <h3 class="q">Welcher Geschmack passt zu dir?</h3>
+    <div class="chips" id="tasteChips">
+      <button class="chip" data-val="fruchtig">🍓 Fruchtig</button>
+      <button class="chip" data-val="kräuterig">🌿 Kräuterig</button>
+      <button class="chip" data-val="würzig">🌶️ Würzig</button>
+      <button class="chip" data-val="mild">🍯 Mild</button>
+    </div>
+
+    <h3 class="q">Koffein?</h3>
+    <div class="seg" id="caffeineSeg">
+      <button class="seg-btn active" data-val="nein">Ohne Koffein</button>
+      <button class="seg-btn" data-val="ja">Mit Koffein</button>
+    </div>
+
+    <div class="wizard-nav">
+      <button class="btn btn-ghost" data-go="step1">← Zurück</button>
+      <button class="btn btn-primary" id="toLoading">✨ Mischung erstellen</button>
+    </div>
+    <p class="error" id="err2" hidden>Bitte wähle mindestens eine gewünschte Wirkung aus.</p>
+  </div>
+</section>
+
+<!-- ============ LOADING ============ -->
+<section class="screen" id="screen-loading">
+  <div class="loading">
+    <div class="blender" aria-hidden="true">
+      <div class="leaf l1">🌿</div><div class="leaf l2">🌼</div><div class="leaf l3">🍋</div><div class="leaf l4">🫚</div><div class="leaf l5">💜</div>
+      <div class="bowl"></div>
+    </div>
+    <h2>KI stellt deinen Tee zusammen…</h2>
+    <ul class="load-steps" id="loadSteps">
+      <li>Befinden analysieren</li>
+      <li>Passende Kräuter auswählen</li>
+      <li>Geschmack abstimmen</li>
+      <li>Mischverhältnis optimieren</li>
+    </ul>
+    <div class="progress slim"><div class="progress-bar" id="loadBar"></div></div>
+  </div>
+</section>
+
+<!-- ============ RESULT ============ -->
+<section class="screen" id="screen-result">
+  <div class="result">
+    <div class="result-head">
+      <span class="eyebrow">Deine persönliche Mischung</span>
+      <h1 id="blendName">Abendruhe</h1>
+      <p class="lead" id="blendDesc"></p>
+      <div class="tags" id="blendTags"></div>
+    </div>
+    <div class="result-grid">
+      <div class="card">
+        <h3>Zutaten</h3>
+        <div class="donut-row">
+          <div class="donut" id="donut"></div>
+          <ul class="legend" id="legend"></ul>
+        </div>
+        <ul class="ingredients" id="ingredients"></ul>
+      </div>
+      <div class="side">
+        <div class="card buy">
+          <div class="price-line"><span class="price" id="price">8,90 €</span><span class="per" id="per">/ 100 g</span></div>
+          <p class="muted small">inkl. MwSt., zzgl. Versand · Grundpreis <span id="baseprice">8,90 € / 100 g</span></p>
+          <h4>Packungsgröße</h4>
+          <div class="sizes" id="sizes">
+            <button class="size" data-g="50">50 g<small>4,90 €</small></button>
+            <button class="size active" data-g="100">100 g<small>8,90 €</small></button>
+            <button class="size" data-g="250">250 g<small>19,90 €</small></button>
+          </div>
+          <div class="qty-row">
+            <span>Menge</span>
+            <div class="qty"><button id="qMinus">−</button><span id="qVal">1</span><button id="qPlus">+</button></div>
+          </div>
+          <button class="btn btn-primary btn-block" id="addCart">🛒 In den Warenkorb</button>
+          <button class="btn btn-ghost btn-block" data-go="step1">↻ Neue Mischung erstellen</button>
+        </div>
+        <div class="card brew">
+          <h3>Zubereitung</h3>
+          <div class="brew-grid">
+            <div><span class="b-ic">🥄</span><b id="brewDose">2 TL</b><small>pro 250 ml</small></div>
+            <div><span class="b-ic">🌡️</span><b id="brewTemp">95 °C</b><small>Wassertemperatur</small></div>
+            <div><span class="b-ic">⏱️</span><b id="brewTime">6–8 Min.</b><small>Ziehzeit</small></div>
+          </div>
+          <p class="small muted" id="brewTip"></p>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer">⚠️ Hinweis: Die Mischung ist ein Genussmittel und ersetzt keine ärztliche Beratung, Diagnose oder Behandlung. Bei anhaltenden oder starken Beschwerden, in der Schwangerschaft oder bei Medikamenteneinnahme sprich bitte mit deiner Ärztin oder deinem Arzt. Alle Angaben in diesem Clickdummy sind Beispieldaten.</p>
+  </div>
+</section>
+
+<!-- ============ CART ============ -->
+<section class="screen" id="screen-cart">
+  <div class="checkout">
+    <h1>Warenkorb &amp; Kasse</h1>
+    <div class="checkout-grid">
+      <div>
+        <div class="card" id="cartItems"></div>
+        <div class="card">
+          <h3>Lieferadresse</h3>
+          <div class="form-grid">
+            <input placeholder="Vorname" value="Max">
+            <input placeholder="Nachname" value="Mustermann">
+            <input class="span2" placeholder="Straße und Hausnummer" value="Musterstraße 12">
+            <input placeholder="PLZ" value="04109">
+            <input placeholder="Ort" value="Leipzig">
+            <input class="span2" placeholder="E-Mail" value="max@example.de">
+          </div>
+          <h3 class="mt">Zahlungsart</h3>
+          <div class="pay">
+            <label><input type="radio" name="pay" checked> PayPal</label>
+            <label><input type="radio" name="pay"> Kreditkarte</label>
+            <label><input type="radio" name="pay"> Kauf auf Rechnung</label>
+          </div>
+        </div>
+      </div>
+      <div class="card summary">
+        <h3>Bestellübersicht</h3>
+        <div class="sum-line"><span>Zwischensumme</span><span id="sumSub">0,00 €</span></div>
+        <div class="sum-line"><span>Versand</span><span id="sumShip">3,90 €</span></div>
+        <p class="small muted" id="shipHint"></p>
+        <div class="sum-line total"><span>Gesamt</span><span id="sumTotal">0,00 €</span></div>
+        <button class="btn btn-primary btn-block" id="placeOrder">Bestellung abschließen</button>
+        <p class="small muted center">🔒 Demo – es wird nichts bezahlt oder versendet.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONFIRMATION ============ -->
+<section class="screen" id="screen-done">
+  <div class="done">
+    <div class="check">✓</div>
+    <h1>Danke für deine Bestellung!</h1>
+    <p class="lead">Deine Mischung <b id="doneName">Abendruhe</b> wird jetzt frisch für dich abgefüllt.</p>
+    <div class="card order-card">
+      <div class="sum-line"><span>Bestellnummer</span><b id="orderNo">TS-2026-0000</b></div>
+      <div class="sum-line"><span>Betrag</span><b id="doneTotal">0,00 €</b></div>
+      <div class="sum-line"><span>Voraussichtliche Lieferung</span><b id="doneDate">–</b></div>
+      <div class="sum-line"><span>Bestätigung an</span><b>max@example.de</b></div>
+    </div>
+    <ol class="timeline">
+      <li class="on">Bestellung eingegangen</li><li>Mischung wird abgefüllt</li><li>Versand</li><li>Genießen 🍵</li>
+    </ol>
+    <button class="btn btn-primary" data-go="start">Zur Startseite</button>
+  </div>
+</section>
+</main>
+
+<footer class="footer">
+  <p>🌱 Tee-Sommelier · Clickdummy / Proof of Concept · Kein echter Shop</p>
+  <p class="small">Die Empfehlungen sind Beispiele und ersetzen keine ärztliche Beratung.</p>
+</footer>
+
+<div class="toast" id="toast">✓ Zum Warenkorb hinzugefügt</div>
+<script src="app.js"></script>
+</body>
+</html>
