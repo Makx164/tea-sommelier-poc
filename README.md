@@ -40,7 +40,6 @@ Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHu
 ## Offene Punkte
 
 - Domain: yoursidequest.org (noch nicht verbunden, keine CNAME-Datei)
-- Impressum-Daten: Platzhalter [NAME], [ADRESSE], [E-MAIL] ersetzen
 - GitHub Pages: Workflow erst nach Freigabe auslösen; die Seitenquelle bleibt bis dahin unverändert
 
 ## Legacy
