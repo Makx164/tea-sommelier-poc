@@ -128,11 +128,11 @@ describe('recommend', () => {
 describe('Öffentliche Texte', () => {
   it('übernehmen keine Symptom-, Wirk- oder Shop-Sprache aus dem Clickdummy', () => {
     const files = [
-      'index.html',
-      'impressum.html',
-      'datenschutz.html',
-      'src/main.ts',
-      'src/style.css',
+      'site/index.html',
+      'site/impressum.html',
+      'site/datenschutz.html',
+      'site/src/main.ts',
+      'site/src/style.css',
       'README.md',
       'CHANGELOG.md',
     ];

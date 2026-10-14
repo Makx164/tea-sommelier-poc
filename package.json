@@ -1,7 +1,7 @@
 {
   "name": "tea-sommelier",
   "private": true,
-  "version": "1.0.0-preview",
+  "version": "1.0.0",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "preview": "vite preview --host 127.0.0.1",
-    "test": "vitest run"
+    "test": "vitest run",
+    "pages:sync": "node scripts/sync-pages-root.mjs"
   },
   "devDependencies": {
     "@types/node": "^26.6.5",

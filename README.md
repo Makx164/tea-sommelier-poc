@@ -4,7 +4,11 @@ Geschmacksempfehlung für Tee, direkt im Browser. Du wählst eine oder mehrere R
 
 Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend, keine eigenen Produkte, keinen Shop, keine Cookies und kein Tracking. Schriftarten und Skripte kommen nur aus dieser Seite.
 
-**Status: Vorschau, nicht live**
+**Status: live**
+
+Öffentliche Adresse: https://tee.yoursidequest.org
+
+GitHub Pages liefert den Branch `main` im Verzeichnis `/` aus. https://makx164.github.io/tea-sommelier-poc/ leitet auf die eigene Domain um, sobald GitHub die Domain aus der Datei `CNAME` übernommen hat.
 
 ## Lokal starten
 
@@ -15,15 +19,18 @@ npm install
 npm run dev
 ```
 
-Der Entwicklungsserver zeigt die App im Browser. Produktionsbau und Vorschau der statischen Dateien:
+Der Entwicklungsserver zeigt die App im Browser. Die Quelle liegt unter `site/` (`site/index.html`, `site/impressum.html`, `site/datenschutz.html`, `site/src`). Die HTML-Dateien im Repository-Root sind das Bauergebnis und werden beim Veröffentlichen überschrieben.
+
+Produktionsbau und Abgleich mit dem ausgelieferten Root:
 
 ```bash
 npm test
 npm run build
 npm run preview
+npm run pages:sync
 ```
 
-`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website (Start, Impressum, Datenschutz).
+`npm run build` schreibt nach `dist/` mit Basispfad `/`. `npm run pages:sync` kopiert diesen Bau ins Repository-Root. `site/` und `legacy/` bleiben dabei stehen.
 
 ## Empfehlung
 
@@ -31,17 +38,18 @@ Jeder Tee hat Geschmacksgewichte, eine Passung zur Tageszeit und einen Koffeinge
 
 ## Datenschutz in der App
 
-Die Auswahl bleibt im Browser. Es werden keine Cookies gesetzt, nichts analysiert und nichts an einen Server geschickt. Hosting ist, sobald veröffentlicht, GitHub Pages; Server-Logs liegen dann bei GitHub. Details stehen auf der Seite Datenschutz.
+Die Auswahl bleibt im Browser. Es werden keine Cookies gesetzt, nichts analysiert und nichts an einen Server geschickt. Hosting ist GitHub Pages; Server-Logs liegen bei GitHub. Details stehen auf der Seite Datenschutz.
 
 ## Veröffentlichung
 
-Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. GitHub-Pages-Einstellungen und eine CNAME-Datei werden in dieser Vorschau nicht geändert.
+GitHub Pages bleibt auf „Deploy from a branch“: Branch `main`, Ordner `/`. Diese Einstellung wird nicht geändert.
 
-## Offene Punkte
+Im Root von `main` liegen die gebauten Dateien. Der Basispfad ist `/`, damit Skripte, Styles und das Favicon an der Domain-Wurzel laden. `CNAME` enthält `tee.yoursidequest.org`. `.nojekyll` liegt im Root, damit Pages die Dateien ohne Jekyll ausliefert. `/legacy` bleibt der archivierte Clickdummy und das frühere Formular.
 
-- Domain: yoursidequest.org (noch nicht verbunden, keine CNAME-Datei)
-- GitHub Pages: Workflow erst nach Freigabe auslösen; die Seitenquelle bleibt bis dahin unverändert
+Der Workflow `.github/workflows/pages.yml` läuft bei jedem Push auf `main` und kann zusätzlich von Hand gestartet werden. Er testet, baut und committet die gebauten Dateien zurück auf `main`, wenn sie sich geändert haben. Ein Commit mit `[skip ci]` startet keinen neuen Lauf.
+
+Für die Domain zeigt ein DNS-CNAME-Eintrag `tee.yoursidequest.org` auf `makx164.github.io`.
 
 ## Legacy
 
-Der frühere Clickdummy und das alte Formular liegen unter `legacy/` und werden nicht mitgebaut. Maßgeblich ist die Vite-App im Root.
+Der frühere Clickdummy und das alte Formular liegen unter `legacy/` und werden nicht mitgebaut. Unter `/legacy` bleiben sie erreichbar. Maßgeblich ist die gebaute App im Root; die Quelle liegt in `site/`.
