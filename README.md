@@ -4,7 +4,7 @@ Geschmacksempfehlung für Tee, direkt im Browser. Du wählst eine oder mehrere R
 
 Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend, keine eigenen Produkte, keinen Shop, keine Cookies und kein Tracking. Schriftarten und Skripte kommen nur aus dieser Seite.
 
-**Status: Vorschau, nicht live**
+**Status: live auf tee.yoursidequest.org (Vercel)**
 
 ## Lokal starten
 

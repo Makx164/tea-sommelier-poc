@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 2026-10-14 – v1.0
+
+Tee-Sommelier ist live auf tee.yoursidequest.org (Vercel).
+
+- Produktionsbau mit Basispfad `/` nach `dist/`
+- Status: live auf tee.yoursidequest.org (Vercel)
+
 ## 2026-10-13 – v1.0-preview
 
 Erste öffentliche Vorschau des Tee-Sommeliers.

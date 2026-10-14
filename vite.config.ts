@@ -5,8 +5,9 @@ import { resolve } from 'node:path';
 const root = import.meta.dirname;
 
 export default defineConfig({
-  base: './',
+  base: '/',
   build: {
+    outDir: 'dist',
     rollupOptions: {
       input: {
         main: resolve(root, 'index.html'),
