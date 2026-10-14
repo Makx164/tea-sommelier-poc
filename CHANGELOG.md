@@ -1,15 +1,5 @@
 # Änderungsprotokoll
 
-## 2026-10-14 – v1.0
-
-Tee-Sommelier ist live.
-
-- Gebaute statische Dateien im Root von `main`, Basispfad `/`
-- Workflow baut bei Push auf `main` und committet das Ergebnis an die von GitHub Pages ausgelieferte Stelle
-- `CNAME` mit `tee.yoursidequest.org`, `.nojekyll` bleibt
-- `/legacy` bleibt erreichbar
-- Status: live
-
 ## 2026-10-13 – v1.0-preview
 
 Erste öffentliche Vorschau des Tee-Sommeliers.

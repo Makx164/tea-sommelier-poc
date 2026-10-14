@@ -16,5 +16,5 @@
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true
   },
-  "include": ["site/src"]
+  "include": ["src"]
 }

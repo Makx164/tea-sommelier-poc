@@ -1,25 +1,22 @@
-# GitHub Pages bleibt auf „Deploy from a branch: main / (root)“.
-# Dieser Workflow baut die Vite-App und committet die statischen Dateien
-# in das Root, das Pages ausliefert. Die Quelle liegt unter site/.
+# Deploy auf GitHub Pages erst nach Freigabe.
+# Bewusst nur workflow_dispatch, kein Lauf bei Push auf main.
 
-name: Publish built site
+name: Deploy GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: publish-built-site
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  publish:
-    if: github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && !contains(github.event.head_commit.message, '[skip ci]'))
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Repository holen
@@ -34,23 +31,21 @@ jobs:
       - name: Abhängigkeiten installieren
         run: npm ci
 
-      - name: Tests
-        run: npm test
-
       - name: Statische Dateien bauen
         run: npm run build
 
-      - name: Build ins Repository-Root legen
-        run: npm run pages:sync
+      - name: Artefakt hochladen
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
 
-      - name: Gebaute Seite committen
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
-          if git diff --staged --quiet; then
-            echo "Build entspricht dem Stand im Repository."
-            exit 0
-          fi
-          git commit -m "Publish built site for GitHub Pages [skip ci]"
-          git push origin HEAD:main
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Auf GitHub Pages veröffentlichen
+        id: deployment
+        uses: actions/deploy-pages@v4
