@@ -32,7 +32,7 @@ export function renderGoPage({ slug, shopUrl, scriptSrc }: GoPage): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <title>Weiter zum Shop – Tee-Sommelier</title>
+  <title>Weiter zum Shop – Teelotse</title>
   <meta http-equiv="refresh" content="0;url=${href}">
   <script type="module" src="${src}"></script>
   <script type="module">
@@ -43,18 +43,16 @@ export function renderGoPage({ slug, shopUrl, scriptSrc }: GoPage): string {
     }
   </script>
   <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #f3eee6; color: #1c1915; font-family: system-ui, sans-serif; line-height: 1.5; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #F6F1E7; color: #1F2A2E; font-family: Inter, system-ui, sans-serif; line-height: 1.5; }
     main { max-width: 28rem; padding: 1.5rem; }
-    h1 { font-size: 1.6rem; margin: 0 0 0.6rem; }
-    a { color: #1e4d38; font-weight: 700; }
-    @media (prefers-color-scheme: dark) {
-      body { background: #141311; color: #f6f1e8; }
-      a { color: #b7e2cb; }
-    }
+    .brand { margin: 0 0 0.8rem; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.5rem; color: #2F5D50; }
+    h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.8rem; margin: 0 0 0.6rem; }
+    a { color: #2F5D50; font-weight: 700; }
   </style>
 </head>
 <body>
   <main>
+    <p class="brand">Teelotse</p>
     <h1>Weiter zum Shop</h1>
     <p>Wenn die Weiterleitung nicht startet, nutze den Link.</p>
     <p><a id="shop" href="${href}" rel="sponsored noopener">Hier kaufen</a></p>

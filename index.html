@@ -3,25 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tee-Sommelier – Tee nach Geschmack und Tageszeit</title>
-  <meta name="description" content="Wähle Geschmack und Tageszeit. Der Tee-Sommelier schlägt ein bis drei Tees vor, mit Zubereitung, Koffeingehalt und Link zur Suche im Shop.">
-  <meta name="theme-color" content="#f3eee6" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#141311" media="(prefers-color-scheme: dark)">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <title>Teelotse – Tee nach Geschmack und Tageszeit</title>
+  <meta name="description" content="Wähle Geschmack und Tageszeit. Teelotse schlägt ein bis drei Tees vor, mit Zubereitung, Koffein und Link zur Suche im Shop.">
+  <meta name="theme-color" content="#F6F1E7">
+  <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt</a>
-  <p class="banner">Vorschau, nicht live — Geschmacksempfehlung, keine Bestellung</p>
   <header class="topbar">
     <div class="bar">
-      <a class="logo" href="index.html">
-        <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true">
-          <rect width="32" height="32" rx="8" fill="#1e4d38"/>
-          <path d="M7.5 13.5h13.2c0 5.2-3 8.4-6.6 8.4s-6.6-3.2-6.6-8.4z" fill="#f4efe6"/>
-          <path d="M20.6 15.2h2.2a2.4 2.4 0 0 1 0 4.8h-2.2" fill="none" stroke="#f4efe6" stroke-width="1.6" stroke-linecap="round"/>
-        </svg>
-        Tee-Sommelier
+      <a class="logo" href="index.html" aria-label="Teelotse, zur Startseite">
+        <!-- teelotse-wortmarke -->
       </a>
       <nav class="topnav" aria-label="Seiten">
         <a href="index.html" aria-current="page">Empfehlung</a>
@@ -32,88 +25,124 @@
   </header>
 
   <main id="inhalt" class="page">
-    <div class="wrap">
-      <noscript>
-        <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Geschmack und Tageszeit verlassen dabei den Browser nicht.</p>
-      </noscript>
-
-      <section class="hero" id="auswahl">
-        <div class="hero-copy">
-          <p class="eyebrow">Geschmack und Tageszeit</p>
-          <h1>Welcher Tee passt zu deinem Geschmack?</h1>
-          <p class="lead">Wähle, wonach die Tasse schmecken soll und wann du sie trinkst. Du bekommst ein bis drei Tees, mit kurzer Begründung, Temperatur, Ziehzeit und Koffeingehalt.</p>
+    <div id="auswahl">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow">Geschmack und Tageszeit</p>
+            <h1 id="hero-title">Finde den Tee für diesen Moment.</h1>
+            <p class="lead">Sag, wie er schmecken soll und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" id="finde-tee" href="#finder">Finde deinen Tee</a>
+            </div>
+          </div>
+          <div class="hero-art" aria-hidden="true">
+            <svg viewBox="0 0 560 640" xmlns="http://www.w3.org/2000/svg">
+              <ellipse cx="292" cy="318" rx="214" ry="228" fill="#9DBF8A" opacity="0.55"/>
+              <ellipse cx="400" cy="150" rx="108" ry="86" fill="#C8743A" opacity="0.32"/>
+              <ellipse cx="148" cy="486" rx="116" ry="72" fill="#2F5D50" opacity="0.12"/>
+              <ellipse cx="268" cy="498" rx="156" ry="22" fill="#2F5D50" opacity="0.1"/>
+              <path d="M132 268h228c8 118-42 186-114 186s-126-68-114-186z" fill="#F6F1E7" stroke="#2F5D50" stroke-width="8" stroke-linejoin="round"/>
+              <ellipse cx="246" cy="284" rx="100" ry="18" fill="#C8743A"/>
+              <ellipse cx="246" cy="278" rx="86" ry="10" fill="#9DBF8A" opacity="0.85"/>
+              <path d="M360 312c52 6 58 82 2 96" fill="none" stroke="#2F5D50" stroke-width="8" stroke-linecap="round"/>
+              <path d="M188 228c14-32-10-46 4-76" fill="none" stroke="#2F5D50" stroke-width="5" stroke-linecap="round" opacity="0.65"/>
+              <path d="M242 214c16-34-12-50 2-82" fill="none" stroke="#2F5D50" stroke-width="5" stroke-linecap="round" opacity="0.5"/>
+              <path d="M296 230c14-30-8-42 4-70" fill="none" stroke="#C8743A" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+              <g transform="translate(418,392) rotate(-18)">
+                <path d="M0 92C46 28 98-8 132-34 74 8 42 52 0 92Z" fill="#2F5D50"/>
+                <path d="M10 82C52 34 96-2 126-28" fill="none" stroke="#F6F1E7" stroke-width="3.5" stroke-linecap="round"/>
+              </g>
+              <circle cx="112" cy="168" r="30" fill="#9DBF8A"/>
+              <circle cx="112" cy="168" r="11" fill="#F6F1E7"/>
+            </svg>
+          </div>
           <ol class="steps">
-            <li><strong>Geschmack</strong><span>Herb, fruchtig, blumig, erdig, mild oder kräftig – auch mehrere.</span></li>
+            <li><strong>Geschmack</strong><span>Herb, fruchtig, blumig, erdig, mild oder kräftig. Auch mehrere.</span></li>
             <li><strong>Tageszeit</strong><span>Morgen, Mittag, Nachmittag oder Abend.</span></li>
-            <li><strong>Vorschlag</strong><span>Feste Regeln, ein lokaler Teesatz, Rechnung nur in deinem Browser.</span></li>
+            <li><strong>Zubereitung</strong><span>Temperatur, Ziehzeit, Menge und Koffein. Feste Regeln, nur in deinem Browser.</span></li>
           </ol>
         </div>
-
-        <form class="panel" id="finder" novalidate onsubmit="event.preventDefault()">
-          <fieldset id="geschmack" tabindex="-1">
-            <legend>Wie soll der Tee schmecken?</legend>
-            <p class="hint" id="geschmack-hinweis">Eine oder mehrere Richtungen.</p>
-            <div class="choice-grid" role="group" aria-describedby="geschmack-hinweis">
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="herb">
-                <span class="choice-text"><span class="choice-title">Herb</span><span class="choice-desc">Grasig, bitter, minzig</span></span>
-              </label>
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="fruchtig">
-                <span class="choice-text"><span class="choice-title">Fruchtig</span><span class="choice-desc">Beere, Zitrus, Apfel</span></span>
-              </label>
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="blumig">
-                <span class="choice-text"><span class="choice-title">Blumig</span><span class="choice-desc">Blüten, zarte Noten</span></span>
-              </label>
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="erdig">
-                <span class="choice-text"><span class="choice-title">Erdig</span><span class="choice-desc">Röstig, holzig, rauchig</span></span>
-              </label>
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="mild">
-                <span class="choice-text"><span class="choice-title">Mild</span><span class="choice-desc">Weich, zurückhaltend</span></span>
-              </label>
-              <label class="choice">
-                <input type="checkbox" data-group="taste" value="kraeftig">
-                <span class="choice-text"><span class="choice-title">Kräftig</span><span class="choice-desc">Voll und intensiv</span></span>
-              </label>
-            </div>
-          </fieldset>
-
-          <fieldset id="tageszeit" tabindex="-1">
-            <legend>Zu welcher Tageszeit?</legend>
-            <p class="hint" id="zeit-hinweis">Eine Tageszeit.</p>
-            <div class="choice-grid time-grid">
-              <label class="choice">
-                <input type="radio" name="time" data-group="time" value="morgen">
-                <span class="choice-text"><span class="choice-title">Morgen</span><span class="choice-desc">Zum Start in den Tag</span></span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="time" data-group="time" value="mittag">
-                <span class="choice-text"><span class="choice-title">Mittag</span><span class="choice-desc">Zur Mitte des Tages</span></span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="time" data-group="time" value="nachmittag">
-                <span class="choice-text"><span class="choice-title">Nachmittag</span><span class="choice-desc">Später am Tag</span></span>
-              </label>
-              <label class="choice">
-                <input type="radio" name="time" data-group="time" value="abend">
-                <span class="choice-text"><span class="choice-title">Abend</span><span class="choice-desc">Zum Tagesausklang</span></span>
-              </label>
-            </div>
-          </fieldset>
-
-          <p id="form-error" class="form-error" role="alert" hidden></p>
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary">Tee vorschlagen</button>
-          </div>
-          <p class="hint center">Kein Konto, keine Speicherung. Die Auswahl bleibt im Browser.</p>
-        </form>
       </section>
 
-      <section id="ergebnis" class="results" hidden aria-live="polite">
+      <section class="selector" aria-labelledby="selector-title">
+        <div class="wrap">
+          <div class="selector-intro">
+            <h2 id="selector-title">Deine Auswahl</h2>
+            <p>Eine oder mehrere Richtungen, dann die Tageszeit.</p>
+          </div>
+          <noscript>
+            <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Geschmack und Tageszeit verlassen dabei den Browser nicht.</p>
+          </noscript>
+          <form class="panel" id="finder" novalidate onsubmit="event.preventDefault()">
+            <fieldset id="geschmack" tabindex="-1">
+              <legend>Wie soll der Tee schmecken?</legend>
+              <p class="hint" id="geschmack-hinweis">Eine oder mehrere Richtungen.</p>
+              <div class="choice-grid" role="group" aria-describedby="geschmack-hinweis">
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="herb">
+                  <span class="choice-text"><span class="choice-title">Herb</span><span class="choice-desc">Grasig, bitter, minzig</span></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="fruchtig">
+                  <span class="choice-text"><span class="choice-title">Fruchtig</span><span class="choice-desc">Beere, Zitrus, Apfel</span></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="blumig">
+                  <span class="choice-text"><span class="choice-title">Blumig</span><span class="choice-desc">Blüten, zarte Noten</span></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="erdig">
+                  <span class="choice-text"><span class="choice-title">Erdig</span><span class="choice-desc">Röstig, holzig, rauchig</span></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="mild">
+                  <span class="choice-text"><span class="choice-title">Mild</span><span class="choice-desc">Weich, zurückhaltend</span></span>
+                </label>
+                <label class="choice">
+                  <input type="checkbox" data-group="taste" value="kraeftig">
+                  <span class="choice-text"><span class="choice-title">Kräftig</span><span class="choice-desc">Voll und intensiv</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset id="tageszeit" tabindex="-1">
+              <legend>Zu welcher Tageszeit?</legend>
+              <p class="hint" id="zeit-hinweis">Eine Tageszeit.</p>
+              <div class="choice-grid time-grid">
+                <label class="choice">
+                  <input type="radio" name="time" data-group="time" value="morgen">
+                  <span class="choice-text"><span class="choice-title">Morgen</span><span class="choice-desc">Zum Start in den Tag</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="time" data-group="time" value="mittag">
+                  <span class="choice-text"><span class="choice-title">Mittag</span><span class="choice-desc">Zur Mitte des Tages</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="time" data-group="time" value="nachmittag">
+                  <span class="choice-text"><span class="choice-title">Nachmittag</span><span class="choice-desc">Später am Tag</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="time" data-group="time" value="abend">
+                  <span class="choice-text"><span class="choice-title">Abend</span><span class="choice-desc">Zum Tagesausklang</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <p id="form-error" class="form-error" role="alert" hidden></p>
+            <div class="form-actions">
+              <button type="submit" class="btn btn-primary">Tee vorschlagen</button>
+            </div>
+            <p class="hint center">Kein Konto, keine Speicherung. Die Auswahl bleibt im Browser.</p>
+          </form>
+        </div>
+      </section>
+    </div>
+
+    <section id="ergebnis" class="results" hidden aria-live="polite">
+      <div class="wrap">
         <div class="results-head">
+          <p class="eyebrow">Deine Auswahl</p>
           <h2 id="ergebnis-titel" tabindex="-1">Deine Tee-Empfehlung</h2>
           <p id="ergebnis-lead"></p>
         </div>
@@ -122,13 +151,15 @@
         <div class="results-actions">
           <button type="button" class="btn btn-ghost" id="zurueck">Auswahl ändern</button>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">
-    <div class="wrap">
-      <p>Tee-Sommelier · Vorschau, nicht live</p>
+    <div class="wrap footer-inner">
+      <a class="logo" href="index.html" aria-label="Teelotse, zur Startseite">
+        <!-- teelotse-wortmarke -->
+      </a>
       <p>Geschmacksempfehlung mit externen Kauf-Links, ohne Gesundheits- oder Heilaussagen.</p>
       <nav aria-label="Rechtliches">
         <a href="impressum.html">Impressum</a>

@@ -2,10 +2,20 @@
 import { defineConfig, type Plugin } from 'vite';
 import { resolve } from 'node:path';
 import affiliateLinks from './src/affiliate.json';
+import { applyBrandHtml } from './src/brand-html';
 import { renderGoPage } from './src/go-page';
 
 const root = import.meta.dirname;
 const shopBySlug = affiliateLinks as Record<string, string>;
+
+function brandMarkup(): Plugin {
+  return {
+    name: 'brand-markup',
+    transformIndexHtml(html) {
+      return applyBrandHtml(html);
+    },
+  };
+}
 
 function goPages(): Plugin {
   return {
@@ -57,7 +67,7 @@ function slugFrom(url: string): string | null {
 
 export default defineConfig({
   base: '/',
-  plugins: [goPages()],
+  plugins: [brandMarkup(), goPages()],
   build: {
     outDir: 'dist',
     rollupOptions: {

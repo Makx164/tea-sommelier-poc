@@ -44,6 +44,13 @@ const ergebnisTitel = required<HTMLHeadingElement>('#ergebnis-titel');
 const ergebnisLead = required<HTMLParagraphElement>('#ergebnis-lead');
 const ergebnisListe = required<HTMLElement>('#ergebnis-liste');
 const zurueck = required<HTMLButtonElement>('#zurueck');
+const findeTee = required<HTMLAnchorElement>('#finde-tee');
+
+findeTee.addEventListener('click', (event) => {
+  event.preventDefault();
+  tasteField.focus({ preventScroll: true });
+  scrollTo(finder);
+});
 
 finder.addEventListener('submit', (event) => {
   event.preventDefault();
@@ -99,11 +106,31 @@ function showResults(items: Recommendation[], prefs: Preferences): void {
   scrollTo(ergebnis);
 }
 
+const CARD_ART = `<svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" focusable="false">
+  <circle cx="530" cy="36" r="92" fill="currentColor" opacity="0.16"/>
+  <circle cx="70" cy="250" r="120" fill="currentColor" opacity="0.1"/>
+  <path d="M168 86c18 34-10 48 6 84" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" opacity="0.8"/>
+  <path d="M214 62c16 32-8 42 6 76" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
+  <path d="M248 236C312 118 430 52 536 18 438 96 360 168 248 236Z" fill="currentColor"/>
+  <path class="vein" d="M268 218C348 128 446 62 522 28" fill="none" stroke="var(--art-vein)" stroke-width="4" stroke-linecap="round"/>
+</svg>`;
+
+function renderArt(): HTMLElement {
+  const art = document.createElement('div');
+  art.className = 'tea-art';
+  art.setAttribute('aria-hidden', 'true');
+  art.innerHTML = CARD_ART;
+  return art;
+}
+
 function renderCard(item: Recommendation, index: number): HTMLElement {
   const { tea } = item;
   const card = document.createElement('article');
   card.className = 'tea-card';
   card.dataset.type = tea.type;
+
+  const body = document.createElement('div');
+  body.className = 'tea-body';
 
   const rank = document.createElement('p');
   rank.className = 'tea-rank';
@@ -116,7 +143,8 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
   meta.className = 'tea-meta';
   meta.textContent = `${tea.type} · ${tea.origin}`;
 
-  card.append(rank, title, meta);
+  card.append(renderArt(), body);
+  body.append(rank, title, meta);
 
   if (item.matchedTastes.length) {
     const tags = document.createElement('ul');
@@ -126,7 +154,7 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
       tag.textContent = TASTE_LABEL[taste];
       tags.append(tag);
     }
-    card.append(tags);
+    body.append(tags);
   }
 
   const reason = document.createElement('p');
@@ -142,16 +170,16 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
     brewItem('Menge', tea.amount),
   );
 
-  card.append(reason, brew);
+  body.append(reason, brew);
 
   if (tea.brewNote) {
     const note = document.createElement('p');
     note.className = 'brew-note';
     note.textContent = tea.brewNote;
-    card.append(note);
+    body.append(note);
   }
 
-  card.append(caffeineLine(tea.caffeine, tea.caffeineDetail), renderPurchase(tea));
+  body.append(caffeineLine(tea.caffeine, tea.caffeineDetail), renderPurchase(tea));
   return card;
 }
 
