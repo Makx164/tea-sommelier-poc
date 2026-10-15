@@ -3,6 +3,7 @@ import {
   CAFFEINE_CHOICES,
   CAFFEINE_LEVELS,
   MOODS,
+  DIRECTION_PHRASE,
   MOOD_LABEL,
   TASTES,
   TASTE_LABEL,
@@ -11,6 +12,7 @@ import {
   joinDe,
   type Caffeine,
   type CaffeineChoice,
+  type Mood,
   type Preferences,
   type Recommendation,
   type Taste,
@@ -71,10 +73,10 @@ function parseTea(value: unknown, index: number): Tea {
   }
   const tastes = parseWeights(raw.tastes, TASTES, `${id} Geschmack`);
   const times = parseWeights(raw.times, TIMES, `${id} Tageszeit`);
-  const moods = parseWeights(raw.moods, MOODS, `${id} Stimmung`);
+  const moods = parseWeights(raw.moods, MOODS, `${id} Richtung`);
   if (Object.keys(tastes).length === 0) throw new Error(`${id}: kein Geschmack.`);
   if (Object.keys(times).length === 0) throw new Error(`${id}: keine Tageszeit.`);
-  if (Object.keys(moods).length === 0) throw new Error(`${id}: keine Stimmung.`);
+  if (Object.keys(moods).length === 0) throw new Error(`${id}: keine Richtung.`);
   const tea: Tea = {
     id,
     name: asText(raw.name, `${id} Name`),
@@ -148,15 +150,20 @@ export function scoreTea(tea: Tea, prefs: Preferences): number {
   return tasteAvg * TASTE_WEIGHT + timeScore + caffeineScore + moodScore - missPenalty;
 }
 
+function directionSentence(mood: Mood): string {
+  const phrase = DIRECTION_PHRASE.charAt(0).toLocaleUpperCase('de-DE') + DIRECTION_PHRASE.slice(1);
+  return `${phrase}: ${MOOD_LABEL[mood]}.`;
+}
+
 function buildReason(tea: Tea, prefs: Preferences, matched: readonly Taste[]): string {
   const when = `zum ${TIME_LABEL[prefs.time]}`;
   const moodFit = (tea.moods[prefs.mood] ?? 0) > 0;
-  const moodText = moodFit ? `, zur Stimmung ${MOOD_LABEL[prefs.mood]}` : '';
+  const moodText = moodFit ? ` ${directionSentence(prefs.mood)}` : '';
   if (matched.length === 0) {
-    return `${tea.name} ist die nächste Entsprechung ${when}${moodText}. ${tea.summary}`;
+    return `${tea.name} ist die nächste Entsprechung ${when}.${moodText} ${tea.summary}`;
   }
   const labels = matched.map((taste) => TASTE_LABEL[taste]);
-  return `${tea.name} trifft ${joinDe(labels)} und passt ${when}${moodText}. ${tea.summary}`;
+  return `${tea.name} trifft ${joinDe(labels)} und passt ${when}.${moodText} ${tea.summary}`;
 }
 
 export function recommend(prefs: Preferences): Recommendation[] {
@@ -168,7 +175,7 @@ export function recommend(prefs: Preferences): Recommendation[] {
     throw new Error('Unbekannte Tageszeit.');
   }
   if (!MOODS.includes(prefs.mood)) {
-    throw new Error('Unbekannte Stimmung.');
+    throw new Error('Unbekannte Richtung.');
   }
   if (!CAFFEINE_CHOICES.includes(prefs.caffeine)) {
     throw new Error('Unbekannte Koffein-Auswahl.');

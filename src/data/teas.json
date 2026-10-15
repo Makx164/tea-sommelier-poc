@@ -15,8 +15,7 @@
       "nachmittag": 1
     },
     "moods": {
-      "wach": 3,
-      "fokussiert": 2
+      "fokus": 2
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -39,8 +38,7 @@
       "nachmittag": 1
     },
     "moods": {
-      "wach": 3,
-      "gemuetlich": 2
+      "fokus": 2
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -65,9 +63,7 @@
       "nachmittag": 2
     },
     "moods": {
-      "wach": 2,
-      "fokussiert": 2,
-      "gemuetlich": 1
+      "fokus": 2
     },
     "caffeine": "hoch",
     "temperature": "90–95 °C",
@@ -91,9 +87,7 @@
       "nachmittag": 3
     },
     "moods": {
-      "fokussiert": 3,
-      "gemuetlich": 2,
-      "wach": 1
+      "fokus": 3
     },
     "caffeine": "hoch",
     "temperature": "85–90 °C",
@@ -118,8 +112,7 @@
       "nachmittag": 1
     },
     "moods": {
-      "wach": 3,
-      "fokussiert": 2
+      "fokus": 3
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -142,8 +135,7 @@
       "abend": 1
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 1
+      "beruhigung": 1
     },
     "caffeine": "hoch",
     "temperature": "95 °C",
@@ -166,8 +158,8 @@
       "nachmittag": 2
     },
     "moods": {
-      "gemuetlich": 3,
-      "wach": 2
+      "verdauung": 3,
+      "fokus": 1
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -191,8 +183,7 @@
       "nachmittag": 2
     },
     "moods": {
-      "fokussiert": 3,
-      "wach": 2
+      "fokus": 3
     },
     "caffeine": "mittel",
     "temperature": "70–80 °C",
@@ -216,8 +207,7 @@
       "nachmittag": 1
     },
     "moods": {
-      "wach": 2,
-      "fokussiert": 3
+      "fokus": 3
     },
     "caffeine": "mittel",
     "temperature": "80 °C",
@@ -241,8 +231,7 @@
       "abend": 1
     },
     "moods": {
-      "entspannt": 2,
-      "gemuetlich": 3
+      "beruhigung": 3
     },
     "caffeine": "mittel",
     "temperature": "80 °C",
@@ -264,8 +253,8 @@
       "abend": 2
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 2
+      "beruhigung": 3,
+      "schlaf": 1
     },
     "caffeine": "niedrig",
     "temperature": "85–90 °C",
@@ -289,8 +278,8 @@
       "abend": 1
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 2
+      "beruhigung": 2,
+      "verdauung": 1
     },
     "caffeine": "niedrig",
     "temperature": "80–85 °C",
@@ -312,8 +301,7 @@
       "mittag": 2
     },
     "moods": {
-      "wach": 3,
-      "fokussiert": 3
+      "fokus": 3
     },
     "caffeine": "hoch",
     "caffeineDetail": "oft höher als 70 mg, weil das Pulver mitgetrunken wird",
@@ -339,9 +327,8 @@
       "abend": 1
     },
     "moods": {
-      "entspannt": 2,
-      "fokussiert": 2,
-      "gemuetlich": 1
+      "fokus": 2,
+      "beruhigung": 1
     },
     "caffeine": "niedrig",
     "temperature": "80–85 °C",
@@ -364,8 +351,8 @@
       "abend": 1
     },
     "moods": {
-      "entspannt": 3,
-      "gemuetlich": 2
+      "beruhigung": 2,
+      "schlaf": 2
     },
     "caffeine": "niedrig",
     "temperature": "75–80 °C",
@@ -387,9 +374,8 @@
       "nachmittag": 3
     },
     "moods": {
-      "fokussiert": 2,
-      "gemuetlich": 2,
-      "entspannt": 1
+      "fokus": 2,
+      "beruhigung": 1
     },
     "caffeine": "mittel",
     "temperature": "90–95 °C",
@@ -412,8 +398,7 @@
       "abend": 1
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 1
+      "beruhigung": 2
     },
     "caffeine": "mittel",
     "temperature": "95 °C",
@@ -434,8 +419,7 @@
       "nachmittag": 3
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 2
+      "beruhigung": 3
     },
     "caffeine": "mittel",
     "temperature": "90 °C",
@@ -457,8 +441,7 @@
       "nachmittag": 3
     },
     "moods": {
-      "gemuetlich": 3,
-      "wach": 1
+      "verdauung": 2
     },
     "caffeine": "mittel",
     "temperature": "95–100 °C",
@@ -480,8 +463,8 @@
       "abend": 3
     },
     "moods": {
-      "entspannt": 3,
-      "gemuetlich": 2
+      "schlaf": 3,
+      "beruhigung": 2
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -505,8 +488,8 @@
       "abend": 3
     },
     "moods": {
-      "entspannt": 2,
-      "wach": 2
+      "verdauung": 3,
+      "schlaf": 1
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -527,8 +510,8 @@
       "abend": 3
     },
     "moods": {
-      "entspannt": 3,
-      "gemuetlich": 1
+      "beruhigung": 3,
+      "schlaf": 2
     },
     "caffeine": "kein",
     "temperature": "95 °C",
@@ -552,9 +535,8 @@
       "abend": 2
     },
     "moods": {
-      "entspannt": 2,
-      "wach": 2,
-      "gemuetlich": 1
+      "verdauung": 2,
+      "fokus": 1
     },
     "caffeine": "kein",
     "temperature": "95–100 °C",
@@ -575,8 +557,8 @@
       "abend": 3
     },
     "moods": {
-      "entspannt": 3,
-      "gemuetlich": 2
+      "verdauung": 3,
+      "schlaf": 2
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -598,8 +580,8 @@
       "abend": 3
     },
     "moods": {
-      "entspannt": 3,
-      "gemuetlich": 3
+      "beruhigung": 3,
+      "schlaf": 2
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -623,8 +605,7 @@
       "abend": 2
     },
     "moods": {
-      "wach": 2,
-      "gemuetlich": 1
+      "verdauung": 1
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -649,8 +630,7 @@
       "abend": 2
     },
     "moods": {
-      "wach": 2,
-      "fokussiert": 1
+      "verdauung": 1
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -672,8 +652,8 @@
       "abend": 2
     },
     "moods": {
-      "gemuetlich": 3,
-      "entspannt": 2
+      "beruhigung": 2,
+      "schlaf": 2
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -695,8 +675,7 @@
       "mittag": 2
     },
     "moods": {
-      "wach": 3,
-      "fokussiert": 2
+      "fokus": 3
     },
     "caffeine": "hoch",
     "caffeineDetail": "etwa 60–80 mg je Tasse, je nach Menge",

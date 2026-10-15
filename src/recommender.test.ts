@@ -13,7 +13,7 @@ import {
 } from './types';
 
 const EFFECT_CLAIMS = [
-  /beruhig/i,
+  /hilft bei/i,
   /belebend/i,
   /heilung/i,
   /\bheilt\b/i,
@@ -22,8 +22,6 @@ const EFFECT_CLAIMS = [
   /\bwirkt\b/i,
   /symptom/i,
   /stress/i,
-  /schlaf/i,
-  /verdau/i,
   /\bimmun/i,
   /kopfschmerz/i,
   /entspannend/i,
@@ -42,29 +40,33 @@ const EFFECT_CLAIMS = [
   /warenkorb/i,
   /bestell/i,
   /macht wach/i,
+  /macht schlafen/i,
   /fördert/i,
   /foerdert/i,
 ];
 
-/** Stimmungsnamen sind Gelegenheiten. Der Rest der Texte bleibt frei von Wirkversprechen. */
-function withoutOccasionLabels(text: string): string {
+/** Richtungsnamen sind erlaubt. Heil- und Wirkversprechen bleiben verboten. */
+function withoutDirectionLabels(text: string): string {
   return text
-    .replaceAll('Entspannt', '')
-    .replaceAll('Fokussiert', '')
-    .replaceAll('Gemütlich', '')
-    .replaceAll('Wach', '');
+    .replaceAll('Fokus', '')
+    .replaceAll('Verdauung', '')
+    .replaceAll('Beruhigung', '')
+    .replaceAll('Schlaf', '');
 }
 
 function expectNoEffectClaim(text: string, label: string): void {
   for (const pattern of EFFECT_CLAIMS) {
     expect(text, `${label} ${pattern}`).not.toMatch(pattern);
   }
-  const rest = withoutOccasionLabels(text);
-  expect(rest, label).not.toMatch(/entspann/i);
+  const rest = withoutDirectionLabels(text);
+  expect(rest, label).not.toMatch(/beruhig/i);
+  expect(rest, label).not.toMatch(/schlaf/i);
+  expect(rest, label).not.toMatch(/verdau/i);
   expect(rest, label).not.toMatch(/fokus/i);
+  expect(rest, label).not.toMatch(/entspann/i);
 }
 
-const base = { mood: 'gemuetlich' as Mood, caffeine: 'egal' as CaffeineChoice };
+const base = { mood: 'beruhigung' as Mood, caffeine: 'egal' as CaffeineChoice };
 
 describe('Datensatz', () => {
   it('enthält 20 bis 30 Tees mit eindeutigen Ids', () => {
@@ -73,7 +75,7 @@ describe('Datensatz', () => {
     expect(new Set(teas.map((tea) => tea.id)).size).toBe(teas.length);
   });
 
-  it('nutzt nur die vier Geschmäcker und mindestens eine Stimmung', () => {
+  it('nutzt nur die vier Geschmäcker und mindestens eine Richtung', () => {
     for (const tea of teas) {
       const tasteKeys = Object.keys(tea.tastes);
       expect(tasteKeys.length, tea.id).toBeGreaterThan(0);
@@ -117,50 +119,51 @@ describe('recommend', () => {
     }
   });
 
-  it('begründet mit Geschmack, Tageszeit und passender Stimmung', () => {
-    const result = recommend({ tastes: ['blumig'], time: 'abend', mood: 'entspannt', caffeine: 'egal' });
-    expect(result[0]?.reason).toMatch(/passt zum Abend, zur Stimmung Entspannt/);
+  it('begründet mit Geschmack, Tageszeit und der Richtung ohne Heilaussage', () => {
+    const result = recommend({ tastes: ['blumig'], time: 'abend', mood: 'schlaf', caffeine: 'egal' });
+    expect(result[0]?.reason).toMatch(/passt zum Abend\. Häufig mit dieser Richtung verbunden: Schlaf/);
+    expect(result[0]?.reason).not.toMatch(/hilft bei|heilt|fördert die Verdauung|macht schlafen/i);
     expect(result[0]?.matchedTastes).toContain('blumig');
     expect(result[0]?.matchedMood).toBe(true);
   });
 
-  it('schlägt am Morgen bei kräftig und Wach Assam, Matcha und Mate vor', () => {
-    const result = recommend({ tastes: ['kraeftig'], time: 'morgen', mood: 'wach', caffeine: 'egal' });
-    expect(result.map((item) => item.tea.id)).toEqual(['assam', 'matcha', 'mate']);
+  it('schlägt am Morgen bei kräftig und Fokus Matcha, Mate und Assam vor', () => {
+    const result = recommend({ tastes: ['kraeftig'], time: 'morgen', mood: 'fokus', caffeine: 'egal' });
+    expect(result.map((item) => item.tea.id)).toEqual(['matcha', 'mate', 'assam']);
     expect(result.every((item) => item.tea.caffeine === 'hoch')).toBe(true);
   });
 
-  it('schlägt am Abend bei blumig und Entspannt koffeinarme Tees vor', () => {
-    const result = recommend({ tastes: ['blumig'], time: 'abend', mood: 'entspannt', caffeine: 'egal' });
-    expect(result.map((item) => item.tea.id)).toEqual(['kamille', 'silver-needle']);
+  it('schlägt am Abend bei blumig und Schlaf koffeinarme Tees vor', () => {
+    const result = recommend({ tastes: ['blumig'], time: 'abend', mood: 'schlaf', caffeine: 'egal' });
+    expect(result[0]?.tea.id).toBe('kamille');
     expect(result[0]?.tea.caffeine).toBe('kein');
-    expect(result.every((item) => item.tea.caffeine === 'kein' || item.tea.caffeine === 'niedrig' || item.tea.caffeine === 'mittel')).toBe(true);
-  });
-
-  it('bleibt am Abend bei kräftig und Gemütlich ohne hohen Koffeingehalt', () => {
-    const result = recommend({ tastes: ['kraeftig'], time: 'abend', mood: 'gemuetlich', caffeine: 'egal' });
-    expect(result.map((item) => item.tea.id)).toEqual(['rooibos', 'hojicha', 'da-hong-pao']);
     expect(result.every((item) => item.tea.caffeine !== 'hoch')).toBe(true);
   });
 
-  it('mischt bei fruchtig am Nachmittag und Gemütlich Frucht und weitere Arten', () => {
-    const result = recommend({ tastes: ['fruchtig'], time: 'nachmittag', mood: 'gemuetlich', caffeine: 'egal' });
+  it('bleibt am Abend bei kräftig und Beruhigung ohne hohen Koffeingehalt', () => {
+    const result = recommend({ tastes: ['kraeftig'], time: 'abend', mood: 'beruhigung', caffeine: 'egal' });
+    expect(result.map((item) => item.tea.id)).toEqual(['rooibos', 'hojicha', 'pfefferminze']);
+    expect(result.every((item) => item.tea.caffeine !== 'hoch')).toBe(true);
+  });
+
+  it('ordnet fruchtig am Nachmittag bei Beruhigung Apfel-Zimt vorn', () => {
+    const result = recommend({ tastes: ['fruchtig'], time: 'nachmittag', mood: 'beruhigung', caffeine: 'egal' });
     expect(result[0]?.tea.id).toBe('apfel-zimt');
     expect(new Set(result.map((item) => item.tea.type)).size).toBe(result.length);
   });
 
-  it('ändert die Reihenfolge, wenn nur die Stimmung wechselt', () => {
+  it('ändert die Reihenfolge, wenn nur die Richtung wechselt', () => {
     const shared = { tastes: ['fruchtig'] as Taste[], time: 'nachmittag' as TimeOfDay, caffeine: 'egal' as CaffeineChoice };
-    const cozy = recommend({ ...shared, mood: 'gemuetlich' });
-    const awake = recommend({ ...shared, mood: 'wach' });
-    expect(cozy.map((item) => item.tea.id)).toEqual(['apfel-zimt', 'darjeeling']);
-    expect(awake.map((item) => item.tea.id)).toEqual(['hagebutte', 'zitronenverbene', 'ceylon']);
-    expect(cozy[0]?.matchedMood).toBe(true);
-    expect(awake[0]?.matchedMood).toBe(true);
+    const calm = recommend({ ...shared, mood: 'beruhigung' });
+    const focus = recommend({ ...shared, mood: 'fokus' });
+    expect(calm[0]?.tea.id).toBe('apfel-zimt');
+    expect(focus[0]?.tea.id).toBe('darjeeling');
+    expect(calm[0]?.matchedMood).toBe(true);
+    expect(focus[0]?.matchedMood).toBe(true);
   });
 
   it('filtert bei Nein auf koffeinfreie Tees und bei Ja auf Tees mit Koffein', () => {
-    const prefs = { tastes: ['kraeftig'] as Taste[], time: 'abend' as TimeOfDay, mood: 'gemuetlich' as Mood };
+    const prefs = { tastes: ['kraeftig'] as Taste[], time: 'abend' as TimeOfDay, mood: 'beruhigung' as Mood };
     const without = recommend({ ...prefs, caffeine: 'nein' });
     const withCaffeine = recommend({ ...prefs, caffeine: 'ja' });
     const either = recommend({ ...prefs, caffeine: 'egal' });
@@ -176,9 +179,9 @@ describe('recommend', () => {
     expect(() => recommend({ tastes: [], time: 'morgen', ...base })).toThrow(/Geschmack/);
     expect(() => recommend({ tastes: ['herb'], time: 'nacht' as TimeOfDay, ...base })).toThrow(/Tageszeit/);
     expect(() => recommend({ tastes: ['suess' as Taste], time: 'mittag', ...base })).toThrow(/Geschmack/);
-    expect(() => recommend({ tastes: ['herb'], time: 'mittag', mood: 'muede' as Mood, caffeine: 'egal' })).toThrow(/Stimmung/);
+    expect(() => recommend({ tastes: ['herb'], time: 'mittag', mood: 'muede' as Mood, caffeine: 'egal' })).toThrow(/Richtung/);
     expect(() =>
-      recommend({ tastes: ['herb'], time: 'mittag', mood: 'wach', caffeine: 'manchmal' as CaffeineChoice }),
+      recommend({ tastes: ['herb'], time: 'mittag', mood: 'fokus', caffeine: 'manchmal' as CaffeineChoice }),
     ).toThrow(/Koffein/);
   });
 
@@ -189,9 +192,9 @@ describe('recommend', () => {
           for (const item of recommend({ tastes: [taste], time, mood, caffeine: 'egal' })) {
             expectNoEffectClaim(item.reason, item.tea.id);
             if (item.matchedMood) {
-              expect(item.reason).toMatch(/zur Stimmung/);
+              expect(item.reason).toMatch(/Häufig mit dieser Richtung verbunden/);
             } else {
-              expect(item.reason).not.toMatch(/zur Stimmung/);
+              expect(item.reason).not.toMatch(/Häufig mit dieser Richtung verbunden/);
             }
           }
         }
@@ -214,7 +217,6 @@ describe('Öffentliche Texte', () => {
     const forbidden = [
       'Schlafproblem',
       'Erkältung',
-      'Verdauung',
       'Kopfschmerz',
       'Immunsystem',
       'Warenkorb',
@@ -225,7 +227,10 @@ describe('Öffentliche Texte', () => {
       'Magenproblem',
       'n8n',
       'macht wach',
+      'macht schlafen',
       'fördert',
+      'hilft bei',
+      'heilt',
     ];
     for (const file of files) {
       const text = readFileSync(file, 'utf8');
@@ -233,5 +238,16 @@ describe('Öffentliche Texte', () => {
         expect(text, `${file} enthält ${word}`).not.toContain(word);
       }
     }
+  });
+
+  it('beschreibt die Richtung als Geschmacksorientierung', () => {
+    const html = readFileSync('index.html', 'utf8');
+    expect(html).toContain('Wofür suchst du Tee?');
+    expect(html).toContain('häufig mit dieser Richtung verbunden');
+    expect(html).toContain('Geschmacksorientierung, keine Gesundheitsaussage');
+    expect(html).toContain('🎯');
+    expect(html).toContain('🌿');
+    expect(html).toContain('😌');
+    expect(html).toContain('🌙');
   });
 });

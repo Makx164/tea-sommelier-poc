@@ -43,7 +43,7 @@ function required<T extends Element>(selector: string): T {
 const finder = required<HTMLFormElement>('#finder');
 const tasteField = required<HTMLFieldSetElement>('#geschmack');
 const timeField = required<HTMLFieldSetElement>('#tageszeit');
-const moodField = required<HTMLFieldSetElement>('#stimmung');
+const moodField = required<HTMLFieldSetElement>('#richtung');
 const caffeineField = required<HTMLFieldSetElement>('#koffein');
 const formError = required<HTMLParagraphElement>('#form-error');
 const auswahl = required<HTMLElement>('#auswahl');
@@ -101,7 +101,7 @@ function readPreferences(): Preferences | null {
   const missing: string[] = [];
   if (!tastes.length) missing.push('mindestens einen Geschmack');
   if (!time) missing.push('eine Tageszeit');
-  if (!mood) missing.push('eine Stimmung');
+  if (!mood) missing.push('eine Richtung');
   if (!caffeine) missing.push('eine Koffein-Auswahl');
 
   if (missing.length || !time || !mood || !caffeine) {
@@ -121,7 +121,7 @@ function showResults(items: Recommendation[], prefs: Preferences): void {
   const count = items.length
     ? (COUNT_TEXT[items.length] ?? '')
     : 'Dazu liegt kein Tee im Satz.';
-  ergebnisLead.textContent = `Für ${tasteText} am ${TIME_LABEL[prefs.time]}, Stimmung ${MOOD_LABEL[prefs.mood]}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
+  ergebnisLead.textContent = `Für ${tasteText} am ${TIME_LABEL[prefs.time]}, Richtung ${MOOD_LABEL[prefs.mood]}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
   ergebnisListe.replaceChildren(...items.map((item, index) => renderCard(item, index)));
   auswahl.hidden = true;
   ergebnis.hidden = false;

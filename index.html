@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teelotse – Tee nach Geschmack, Stimmung und Tageszeit</title>
-  <meta name="description" content="Wähle Geschmack, Tageszeit, Stimmung und Koffein. Teelotse schlägt ein bis drei Tees vor, mit Zubereitung und Link zur Suche im Shop.">
+  <title>Teelotse – Tee nach Geschmack, Richtung und Tageszeit</title>
+  <meta name="description" content="Wähle Geschmack, Tageszeit, eine Richtung und Koffein. Teelotse schlägt ein bis drei Tees vor. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.">
   <meta name="theme-color" content="#F6F1E7">
   <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
@@ -29,9 +29,9 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Geschmack, Stimmung, Tageszeit</p>
+            <p class="eyebrow">Geschmack, Richtung, Tageszeit</p>
             <h1 id="hero-title">Finde den Tee für diesen Moment.</h1>
-            <p class="lead">Sag, wie er schmecken soll, welche Stimmung passt und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
+            <p class="lead">Sag, wie er schmecken soll, wofür du ihn suchst und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" id="finde-tee" href="#finder">Finde deinen Tee</a>
             </div>
@@ -69,7 +69,7 @@
         <div class="wrap">
           <div class="selector-intro">
             <h2 id="selector-title">Deine Auswahl</h2>
-            <p>Geschmack, Tageszeit, eine Stimmung und ob der Tee Koffein haben soll.</p>
+            <p>Geschmack, Tageszeit, wofür du Tee suchst und ob er Koffein haben soll.</p>
           </div>
           <noscript>
             <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Auswahl verlässt dabei den Browser nicht.</p>
@@ -121,25 +121,25 @@
               </div>
             </fieldset>
 
-            <fieldset id="stimmung" tabindex="-1">
-              <legend>Welche Stimmung?</legend>
-              <p class="hint" id="stimmung-hinweis">Eine Stimmung oder Gelegenheit.</p>
+            <fieldset id="richtung" tabindex="-1">
+              <legend>Wofür suchst du Tee?</legend>
+              <p class="hint" id="richtung-hinweis">Tees, die häufig mit dieser Richtung verbunden werden. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
               <div class="choice-grid">
                 <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="entspannt">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">😌</span> Entspannt</span><span class="choice-desc">Ruhiger Moment</span></span>
+                  <input type="radio" name="mood" data-group="mood" value="fokus">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🎯</span> Fokus</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="wach">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">⚡</span> Wach</span><span class="choice-desc">Klarer Moment</span></span>
+                  <input type="radio" name="mood" data-group="mood" value="verdauung">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🌿</span> Verdauung</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="gemuetlich">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">☕</span> Gemütlich</span><span class="choice-desc">Gemütliche Stunde</span></span>
+                  <input type="radio" name="mood" data-group="mood" value="beruhigung">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">😌</span> Beruhigung</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="fokussiert">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🎯</span> Fokussiert</span><span class="choice-desc">Lesen oder Arbeiten</span></span>
+                  <input type="radio" name="mood" data-group="mood" value="schlaf">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🌙</span> Schlaf</span></span>
                 </label>
               </div>
             </fieldset>
@@ -181,7 +181,7 @@
           <p id="ergebnis-lead"></p>
         </div>
         <div id="ergebnis-liste" class="results-list"></div>
-        <p class="fine-print">Koffeinangaben sind typische Orientierungswerte je Tasse (etwa 200 ml), keine Laborwerte. Sie beschreiben das Getränk und sind keine Empfehlung für oder gegen Koffein.</p>
+        <p class="fine-print">Koffeinangaben sind typische Orientierungswerte je Tasse (etwa 200 ml), keine Laborwerte. Sie beschreiben das Getränk und sind keine Empfehlung für oder gegen Koffein. Die Richtung ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
         <div class="results-actions">
           <button type="button" class="btn btn-ghost" id="zurueck">Auswahl ändern</button>
         </div>
