@@ -1,11 +1,17 @@
-export const TASTES = ['herb', 'fruchtig', 'blumig', 'erdig', 'mild', 'kraeftig'] as const;
+export const TASTES = ['fruchtig', 'blumig', 'herb', 'kraeftig'] as const;
 export type Taste = (typeof TASTES)[number];
 
 export const TIMES = ['morgen', 'mittag', 'nachmittag', 'abend'] as const;
 export type TimeOfDay = (typeof TIMES)[number];
 
+export const MOODS = ['fokus', 'verdauung', 'beruhigung', 'schlaf'] as const;
+export type Mood = (typeof MOODS)[number];
+
 export const CAFFEINE_LEVELS = ['kein', 'niedrig', 'mittel', 'hoch'] as const;
 export type Caffeine = (typeof CAFFEINE_LEVELS)[number];
+
+export const CAFFEINE_CHOICES = ['ja', 'nein', 'egal'] as const;
+export type CaffeineChoice = (typeof CAFFEINE_CHOICES)[number];
 
 export type Tea = {
   id: string;
@@ -15,6 +21,8 @@ export type Tea = {
   summary: string;
   tastes: Partial<Record<Taste, number>>;
   times: Partial<Record<TimeOfDay, number>>;
+  /** Passung zu einer Richtung, 1–3. Geschmacksorientierung, keine Gesundheitsaussage. */
+  moods: Partial<Record<Mood, number>>;
   caffeine: Caffeine;
   /** Abweichende Orientierung, z. B. bei Matcha. */
   caffeineDetail?: string;
@@ -27,6 +35,8 @@ export type Tea = {
 export type Preferences = {
   tastes: Taste[];
   time: TimeOfDay;
+  mood: Mood;
+  caffeine: CaffeineChoice;
 };
 
 export type Recommendation = {
@@ -34,14 +44,13 @@ export type Recommendation = {
   score: number;
   reason: string;
   matchedTastes: Taste[];
+  matchedMood: boolean;
 };
 
 export const TASTE_LABEL: Record<Taste, string> = {
-  herb: 'herb',
   fruchtig: 'fruchtig',
   blumig: 'blumig',
-  erdig: 'erdig',
-  mild: 'mild',
+  herb: 'herb',
   kraeftig: 'kräftig',
 };
 
@@ -50,6 +59,21 @@ export const TIME_LABEL: Record<TimeOfDay, string> = {
   mittag: 'Mittag',
   nachmittag: 'Nachmittag',
   abend: 'Abend',
+};
+
+export const MOOD_LABEL: Record<Mood, string> = {
+  fokus: 'Fokus',
+  verdauung: 'Verdauung',
+  beruhigung: 'Beruhigung',
+  schlaf: 'Schlaf',
+};
+
+export const DIRECTION_PHRASE = 'häufig mit dieser Richtung verbunden';
+
+export const CAFFEINE_CHOICE_LABEL: Record<CaffeineChoice, string> = {
+  ja: 'mit Koffein',
+  nein: 'ohne Koffein',
+  egal: 'Koffein egal',
 };
 
 export function joinDe(items: readonly string[]): string {
