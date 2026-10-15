@@ -10,6 +10,7 @@ Aus Tee-Sommelier wird Teelotse.
 - Hinweis „Vorschau, nicht live“ entfernt
 - Impressum und Datenschutz nennen Teelotse
 - Affiliate-Links, `/go/<Tee>`, `rel="sponsored noopener"`, Werbehinweis, `@vercel/analytics` und `cleanUrls` bleiben
+- Auswahl: vier Geschmäcker (fruchtig, blumig, herb, kräftig), Tageszeit, Stimmung als Gelegenheit, Koffein Ja/Nein/Egal. „Nein“ zeigt nur koffeinfreie Tees
 
 ## 2026-10-15 – v1.1 (unveröffentlicht)
 

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teelotse – Tee nach Geschmack und Tageszeit</title>
-  <meta name="description" content="Wähle Geschmack und Tageszeit. Teelotse schlägt ein bis drei Tees vor, mit Zubereitung, Koffein und Link zur Suche im Shop.">
+  <title>Teelotse – Tee nach Geschmack, Stimmung und Tageszeit</title>
+  <meta name="description" content="Wähle Geschmack, Tageszeit, Stimmung und Koffein. Teelotse schlägt ein bis drei Tees vor, mit Zubereitung und Link zur Suche im Shop.">
   <meta name="theme-color" content="#F6F1E7">
   <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
@@ -29,9 +29,9 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Geschmack und Tageszeit</p>
+            <p class="eyebrow">Geschmack, Stimmung, Tageszeit</p>
             <h1 id="hero-title">Finde den Tee für diesen Moment.</h1>
-            <p class="lead">Sag, wie er schmecken soll und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
+            <p class="lead">Sag, wie er schmecken soll, welche Stimmung passt und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" id="finde-tee" href="#finder">Finde deinen Tee</a>
             </div>
@@ -58,7 +58,7 @@
             </svg>
           </div>
           <ol class="steps">
-            <li><strong>Geschmack</strong><span>Herb, fruchtig, blumig, erdig, mild oder kräftig. Auch mehrere.</span></li>
+            <li><strong>Geschmack</strong><span>Fruchtig, blumig, herb oder kräftig. Auch mehrere.</span></li>
             <li><strong>Tageszeit</strong><span>Morgen, Mittag, Nachmittag oder Abend.</span></li>
             <li><strong>Zubereitung</strong><span>Temperatur, Ziehzeit, Menge und Koffein. Feste Regeln, nur in deinem Browser.</span></li>
           </ol>
@@ -69,20 +69,16 @@
         <div class="wrap">
           <div class="selector-intro">
             <h2 id="selector-title">Deine Auswahl</h2>
-            <p>Eine oder mehrere Richtungen, dann die Tageszeit.</p>
+            <p>Geschmack, Tageszeit, eine Stimmung und ob der Tee Koffein haben soll.</p>
           </div>
           <noscript>
-            <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Geschmack und Tageszeit verlassen dabei den Browser nicht.</p>
+            <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Auswahl verlässt dabei den Browser nicht.</p>
           </noscript>
           <form class="panel" id="finder" novalidate onsubmit="event.preventDefault()">
             <fieldset id="geschmack" tabindex="-1">
               <legend>Wie soll der Tee schmecken?</legend>
               <p class="hint" id="geschmack-hinweis">Eine oder mehrere Richtungen.</p>
               <div class="choice-grid" role="group" aria-describedby="geschmack-hinweis">
-                <label class="choice">
-                  <input type="checkbox" data-group="taste" value="herb">
-                  <span class="choice-text"><span class="choice-title">Herb</span><span class="choice-desc">Grasig, bitter, minzig</span></span>
-                </label>
                 <label class="choice">
                   <input type="checkbox" data-group="taste" value="fruchtig">
                   <span class="choice-text"><span class="choice-title">Fruchtig</span><span class="choice-desc">Beere, Zitrus, Apfel</span></span>
@@ -92,12 +88,8 @@
                   <span class="choice-text"><span class="choice-title">Blumig</span><span class="choice-desc">Blüten, zarte Noten</span></span>
                 </label>
                 <label class="choice">
-                  <input type="checkbox" data-group="taste" value="erdig">
-                  <span class="choice-text"><span class="choice-title">Erdig</span><span class="choice-desc">Röstig, holzig, rauchig</span></span>
-                </label>
-                <label class="choice">
-                  <input type="checkbox" data-group="taste" value="mild">
-                  <span class="choice-text"><span class="choice-title">Mild</span><span class="choice-desc">Weich, zurückhaltend</span></span>
+                  <input type="checkbox" data-group="taste" value="herb">
+                  <span class="choice-text"><span class="choice-title">Herb</span><span class="choice-desc">Grasig, bitter, minzig</span></span>
                 </label>
                 <label class="choice">
                   <input type="checkbox" data-group="taste" value="kraeftig">
@@ -125,6 +117,48 @@
                 <label class="choice">
                   <input type="radio" name="time" data-group="time" value="abend">
                   <span class="choice-text"><span class="choice-title">Abend</span><span class="choice-desc">Zum Tagesausklang</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset id="stimmung" tabindex="-1">
+              <legend>Welche Stimmung?</legend>
+              <p class="hint" id="stimmung-hinweis">Eine Stimmung oder Gelegenheit.</p>
+              <div class="choice-grid">
+                <label class="choice">
+                  <input type="radio" name="mood" data-group="mood" value="entspannt">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">😌</span> Entspannt</span><span class="choice-desc">Ruhiger Moment</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="mood" data-group="mood" value="wach">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">⚡</span> Wach</span><span class="choice-desc">Klarer Moment</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="mood" data-group="mood" value="gemuetlich">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">☕</span> Gemütlich</span><span class="choice-desc">Gemütliche Stunde</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="mood" data-group="mood" value="fokussiert">
+                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🎯</span> Fokussiert</span><span class="choice-desc">Lesen oder Arbeiten</span></span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset id="koffein">
+              <legend>Mit Koffein?</legend>
+              <p class="hint" id="koffein-hinweis">Nein zeigt nur koffeinfreie Tees.</p>
+              <div class="choice-grid">
+                <label class="choice">
+                  <input type="radio" name="caffeine" data-group="caffeine" value="ja">
+                  <span class="choice-text"><span class="choice-title">Ja</span><span class="choice-desc">Tee mit Koffein</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="caffeine" data-group="caffeine" value="nein">
+                  <span class="choice-text"><span class="choice-title">Nein</span><span class="choice-desc">Nur koffeinfrei</span></span>
+                </label>
+                <label class="choice">
+                  <input type="radio" name="caffeine" data-group="caffeine" value="egal" checked>
+                  <span class="choice-text"><span class="choice-title">Egal</span><span class="choice-desc">Keine Vorgabe</span></span>
                 </label>
               </div>
             </fieldset>

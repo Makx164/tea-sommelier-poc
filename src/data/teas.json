@@ -5,8 +5,19 @@
     "type": "Schwarztee",
     "origin": "Nordostindien",
     "summary": "Malziger, voller Schwarztee mit kräftigem Aufguss.",
-    "tastes": { "kraeftig": 3, "herb": 1 },
-    "times": { "morgen": 3, "mittag": 2, "nachmittag": 1 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2,
+      "nachmittag": 1
+    },
+    "moods": {
+      "wach": 3,
+      "fokussiert": 2
+    },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
     "steepTime": "3–4 Min.",
@@ -18,8 +29,19 @@
     "type": "Schwarztee",
     "origin": "Blend, oft Assam und Ceylon",
     "summary": "Klassisch malziger Frühstücks-Schwarztee, voll und ohne blumige Note.",
-    "tastes": { "kraeftig": 3, "herb": 1 },
-    "times": { "morgen": 3, "mittag": 2, "nachmittag": 1 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2,
+      "nachmittag": 1
+    },
+    "moods": {
+      "wach": 3,
+      "gemuetlich": 2
+    },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
     "steepTime": "3–4 Min.",
@@ -31,8 +53,22 @@
     "type": "Schwarztee",
     "origin": "Blend mit Bergamotte",
     "summary": "Schwarzer Tee mit deutlich zitronig-herber Bergamotte.",
-    "tastes": { "herb": 2, "fruchtig": 2, "kraeftig": 2, "blumig": 1 },
-    "times": { "morgen": 2, "mittag": 3, "nachmittag": 2 },
+    "tastes": {
+      "fruchtig": 2,
+      "blumig": 1,
+      "herb": 2,
+      "kraeftig": 2
+    },
+    "times": {
+      "morgen": 2,
+      "mittag": 3,
+      "nachmittag": 2
+    },
+    "moods": {
+      "wach": 2,
+      "fokussiert": 2,
+      "gemuetlich": 1
+    },
     "caffeine": "hoch",
     "temperature": "90–95 °C",
     "steepTime": "3 Min.",
@@ -44,8 +80,21 @@
     "type": "Schwarztee",
     "origin": "Darjeeling, Indien",
     "summary": "Heller Schwarztee mit blumiger Art und feiner Muskateller-Note.",
-    "tastes": { "blumig": 2, "mild": 2, "fruchtig": 2, "herb": 1 },
-    "times": { "morgen": 2, "mittag": 2, "nachmittag": 3 },
+    "tastes": {
+      "fruchtig": 2,
+      "blumig": 2,
+      "herb": 1
+    },
+    "times": {
+      "morgen": 2,
+      "mittag": 2,
+      "nachmittag": 3
+    },
+    "moods": {
+      "fokussiert": 3,
+      "gemuetlich": 2,
+      "wach": 1
+    },
     "caffeine": "hoch",
     "temperature": "85–90 °C",
     "steepTime": "2–3 Min.",
@@ -58,8 +107,20 @@
     "type": "Schwarztee",
     "origin": "Sri Lanka",
     "summary": "Klarer, zitronig-frischer Schwarztee mit kräftigem Körper.",
-    "tastes": { "kraeftig": 2, "fruchtig": 2, "herb": 1 },
-    "times": { "morgen": 3, "mittag": 2, "nachmittag": 1 },
+    "tastes": {
+      "fruchtig": 2,
+      "herb": 1,
+      "kraeftig": 2
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2,
+      "nachmittag": 1
+    },
+    "moods": {
+      "wach": 3,
+      "fokussiert": 2
+    },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
     "steepTime": "3–4 Min.",
@@ -71,8 +132,19 @@
     "type": "Schwarztee",
     "origin": "Fujian, China",
     "summary": "Über Kiefernholz geräucherter Schwarztee, rauchig und erdig.",
-    "tastes": { "erdig": 3, "kraeftig": 2, "herb": 1 },
-    "times": { "mittag": 1, "nachmittag": 2, "abend": 1 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 3
+    },
+    "times": {
+      "mittag": 1,
+      "nachmittag": 2,
+      "abend": 1
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 1
+    },
     "caffeine": "hoch",
     "temperature": "95 °C",
     "steepTime": "3–4 Min.",
@@ -84,8 +156,19 @@
     "type": "Schwarztee",
     "origin": "Indien, Gewürzmischung",
     "summary": "Schwarzer Tee mit Zimt, Kardamom, Ingwer und Nelke, würzig und kräftig.",
-    "tastes": { "kraeftig": 3, "erdig": 1, "herb": 1 },
-    "times": { "morgen": 3, "mittag": 2, "nachmittag": 2 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2,
+      "nachmittag": 2
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "wach": 2
+    },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
     "steepTime": "4–5 Min.",
@@ -98,8 +181,19 @@
     "type": "Grüntee",
     "origin": "Japan",
     "summary": "Grasig-herber Grüntee mit einer leicht meerigen Note.",
-    "tastes": { "herb": 3, "kraeftig": 1, "mild": 1 },
-    "times": { "morgen": 2, "mittag": 3, "nachmittag": 2 },
+    "tastes": {
+      "herb": 3,
+      "kraeftig": 1
+    },
+    "times": {
+      "morgen": 2,
+      "mittag": 3,
+      "nachmittag": 2
+    },
+    "moods": {
+      "fokussiert": 3,
+      "wach": 2
+    },
     "caffeine": "mittel",
     "temperature": "70–80 °C",
     "steepTime": "60–90 Sek.",
@@ -112,8 +206,19 @@
     "type": "Grüntee",
     "origin": "China",
     "summary": "Zu Perlen gerollter Grüntee, herb und etwas kräftiger als feine Grüntees.",
-    "tastes": { "herb": 3, "kraeftig": 2 },
-    "times": { "morgen": 2, "mittag": 2, "nachmittag": 1 },
+    "tastes": {
+      "herb": 3,
+      "kraeftig": 2
+    },
+    "times": {
+      "morgen": 2,
+      "mittag": 2,
+      "nachmittag": 1
+    },
+    "moods": {
+      "wach": 2,
+      "fokussiert": 3
+    },
     "caffeine": "mittel",
     "temperature": "80 °C",
     "steepTime": "2 Min.",
@@ -125,8 +230,20 @@
     "type": "Grüntee",
     "origin": "China",
     "summary": "Grüntee mit Jasminblüten, klar blumig und eher mild.",
-    "tastes": { "blumig": 3, "mild": 2, "herb": 1 },
-    "times": { "morgen": 1, "mittag": 2, "nachmittag": 3, "abend": 1 },
+    "tastes": {
+      "blumig": 3,
+      "herb": 1
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 2,
+      "nachmittag": 3,
+      "abend": 1
+    },
+    "moods": {
+      "entspannt": 2,
+      "gemuetlich": 3
+    },
     "caffeine": "mittel",
     "temperature": "80 °C",
     "steepTime": "2–3 Min.",
@@ -138,8 +255,18 @@
     "type": "Grüntee",
     "origin": "Japan, geröstet",
     "summary": "Geröstete Blätter und Stängel, nussig-erdig und wenig bitter.",
-    "tastes": { "erdig": 3, "mild": 2 },
-    "times": { "mittag": 1, "nachmittag": 3, "abend": 2 },
+    "tastes": {
+      "kraeftig": 3
+    },
+    "times": {
+      "mittag": 1,
+      "nachmittag": 3,
+      "abend": 2
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 2
+    },
     "caffeine": "niedrig",
     "temperature": "85–90 °C",
     "steepTime": "30–60 Sek.",
@@ -152,8 +279,19 @@
     "type": "Grüntee",
     "origin": "Japan",
     "summary": "Grüntee mit geröstetem Reis, mild und getreidig-erdig.",
-    "tastes": { "erdig": 2, "mild": 2, "herb": 1 },
-    "times": { "mittag": 2, "nachmittag": 3, "abend": 1 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 2
+    },
+    "times": {
+      "mittag": 2,
+      "nachmittag": 3,
+      "abend": 1
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 2
+    },
     "caffeine": "niedrig",
     "temperature": "80–85 °C",
     "steepTime": "1–2 Min.",
@@ -165,8 +303,18 @@
     "type": "Grüntee",
     "origin": "Japan, Pulver",
     "summary": "Fein vermahlener Grüntee, dicht grasig und umami, kräftiger als ein Aufguss.",
-    "tastes": { "herb": 2, "kraeftig": 3 },
-    "times": { "morgen": 3, "mittag": 2 },
+    "tastes": {
+      "herb": 2,
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2
+    },
+    "moods": {
+      "wach": 3,
+      "fokussiert": 3
+    },
     "caffeine": "hoch",
     "caffeineDetail": "oft höher als 70 mg, weil das Pulver mitgetrunken wird",
     "temperature": "75 °C",
@@ -180,8 +328,21 @@
     "type": "Weißtee",
     "origin": "Fujian, China",
     "summary": "Weißer Tee aus Knospe und Blatt, blumig-mild mit leichter Herbe.",
-    "tastes": { "blumig": 2, "mild": 2, "herb": 1 },
-    "times": { "morgen": 1, "mittag": 2, "nachmittag": 3, "abend": 1 },
+    "tastes": {
+      "blumig": 2,
+      "herb": 1
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 2,
+      "nachmittag": 3,
+      "abend": 1
+    },
+    "moods": {
+      "entspannt": 2,
+      "fokussiert": 2,
+      "gemuetlich": 1
+    },
     "caffeine": "niedrig",
     "temperature": "80–85 °C",
     "steepTime": "3–4 Min.",
@@ -193,8 +354,19 @@
     "type": "Weißtee",
     "origin": "Fujian, China",
     "summary": "Nur ungeöffnete Knospen, sehr mild und zart blumig.",
-    "tastes": { "mild": 3, "blumig": 3 },
-    "times": { "morgen": 1, "mittag": 1, "nachmittag": 3, "abend": 1 },
+    "tastes": {
+      "blumig": 3
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 1,
+      "nachmittag": 3,
+      "abend": 1
+    },
+    "moods": {
+      "entspannt": 3,
+      "gemuetlich": 2
+    },
     "caffeine": "niedrig",
     "temperature": "75–80 °C",
     "steepTime": "2–3 Min.",
@@ -206,8 +378,19 @@
     "type": "Oolong",
     "origin": "Anxi, China",
     "summary": "Leicht oxidierter Oolong mit Orchideennote, blumig und rund.",
-    "tastes": { "blumig": 3, "mild": 2 },
-    "times": { "morgen": 1, "mittag": 2, "nachmittag": 3 },
+    "tastes": {
+      "blumig": 3
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 2,
+      "nachmittag": 3
+    },
+    "moods": {
+      "fokussiert": 2,
+      "gemuetlich": 2,
+      "entspannt": 1
+    },
     "caffeine": "mittel",
     "temperature": "90–95 °C",
     "steepTime": "2–3 Min.",
@@ -219,8 +402,19 @@
     "type": "Oolong",
     "origin": "Wuyi, China",
     "summary": "Dunkler Felsen-Oolong, mineralisch, geröstet und erdig-kräftig.",
-    "tastes": { "erdig": 3, "kraeftig": 2, "herb": 1 },
-    "times": { "mittag": 1, "nachmittag": 3, "abend": 1 },
+    "tastes": {
+      "herb": 1,
+      "kraeftig": 3
+    },
+    "times": {
+      "mittag": 1,
+      "nachmittag": 3,
+      "abend": 1
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 1
+    },
     "caffeine": "mittel",
     "temperature": "95 °C",
     "steepTime": "2–3 Min.",
@@ -232,8 +426,17 @@
     "type": "Oolong",
     "origin": "Taiwan",
     "summary": "Heller Taiwan-Oolong, mild, blumig und cremig im Abgang.",
-    "tastes": { "mild": 3, "blumig": 2 },
-    "times": { "mittag": 2, "nachmittag": 3 },
+    "tastes": {
+      "blumig": 3
+    },
+    "times": {
+      "mittag": 2,
+      "nachmittag": 3
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 2
+    },
     "caffeine": "mittel",
     "temperature": "90 °C",
     "steepTime": "2–3 Min.",
@@ -245,8 +448,18 @@
     "type": "Pu-Erh",
     "origin": "Yunnan, China",
     "summary": "Nachgereifter Tee, deutlich erdig, holzig und kräftig.",
-    "tastes": { "erdig": 3, "kraeftig": 3 },
-    "times": { "morgen": 1, "mittag": 2, "nachmittag": 3 },
+    "tastes": {
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 2,
+      "nachmittag": 3
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "wach": 1
+    },
     "caffeine": "mittel",
     "temperature": "95–100 °C",
     "steepTime": "3 Min.",
@@ -259,8 +472,17 @@
     "type": "Kräutertee",
     "origin": "Kamillenblüten",
     "summary": "Blumiger Kräutertee aus Kamillenblüten, honigartig und mild.",
-    "tastes": { "blumig": 3, "mild": 3 },
-    "times": { "nachmittag": 2, "abend": 3 },
+    "tastes": {
+      "blumig": 3
+    },
+    "times": {
+      "nachmittag": 2,
+      "abend": 3
+    },
+    "moods": {
+      "entspannt": 3,
+      "gemuetlich": 2
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "5–7 Min.",
@@ -272,8 +494,20 @@
     "type": "Kräutertee",
     "origin": "Pfefferminzblätter",
     "summary": "Klar minzig und herb, mit kräftig frischer Art.",
-    "tastes": { "herb": 3, "kraeftig": 2 },
-    "times": { "morgen": 1, "mittag": 3, "nachmittag": 2, "abend": 3 },
+    "tastes": {
+      "herb": 3,
+      "kraeftig": 2
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 3,
+      "nachmittag": 2,
+      "abend": 3
+    },
+    "moods": {
+      "entspannt": 2,
+      "wach": 2
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "5–7 Min.",
@@ -285,8 +519,17 @@
     "type": "Kräutertee",
     "origin": "Lavendelblüten",
     "summary": "Blumiger Aufguss aus Lavendelblüten, mild und deutlich floral.",
-    "tastes": { "blumig": 3, "mild": 2 },
-    "times": { "nachmittag": 2, "abend": 3 },
+    "tastes": {
+      "blumig": 3
+    },
+    "times": {
+      "nachmittag": 2,
+      "abend": 3
+    },
+    "moods": {
+      "entspannt": 3,
+      "gemuetlich": 1
+    },
     "caffeine": "kein",
     "temperature": "95 °C",
     "steepTime": "4–6 Min.",
@@ -299,8 +542,20 @@
     "type": "Kräutertee",
     "origin": "Zitronenverbene",
     "summary": "Zitronig-fruchtiger Kräutertee, hell und eher herb als süß.",
-    "tastes": { "fruchtig": 2, "herb": 2, "mild": 1 },
-    "times": { "mittag": 3, "nachmittag": 2, "abend": 2 },
+    "tastes": {
+      "fruchtig": 2,
+      "herb": 2
+    },
+    "times": {
+      "mittag": 3,
+      "nachmittag": 2,
+      "abend": 2
+    },
+    "moods": {
+      "entspannt": 2,
+      "wach": 2,
+      "gemuetlich": 1
+    },
     "caffeine": "kein",
     "temperature": "95–100 °C",
     "steepTime": "5–7 Min.",
@@ -312,8 +567,17 @@
     "type": "Kräutertee",
     "origin": "Fenchelsamen",
     "summary": "Milder, süßlicher Tee aus Fenchelsamen, ohne Herbe.",
-    "tastes": { "mild": 3 },
-    "times": { "nachmittag": 1, "abend": 3 },
+    "tastes": {
+      "blumig": 2
+    },
+    "times": {
+      "nachmittag": 1,
+      "abend": 3
+    },
+    "moods": {
+      "entspannt": 3,
+      "gemuetlich": 2
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "6–8 Min.",
@@ -325,8 +589,18 @@
     "type": "Rooibos",
     "origin": "Südafrika",
     "summary": "Rotbusch, von sich aus mild, holzig-süß und leicht erdig.",
-    "tastes": { "mild": 3, "erdig": 2 },
-    "times": { "mittag": 1, "nachmittag": 2, "abend": 3 },
+    "tastes": {
+      "kraeftig": 2
+    },
+    "times": {
+      "mittag": 1,
+      "nachmittag": 2,
+      "abend": 3
+    },
+    "moods": {
+      "entspannt": 3,
+      "gemuetlich": 3
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "5–7 Min.",
@@ -338,8 +612,20 @@
     "type": "Früchtetee",
     "origin": "Hagebuttenschalen",
     "summary": "Fruchtig-säuerlicher Aufguss, recht kräftig in der Frucht.",
-    "tastes": { "fruchtig": 3, "kraeftig": 2 },
-    "times": { "morgen": 1, "mittag": 2, "nachmittag": 2, "abend": 2 },
+    "tastes": {
+      "fruchtig": 3,
+      "kraeftig": 2
+    },
+    "times": {
+      "morgen": 1,
+      "mittag": 2,
+      "nachmittag": 2,
+      "abend": 2
+    },
+    "moods": {
+      "wach": 2,
+      "gemuetlich": 1
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "8–10 Min.",
@@ -352,8 +638,20 @@
     "type": "Früchtetee",
     "origin": "Hibiskusblüten",
     "summary": "Tiefrote, säuerlich-fruchtige Blüten, herb und kräftig.",
-    "tastes": { "fruchtig": 3, "herb": 2, "kraeftig": 2 },
-    "times": { "mittag": 2, "nachmittag": 2, "abend": 2 },
+    "tastes": {
+      "fruchtig": 3,
+      "herb": 2,
+      "kraeftig": 2
+    },
+    "times": {
+      "mittag": 2,
+      "nachmittag": 2,
+      "abend": 2
+    },
+    "moods": {
+      "wach": 2,
+      "fokussiert": 1
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "5–8 Min.",
@@ -365,8 +663,18 @@
     "type": "Früchtetee",
     "origin": "Apfel und Zimt",
     "summary": "Fruchtiger Apfel mit süßer Zimtnote, insgesamt mild.",
-    "tastes": { "fruchtig": 3, "mild": 2 },
-    "times": { "mittag": 1, "nachmittag": 3, "abend": 2 },
+    "tastes": {
+      "fruchtig": 3
+    },
+    "times": {
+      "mittag": 1,
+      "nachmittag": 3,
+      "abend": 2
+    },
+    "moods": {
+      "gemuetlich": 3,
+      "entspannt": 2
+    },
     "caffeine": "kein",
     "temperature": "100 °C",
     "steepTime": "8 Min.",
@@ -378,8 +686,18 @@
     "type": "Mate",
     "origin": "Südamerika, geröstet",
     "summary": "Gerösteter Mate, herb und leicht erdig, im Trunk kräftig.",
-    "tastes": { "herb": 2, "erdig": 2, "kraeftig": 3 },
-    "times": { "morgen": 3, "mittag": 2 },
+    "tastes": {
+      "herb": 2,
+      "kraeftig": 3
+    },
+    "times": {
+      "morgen": 3,
+      "mittag": 2
+    },
+    "moods": {
+      "wach": 3,
+      "fokussiert": 2
+    },
     "caffeine": "hoch",
     "caffeineDetail": "etwa 60–80 mg je Tasse, je nach Menge",
     "temperature": "70–80 °C",

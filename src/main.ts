@@ -1,7 +1,11 @@
 import './analytics';
 import { recommend } from './recommender';
 import {
+  CAFFEINE_CHOICES,
+  CAFFEINE_CHOICE_LABEL,
   CAFFEINE_LEVELS,
+  MOODS,
+  MOOD_LABEL,
   TASTES,
   TASTE_LABEL,
   TIMES,
@@ -9,6 +13,8 @@ import {
   capitalizeDe,
   joinDe,
   type Caffeine,
+  type CaffeineChoice,
+  type Mood,
   type Preferences,
   type Recommendation,
   type Taste,
@@ -37,6 +43,8 @@ function required<T extends Element>(selector: string): T {
 const finder = required<HTMLFormElement>('#finder');
 const tasteField = required<HTMLFieldSetElement>('#geschmack');
 const timeField = required<HTMLFieldSetElement>('#tageszeit');
+const moodField = required<HTMLFieldSetElement>('#stimmung');
+const caffeineField = required<HTMLFieldSetElement>('#koffein');
 const formError = required<HTMLParagraphElement>('#form-error');
 const auswahl = required<HTMLElement>('#auswahl');
 const ergebnis = required<HTMLElement>('#ergebnis');
@@ -66,39 +74,54 @@ zurueck.addEventListener('click', () => {
   scrollTo(auswahl);
 });
 
+function checkedValue(group: string): string | undefined {
+  return finder.querySelector<HTMLInputElement>(`input[data-group="${group}"]:checked`)?.value;
+}
+
 function readPreferences(): Preferences | null {
   const tastes = [
     ...finder.querySelectorAll<HTMLInputElement>('input[data-group="taste"]:checked'),
   ]
     .map((input) => input.value)
     .filter((value): value is Taste => (TASTES as readonly string[]).includes(value));
-  const timeValue = finder.querySelector<HTMLInputElement>('input[data-group="time"]:checked')?.value;
+  const timeValue = checkedValue('time');
+  const moodValue = checkedValue('mood');
+  const caffeineValue = checkedValue('caffeine');
   const time = (TIMES as readonly string[]).includes(timeValue ?? '') ? (timeValue as TimeOfDay) : null;
+  const mood = (MOODS as readonly string[]).includes(moodValue ?? '') ? (moodValue as Mood) : null;
+  const caffeine = (CAFFEINE_CHOICES as readonly string[]).includes(caffeineValue ?? '')
+    ? (caffeineValue as CaffeineChoice)
+    : null;
 
   tasteField.setAttribute('aria-invalid', tastes.length ? 'false' : 'true');
   timeField.setAttribute('aria-invalid', time ? 'false' : 'true');
+  moodField.setAttribute('aria-invalid', mood ? 'false' : 'true');
+  caffeineField.setAttribute('aria-invalid', caffeine ? 'false' : 'true');
 
-  if (!tastes.length || !time) {
-    const message =
-      !tastes.length && !time
-        ? 'Bitte wähle mindestens einen Geschmack und eine Tageszeit.'
-        : !tastes.length
-          ? 'Bitte wähle mindestens einen Geschmack.'
-          : 'Bitte wähle eine Tageszeit.';
-    formError.textContent = message;
+  const missing: string[] = [];
+  if (!tastes.length) missing.push('mindestens einen Geschmack');
+  if (!time) missing.push('eine Tageszeit');
+  if (!mood) missing.push('eine Stimmung');
+  if (!caffeine) missing.push('eine Koffein-Auswahl');
+
+  if (missing.length || !time || !mood || !caffeine) {
+    formError.textContent = `Bitte wähle ${joinDe(missing)}.`;
     formError.hidden = false;
-    (tastes.length ? timeField : tasteField).focus();
+    const focusTarget = !tastes.length ? tasteField : !time ? timeField : !mood ? moodField : caffeineField;
+    focusTarget.focus();
     return null;
   }
 
   formError.hidden = true;
-  return { tastes, time };
+  return { tastes, time, mood, caffeine };
 }
 
 function showResults(items: Recommendation[], prefs: Preferences): void {
   const tasteText = joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])));
-  const count = COUNT_TEXT[items.length] ?? '';
-  ergebnisLead.textContent = `Für ${tasteText} am ${TIME_LABEL[prefs.time]}. ${count}`;
+  const count = items.length
+    ? (COUNT_TEXT[items.length] ?? '')
+    : 'Dazu liegt kein Tee im Satz.';
+  ergebnisLead.textContent = `Für ${tasteText} am ${TIME_LABEL[prefs.time]}, Stimmung ${MOOD_LABEL[prefs.mood]}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
   ergebnisListe.replaceChildren(...items.map((item, index) => renderCard(item, index)));
   auswahl.hidden = true;
   ergebnis.hidden = false;

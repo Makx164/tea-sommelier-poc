@@ -1,12 +1,16 @@
 import rawTeas from './data/teas.json';
 import {
+  CAFFEINE_CHOICES,
   CAFFEINE_LEVELS,
+  MOODS,
+  MOOD_LABEL,
   TASTES,
   TASTE_LABEL,
   TIMES,
   TIME_LABEL,
   joinDe,
   type Caffeine,
+  type CaffeineChoice,
   type Preferences,
   type Recommendation,
   type Taste,
@@ -15,11 +19,13 @@ import {
 } from './types';
 
 const TASTE_WEIGHT = 2.4;
+const MOOD_WEIGHT = 1.6;
 const DIVERSE_RATIO = 0.6;
 
 /**
  * Tageszeit verschiebt nur den Koffeingehalt als Getränkeeigenschaft:
  * Abend bevorzugt koffeinfrei, Morgen etwas mehr Koffein.
+ * Eine gesetzte Koffein-Auswahl filtert vorher, die Verschiebung bleibt im Rest.
  */
 const CAFFEINE_BIAS: Record<TimeOfDay, Record<Caffeine, number>> = {
   morgen: { hoch: 1.6, mittel: 0.9, niedrig: 0.1, kein: -0.3 },
@@ -65,8 +71,10 @@ function parseTea(value: unknown, index: number): Tea {
   }
   const tastes = parseWeights(raw.tastes, TASTES, `${id} Geschmack`);
   const times = parseWeights(raw.times, TIMES, `${id} Tageszeit`);
+  const moods = parseWeights(raw.moods, MOODS, `${id} Stimmung`);
   if (Object.keys(tastes).length === 0) throw new Error(`${id}: kein Geschmack.`);
   if (Object.keys(times).length === 0) throw new Error(`${id}: keine Tageszeit.`);
+  if (Object.keys(moods).length === 0) throw new Error(`${id}: keine Stimmung.`);
   const tea: Tea = {
     id,
     name: asText(raw.name, `${id} Name`),
@@ -75,6 +83,7 @@ function parseTea(value: unknown, index: number): Tea {
     summary: asText(raw.summary, `${id} Beschreibung`),
     tastes,
     times,
+    moods,
     caffeine: caffeine as Caffeine,
     temperature: asText(raw.temperature, `${id} Temperatur`),
     steepTime: asText(raw.steepTime, `${id} Ziehzeit`),
@@ -116,6 +125,12 @@ function matchedWeight(tea: Tea, tastes: readonly Taste[]): number {
   return tastes.reduce((sum, taste) => sum + (tea.tastes[taste] ?? 0), 0);
 }
 
+function passesCaffeine(tea: Tea, choice: CaffeineChoice): boolean {
+  if (choice === 'nein') return tea.caffeine === 'kein';
+  if (choice === 'ja') return tea.caffeine !== 'kein';
+  return true;
+}
+
 export function scoreTea(tea: Tea, prefs: Preferences): number {
   const tastes = uniqueTastes(prefs.tastes);
   let tasteSum = 0;
@@ -128,17 +143,20 @@ export function scoreTea(tea: Tea, prefs: Preferences): number {
   const tasteAvg = tastes.length ? tasteSum / tastes.length : 0;
   const timeScore = tea.times[prefs.time] ?? 0;
   const caffeineScore = CAFFEINE_BIAS[prefs.time][tea.caffeine];
+  const moodScore = (tea.moods[prefs.mood] ?? 0) * MOOD_WEIGHT;
   const missPenalty = matched === 0 ? 3 : 0;
-  return tasteAvg * TASTE_WEIGHT + timeScore + caffeineScore - missPenalty;
+  return tasteAvg * TASTE_WEIGHT + timeScore + caffeineScore + moodScore - missPenalty;
 }
 
-function buildReason(tea: Tea, time: TimeOfDay, matched: readonly Taste[]): string {
-  const when = `zum ${TIME_LABEL[time]}`;
+function buildReason(tea: Tea, prefs: Preferences, matched: readonly Taste[]): string {
+  const when = `zum ${TIME_LABEL[prefs.time]}`;
+  const moodFit = (tea.moods[prefs.mood] ?? 0) > 0;
+  const moodText = moodFit ? `, zur Stimmung ${MOOD_LABEL[prefs.mood]}` : '';
   if (matched.length === 0) {
-    return `${tea.name} ist die nächste Entsprechung ${when}. ${tea.summary}`;
+    return `${tea.name} ist die nächste Entsprechung ${when}${moodText}. ${tea.summary}`;
   }
   const labels = matched.map((taste) => TASTE_LABEL[taste]);
-  return `${tea.name} trifft ${joinDe(labels)} und passt ${when}. ${tea.summary}`;
+  return `${tea.name} trifft ${joinDe(labels)} und passt ${when}${moodText}. ${tea.summary}`;
 }
 
 export function recommend(prefs: Preferences): Recommendation[] {
@@ -149,22 +167,38 @@ export function recommend(prefs: Preferences): Recommendation[] {
   if (!TIMES.includes(prefs.time)) {
     throw new Error('Unbekannte Tageszeit.');
   }
-  const normalized: Preferences = { tastes, time: prefs.time };
+  if (!MOODS.includes(prefs.mood)) {
+    throw new Error('Unbekannte Stimmung.');
+  }
+  if (!CAFFEINE_CHOICES.includes(prefs.caffeine)) {
+    throw new Error('Unbekannte Koffein-Auswahl.');
+  }
+  const normalized: Preferences = {
+    tastes,
+    time: prefs.time,
+    mood: prefs.mood,
+    caffeine: prefs.caffeine,
+  };
 
   const ranked: Recommendation[] = teas
+    .filter((tea) => passesCaffeine(tea, normalized.caffeine))
     .map((tea) => {
       const matchedTastes = tastes.filter((taste) => (tea.tastes[taste] ?? 0) > 0);
+      const matchedMood = (tea.moods[normalized.mood] ?? 0) > 0;
       return {
         tea,
         score: scoreTea(tea, normalized),
         matchedTastes,
-        reason: buildReason(tea, prefs.time, matchedTastes),
+        matchedMood,
+        reason: buildReason(tea, normalized, matchedTastes),
       };
     })
     .sort((a, b) => {
       if (b.score !== a.score) return b.score - a.score;
       const byTaste = matchedWeight(b.tea, tastes) - matchedWeight(a.tea, tastes);
       if (byTaste !== 0) return byTaste;
+      const byMood = (b.tea.moods[normalized.mood] ?? 0) - (a.tea.moods[normalized.mood] ?? 0);
+      if (byMood !== 0) return byMood;
       return a.tea.name.localeCompare(b.tea.name, 'de');
     });
 

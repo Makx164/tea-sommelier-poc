@@ -294,19 +294,20 @@ legend {
 .center { text-align: center; }
 
 .choice-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.65rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
 }
 
 .choice {
   position: relative;
   display: flex;
+  width: auto;
   border: 1.5px solid var(--linie);
-  border-radius: 16px;
+  border-radius: 999px;
   background: var(--creme);
   cursor: pointer;
-  min-height: 48px;
+  min-height: 44px;
 }
 
 .choice:hover { border-color: var(--matcha); }
@@ -325,11 +326,21 @@ legend {
 }
 
 .choice-text {
-  padding: 0.75rem 0.9rem;
+  min-height: 44px;
+  padding: 0.35rem 0.95rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.55rem;
   width: 100%;
+  box-sizing: border-box;
+}
+
+.choice-emoji {
+  font-size: 1.15rem;
+  line-height: 1;
+  flex: none;
 }
 
 .choice-title {
@@ -349,7 +360,7 @@ legend {
   flex: none;
 }
 
-.choice-desc { color: var(--muted); font-size: 0.88rem; }
+.choice-desc { color: var(--muted); font-size: 0.88rem; font-weight: 400; }
 
 .choice:has(input:focus-visible) {
   outline: 3px solid var(--teeblatt);
@@ -601,7 +612,6 @@ address.contact {
 }
 
 @media (min-width: 560px) {
-  .choice-grid { grid-template-columns: 1fr 1fr; }
   .bar, .wrap { width: min(1180px, calc(100% - 2.5rem)); }
 }
 
@@ -769,6 +779,7 @@ address.contact {
 
   .choice-text {
     flex-direction: row;
+    flex-wrap: nowrap;
     align-items: center;
     min-height: 44px;
     padding: 0.35rem 0.9rem;
