@@ -2,7 +2,7 @@
 
 Geschmacksempfehlung für Tee, direkt im Browser. Du wählst eine oder mehrere Richtungen (herb, fruchtig, blumig, erdig, mild, kräftig) und eine Tageszeit (Morgen, Mittag, Nachmittag, Abend). Die App schlägt ein bis drei Tees vor – mit kurzer Begründung, Zubereitung (Temperatur, Ziehzeit, Menge) und Koffeingehalt als Fakt.
 
-Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend, keine eigenen Produkte, keinen Shop, keine Cookies und kein Tracking. Schriftarten und Skripte kommen nur aus dieser Seite.
+Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend und keine eigenen Produkte. Jede Empfehlung hat einen Link „Hier kaufen“ auf eine Amazon-Suche ohne Partner-ID (`src/affiliate.json`). Vercel Web Analytics erfasst Seitenaufrufe und den Klick darauf ohne Cookies. Schriftarten kommen aus dieser Seite.
 
 **Status: live auf tee.yoursidequest.org (Vercel)**
 
@@ -31,11 +31,11 @@ Jeder Tee hat Geschmacksgewichte, eine Passung zur Tageszeit und einen Koffeinge
 
 ## Datenschutz in der App
 
-Die Auswahl bleibt im Browser. Es werden keine Cookies gesetzt, nichts analysiert und nichts an einen Server geschickt. Hosting ist, sobald veröffentlicht, GitHub Pages; Server-Logs liegen dann bei GitHub. Details stehen auf der Seite Datenschutz.
+Die Auswahl bleibt im Browser und wird nicht gespeichert. Es werden keine Cookies gesetzt. Seitenaufrufe und das Ereignis `kauf_klick` gehen zusammengefasst an Vercel Web Analytics (Vercel Inc.), ohne persönliches Profil. Ein Kauf-Link öffnet einen externen Shop; von dort erhalten wir keine personenbezogenen Daten. Details stehen auf der Seite Datenschutz.
 
 ## Veröffentlichung
 
-Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. GitHub-Pages-Einstellungen und eine CNAME-Datei werden in dieser Vorschau nicht geändert.
+Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. Die öffentliche Website läuft auf Vercel. `vercel.json` setzt `cleanUrls`, damit `/impressum` und `/datenschutz` ohne Dateiendung erreichbar sind. Links mit `.html` funktionieren weiter.
 
 ## Offene Punkte
 

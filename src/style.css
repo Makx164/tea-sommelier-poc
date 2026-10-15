@@ -360,6 +360,14 @@ legend {
   font-weight: 700;
 }
 
+a.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+}
+
 .btn-primary {
   width: 100%;
   border: 0;
@@ -466,9 +474,21 @@ legend {
   display: flex;
   align-items: flex-start;
   gap: 0.55rem;
-  margin: auto 0 0;
+  margin: 0.35rem 0 0;
   padding-top: 0.35rem;
   font-size: 0.92rem;
+}
+
+.tea-buy {
+  margin-top: auto;
+  padding-top: 0.95rem;
+}
+
+.affiliate-note {
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.45;
+  margin: 0.55rem 0 0;
 }
 
 .meter { display: inline-flex; gap: 0.2rem; padding-top: 0.35rem; flex: none; }
