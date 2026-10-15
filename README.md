@@ -6,7 +6,7 @@ Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gän
 
 Farben: Teeblatt `#2F5D50`, Matcha `#9DBF8A`, Rooibos `#C8743A`, Creme `#F6F1E7`, Tinte `#1F2A2E`. Die Schriften Fraunces und Inter liegen im Bau (`@fontsource-variable/fraunces`, `@fontsource-variable/inter`, SIL Open Font License). Es wird kein externer Schrift-Server geladen. Die Wortmarke steht in Kopf- und Fußzeile, das Icon ist das Favicon.
 
-**Status: v2.0, noch nicht veröffentlicht.** Die bisherige Fassung läuft auf tee.yoursidequest.org (Vercel).
+**Status: v2.0, noch nicht veröffentlicht.** Die bisherige Fassung läuft auf https://teelotse.de (Vercel).
 
 ## Lokal starten
 
@@ -41,7 +41,6 @@ Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHu
 
 ## Offene Punkte
 
-- Domain: yoursidequest.org (noch nicht verbunden, keine CNAME-Datei)
 - GitHub Pages: Workflow erst nach Freigabe auslösen; die Seitenquelle bleibt bis dahin unverändert
 
 ## Legacy

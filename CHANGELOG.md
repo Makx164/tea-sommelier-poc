@@ -1,5 +1,9 @@
 # Änderungsprotokoll
 
+## 2026-10-15
+
+Öffentliche Adresse ist https://teelotse.de (Vercel). Die Subdomain tee.yoursidequest.org entfällt.
+
 ## 2026-10-15 – v2.0 Teelotse (unveröffentlicht)
 
 Aus Tee-Sommelier wird Teelotse.
