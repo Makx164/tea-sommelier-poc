@@ -34,8 +34,10 @@ export type Tea = {
 
 export type Preferences = {
   tastes: Taste[];
-  time: TimeOfDay;
-  mood: Mood;
+  /** Mindestens eine Tageszeit. Mehrere sind erlaubt. */
+  times: TimeOfDay[];
+  /** `null`, wenn „Wofür suchst du Tee?“ leer bleibt. */
+  mood: Mood | null;
   caffeine: CaffeineChoice;
 };
 

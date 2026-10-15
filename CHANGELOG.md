@@ -1,5 +1,10 @@
 # Änderungsprotokoll
 
+## 2026-10-15 – Auswahl
+
+- „Wofür suchst du Tee?“ ist optional. Ohne Richtung zählen Geschmack, Tageszeit und Koffein
+- Tageszeit ist eine Mehrfachauswahl und bleibt Pflicht (mindestens eine). Mehrere Zeiten werden gemittelt
+
 ## 2026-10-15
 
 Öffentliche Adresse ist https://teelotse.de (Vercel). Die Subdomain tee.yoursidequest.org entfällt.
