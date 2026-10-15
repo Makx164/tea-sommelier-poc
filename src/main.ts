@@ -1,3 +1,4 @@
+import './analytics';
 import { recommend } from './recommender';
 import {
   CAFFEINE_LEVELS,
@@ -11,8 +12,12 @@ import {
   type Preferences,
   type Recommendation,
   type Taste,
+  type Tea,
   type TimeOfDay,
 } from './types';
+
+const AFFILIATE_NOTE =
+  'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
 
 const CAFFEINE_INFO: Record<Caffeine, { label: string; detail: string; level: number }> = {
   kein: { label: 'Keines', detail: 'koffeinfrei', level: 0 },
@@ -146,8 +151,30 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
     card.append(note);
   }
 
-  card.append(caffeineLine(tea.caffeine, tea.caffeineDetail));
+  card.append(caffeineLine(tea.caffeine, tea.caffeineDetail), renderPurchase(tea));
   return card;
+}
+
+function renderPurchase(tea: Tea): HTMLElement {
+  const block = document.createElement('div');
+  block.className = 'tea-buy';
+
+  const link = document.createElement('a');
+  link.className = 'btn btn-primary';
+  link.href = `/go/${tea.id}`;
+  link.textContent = 'Hier kaufen';
+  link.setAttribute('target', '_blank');
+  link.setAttribute('rel', 'sponsored noopener');
+  link.setAttribute('aria-label', `Hier kaufen: ${tea.name}`);
+
+  const hint = document.createElement('p');
+  hint.className = 'affiliate-note';
+  hint.id = `affiliate-${tea.id}`;
+  hint.textContent = AFFILIATE_NOTE;
+  link.setAttribute('aria-describedby', hint.id);
+
+  block.append(link, hint);
+  return block;
 }
 
 function brewItem(label: string, value: string): HTMLElement {

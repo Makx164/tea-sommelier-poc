@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 2026-10-15 – v1.1 (unveröffentlicht)
+
+- Kauf-Link je Tee in `src/affiliate.json` (Amazon-Suche ohne Partner-ID). „Hier kaufen“ führt auf `/go/<Tee>` und zeigt den Hinweis auf Werbung/Affiliate
+- Weiterleitungsseiten entstehen beim Bau: `@vercel/analytics` (`inject()`) zählt den Aufruf als Seitenaufruf, danach `location.replace`, Meta-Refresh als Ersatz und ein sichtbarer Link. `noindex`. Kein eigenes Ereignis
+- `vercel.json` mit `cleanUrls`, damit `/impressum`, `/datenschutz` und `/go/<Tee>` erreichbar sind; `.html`-Links bleiben gültig
+- Datenschutz: Affiliate-Links (Weiterleitung, externer Shop, eigene Datenschutzerklärung, keine personenbezogenen Daten an uns) und Vercel Web Analytics (cookielos, keine persönlichen Profile, zusammengefasste Seitenaufrufe, Vercel Inc.)
+
 ## 2026-10-14 – v1.0
 
 Tee-Sommelier ist live auf tee.yoursidequest.org (Vercel).
