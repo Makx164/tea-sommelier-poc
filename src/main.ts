@@ -1,6 +1,4 @@
-import { track } from '@vercel/analytics';
 import './analytics';
-import affiliateLinks from './affiliate.json';
 import { recommend } from './recommender';
 import {
   CAFFEINE_LEVELS,
@@ -157,25 +155,17 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
   return card;
 }
 
-function affiliateUrl(id: string): string {
-  if (!(id in affiliateLinks)) throw new Error(`Kauf-Link fehlt für ${id}.`);
-  return affiliateLinks[id as keyof typeof affiliateLinks];
-}
-
 function renderPurchase(tea: Tea): HTMLElement {
   const block = document.createElement('div');
   block.className = 'tea-buy';
 
   const link = document.createElement('a');
   link.className = 'btn btn-primary';
-  link.href = affiliateUrl(tea.id);
+  link.href = `/go/${tea.id}`;
   link.textContent = 'Hier kaufen';
   link.setAttribute('target', '_blank');
   link.setAttribute('rel', 'sponsored noopener');
   link.setAttribute('aria-label', `Hier kaufen: ${tea.name}`);
-  link.addEventListener('click', () => {
-    track('kauf_klick', { tee: tea.name });
-  });
 
   const hint = document.createElement('p');
   hint.className = 'affiliate-note';
