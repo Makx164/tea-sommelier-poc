@@ -29,9 +29,6 @@ export const OCCASIONS = [
 ] as const;
 export type Occasion = (typeof OCCASIONS)[number];
 
-export const MOODS = ['fokus', 'verdauung', 'beruhigung', 'schlaf'] as const;
-export type Mood = (typeof MOODS)[number];
-
 export const CAFFEINE_LEVELS = ['kein', 'niedrig', 'mittel', 'hoch'] as const;
 export type Caffeine = (typeof CAFFEINE_LEVELS)[number];
 
@@ -46,10 +43,8 @@ export type Tea = {
   summary: string;
   tastes: Partial<Record<Taste, number>>;
   times: Partial<Record<TimeOfDay, number>>;
-  /** Passung zu einem Anlass, 1–3. Traditioneller Trinkmoment, keine Gesundheitsaussage. */
+  /** Passung zu einem Anlass, 1–3. Traditioneller Trinkmoment. */
   occasions: Partial<Record<Occasion, number>>;
-  /** Passung zu einer Richtung, 1–3. Geschmacksorientierung, keine Gesundheitsaussage. */
-  moods: Partial<Record<Mood, number>>;
   caffeine: Caffeine;
   /** Abweichende Orientierung, z. B. bei Matcha. */
   caffeineDetail?: string;
@@ -60,13 +55,10 @@ export type Tea = {
 };
 
 export type Preferences = {
-  /** Mindestens ein Anlass. Mehrere sind erlaubt. */
+  /** Mindestens ein Anlass. Mehrere sind erlaubt. Nur dieser Schritt ist Pflicht. */
   occasions: Occasion[];
+  /** Leer ist erlaubt. */
   tastes: Taste[];
-  /** Mindestens eine Tageszeit. Mehrere sind erlaubt. */
-  times: TimeOfDay[];
-  /** `null`, wenn „Wofür suchst du Tee?“ leer bleibt. */
-  mood: Mood | null;
   caffeine: CaffeineChoice;
 };
 
@@ -76,8 +68,35 @@ export type Recommendation = {
   reason: string;
   matchedTastes: Taste[];
   matchedOccasions: Occasion[];
-  matchedMood: boolean;
+  matchedTimes: TimeOfDay[];
 };
+
+/**
+ * Tageszeit kommt aus dem Anlass, nicht aus einem eigenen Schritt.
+ * Abends runterkommen ist Abend, Guter Start und Wach werden sind Morgen.
+ */
+export const OCCASION_TIME: Record<Occasion, TimeOfDay> = {
+  abends: 'abend',
+  wach: 'morgen',
+  entspannen: 'nachmittag',
+  nach_essen: 'mittag',
+  erfrischen: 'nachmittag',
+  waermen: 'nachmittag',
+  suesses: 'nachmittag',
+  sport: 'nachmittag',
+  arbeit: 'morgen',
+  start: 'morgen',
+  schmuddel: 'nachmittag',
+};
+
+export function timesForOccasions(occasions: readonly Occasion[]): TimeOfDay[] {
+  const wanted = new Set<TimeOfDay>();
+  for (const occasion of occasions) {
+    const time = OCCASION_TIME[occasion];
+    if (time) wanted.add(time);
+  }
+  return TIMES.filter((time) => wanted.has(time));
+}
 
 export const TASTE_LABEL: Record<Taste, string> = {
   kraeutig: 'kräutig',
@@ -124,15 +143,6 @@ export const OCCASION_EMOJI: Record<Occasion, string> = {
   start: '☀️',
   schmuddel: '🤧',
 };
-
-export const MOOD_LABEL: Record<Mood, string> = {
-  fokus: 'Fokus',
-  verdauung: 'Verdauung',
-  beruhigung: 'Beruhigung',
-  schlaf: 'Schlaf',
-};
-
-export const DIRECTION_PHRASE = 'häufig mit dieser Richtung verbunden';
 
 /** Koffein in den Faktkacheln: keins, wenig, mittel, viel. */
 export const CAFFEINE_TILE_LABEL: Record<Caffeine, string> = {
