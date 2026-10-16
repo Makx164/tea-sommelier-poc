@@ -1,14 +1,16 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import affiliateLinks from './affiliate.json';
-import { withAmazonPartnerTag } from './affiliate-url';
+import { isSensibleTeaSearch, withAmazonPartnerTag } from './affiliate-url';
 import { renderGoPage } from './go-page';
 import { teas } from './recommender';
 
 const links = affiliateLinks as Record<string, string>;
 
 describe('Affiliate-Konfiguration', () => {
-  it('hat für jeden Tee eine https-Kauf-URL mit Amazon-Partner-ID', () => {
+  it('hat für jeden der 29 /go/-Slugs eine Amazon-Suche mit Partner-ID und passendem Begriff', () => {
+    expect(teas).toHaveLength(29);
+    expect(Object.keys(links)).toHaveLength(29);
     expect(Object.keys(links).sort()).toEqual(teas.map((tea) => tea.id).sort());
 
     for (const tea of teas) {
@@ -24,6 +26,10 @@ describe('Affiliate-Konfiguration', () => {
       expect(withAmazonPartnerTag(url!), tea.id).toBe(url);
       expect(parsed.searchParams.get('ascsubtag'), tea.id).toBeNull();
       expect(parsed.search, tea.id).not.toMatch(/[?&](affiliate|partner|utm_[^=]+)=/i);
+      const term = parsed.searchParams.get('k');
+      expect(term, tea.id).toEqual(expect.any(String));
+      expect(isSensibleTeaSearch(term ?? '', tea.name), `${tea.id} ${term}`).toBe(true);
+      expect(parsed.pathname, tea.id).toBe('/s');
     }
   });
 

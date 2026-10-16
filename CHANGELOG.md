@@ -1,5 +1,16 @@
 # Änderungsprotokoll
 
+## 2026-10-16 – Moment, Treffer, Koffein
+
+- Die Tageszeit ist kein Schritt mehr. Sie folgt aus dem Anlass: Abends runterkommen wird Abend, Guter Start und Wach werden werden Morgen. Pflicht ist nur noch „Worauf hast du Lust?“ mit der Zeile „Dein Moment“. Geschmack bleibt optional, Koffein steht auf Egal
+- „Wofür suchst du Tee?“ (Fokus, Verdauung, Beruhigung, Schlaf) entfällt
+- Widerspruch: Wach werden oder Konzentriert arbeiten mit koffeinfrei zeigt „Ohne Koffein eher belebend-frisch statt wach machend“. Abends runterkommen mit Koffein ja zeigt einen Hinweis und sortiert Tees mit wenig Koffein nach vorn
+- „Egal“ verschiebt die Punktzahl nicht mehr nach dem Koffeingehalt
+- Auf der Karte steht ein Satz. „passt zu“ nennt höchstens zwei Treffer, die im Datensatz stehen. Sonst heißt es „nächste Entsprechung“
+- Ein oder zwei Karten stehen mittig
+- Datensatz: Rooibos bleibt ohne kräutig. Apfel-Zimt ist Nachmittag, nicht Abend und nicht Abends runterkommen. Schwache Abend-Markierungen an Nachmittags-Tees (Lapsang, Jasmin, Genmaicha, Bai Mu Dan, Bai Hao Yinzhen, Da Hong Pao) sind weg, ebenso Jasmin bei Abends. Earl Grey ist nicht würzig, reifer Pu-Erh nicht rauchig
+- `npm run check:go` prüft alle 29 Weiterleitungen `/go/<Tee>` auf eine Amazon-Suche mit `tag=teelotse-21` und einem Suchbegriff, der den Tee nennt
+
 ## 2026-10-16 – Auswahl, Ergebnis, beliebte Tees
 
 - Schritt 1 ist Wirkung / Anlass und Pflicht: elf Kacheln mit Emoji, Mehrfachauswahl und kurze Tipp-Animation. Formulierung: wird traditionell getrunken zum gewählten Anlass

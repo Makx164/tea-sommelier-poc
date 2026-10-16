@@ -451,6 +451,15 @@ a.btn-primary { color: var(--creme); }
 .results-head { max-width: 40rem; margin-bottom: 1.75rem; }
 .results-head p { color: var(--tinte); font-size: 1.12rem; }
 
+.result-hint {
+  margin: 0.9rem 0 0;
+  padding: 0.75rem 0.9rem;
+  border-radius: 16px;
+  background: var(--sage);
+  color: var(--tinte);
+  font-size: 0.98rem;
+}
+
 .results-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -1007,6 +1016,22 @@ address.contact {
 
   .page {
     padding-bottom: 4.25rem;
+  }
+}
+
+.results-list[data-count="1"],
+.results-list[data-count="2"] {
+  justify-content: center;
+}
+
+.results-list[data-count="1"] {
+  grid-template-columns: minmax(0, 36rem);
+}
+
+@media (min-width: 560px) {
+  .results-list[data-count="2"] {
+    grid-template-columns: repeat(2, minmax(0, 28rem));
+    justify-content: center;
   }
 }
 

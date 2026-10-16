@@ -15,6 +15,26 @@ function queryParamName(part: string): string {
   }
 }
 
+function foldedWords(value: string): string[] {
+  return value
+    .toLocaleLowerCase('de-DE')
+    .replaceAll('ä', 'ae')
+    .replaceAll('ö', 'oe')
+    .replaceAll('ü', 'ue')
+    .replaceAll('ß', 'ss')
+    .replace(/tee/g, ' ')
+    .split(/[^a-z0-9]+/)
+    .filter((word) => word.length >= 3);
+}
+
+/** Suchbegriff nennt den Tee, nicht nur „Tee“ und nicht ein fremdes Produkt. */
+export function isSensibleTeaSearch(term: string, teaName: string): boolean {
+  const termWords = foldedWords(term);
+  const nameWords = foldedWords(teaName);
+  if (termWords.length === 0 || nameWords.length === 0) return false;
+  return nameWords.some((word) => termWords.includes(word));
+}
+
 /** Hängt die PartnerNet-ID an amazon.de-URLs an und ersetzt ein vorhandenes tag. */
 export function withAmazonPartnerTag(rawUrl: string): string {
   const url = new URL(rawUrl);

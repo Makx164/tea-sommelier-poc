@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Teelotse – Tee nach Anlass, Geschmack und Tageszeit</title>
-  <meta name="description" content="Wähle Anlass, Geschmack, Koffein und eine oder mehrere Tageszeiten. Wofür bleibt optional. Teelotse schlägt ein bis drei Tees vor. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.">
+  <title>Teelotse – Tee für deinen Moment</title>
+  <meta name="description" content="Wähle, worauf du Lust hast. Geschmack und Koffein kannst du dazunehmen. Teelotse schlägt ein bis drei Tees vor.">
   <meta name="theme-color" content="#F6F1E7">
   <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
@@ -29,9 +29,9 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="wrap hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">Anlass, Geschmack, Tageszeit</p>
+            <p class="eyebrow">Dein Moment</p>
             <h1 id="hero-title">Finde den Tee für diesen Moment.</h1>
-            <p class="lead">Zuerst der Anlass, dann Geschmack, Koffein und Tageszeit. Wofür du ihn suchst, kannst du leer lassen. Du bekommst ein bis drei Tees, mit Zubereitung und Koffein als Fakt.</p>
+            <p class="lead">Wähle, worauf du Lust hast. Geschmack und Koffein kannst du dazunehmen. Die Tageszeit folgt aus dem Moment. Du bekommst ein bis drei Tees, mit Zubereitung und Koffein als Fakt.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" id="finde-tee" href="#finder">Finde deinen Tee</a>
             </div>
@@ -58,9 +58,9 @@
             </svg>
           </div>
           <ol class="steps">
-            <li><strong>Anlass</strong><span>Zum Beispiel Abend, Start oder Wärmen. Auch mehrere.</span></li>
-            <li><strong>Geschmack</strong><span>Kräutig, blumig, fruchtig, würzig und weitere.</span></li>
-            <li><strong>Tasse</strong><span>Koffein, Tageszeit, Temperatur und Ziehzeit.</span></li>
+            <li><strong>Moment</strong><span>Abend, Start, Wärmen, auch mehrere.</span></li>
+            <li><strong>Geschmack</strong><span>Optional, zum Beispiel malzig.</span></li>
+            <li><strong>Koffein</strong><span>Ja, Nein oder Egal.</span></li>
           </ol>
         </div>
       </section>
@@ -69,15 +69,15 @@
         <section class="selector" aria-labelledby="selector-title">
           <div class="selector-intro">
             <h2 id="selector-title">Deine Auswahl</h2>
-            <p>Zuerst Wirkung / Anlass, dann Geschmack, Koffein und eine oder mehrere Tageszeiten. Wofür bleibt freiwillig.</p>
+            <p>Nur der Moment ist Pflicht. Geschmack kannst du leer lassen. Koffein steht auf Egal, bis du es änderst.</p>
           </div>
           <noscript>
             <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Auswahl verlässt dabei den Browser nicht.</p>
           </noscript>
           <form class="panel" id="finder" novalidate onsubmit="event.preventDefault()">
             <fieldset id="anlass" tabindex="-1" aria-required="true">
-              <legend><span class="step-kicker">Schritt 1</span> Wirkung / Anlass</legend>
-              <p class="hint" id="anlass-hinweis">Pflicht, mehrere möglich. Wird traditionell getrunken zum gewählten Anlass. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
+              <legend><span class="step-kicker">Schritt 1</span> Worauf hast du Lust?</legend>
+              <p class="hint" id="anlass-hinweis">Dein Moment. Mehrere möglich.</p>
               <div class="tile-grid" role="group" aria-describedby="anlass-hinweis">
                 <label class="tile">
                   <input type="checkbox" data-group="occasion" value="abends">
@@ -137,9 +137,9 @@
               </div>
             </fieldset>
 
-            <fieldset id="geschmack" tabindex="-1" aria-required="true">
+            <fieldset id="geschmack" tabindex="-1">
               <legend><span class="step-kicker">Schritt 2</span> Geschmack</legend>
-              <p class="hint" id="geschmack-hinweis">Pflicht. Eine oder mehrere Geschmäcker.</p>
+              <p class="hint" id="geschmack-hinweis">Optional. Eine oder mehrere Geschmäcker.</p>
               <div class="choice-grid" role="group" aria-describedby="geschmack-hinweis">
                 <label class="choice">
                   <input type="checkbox" data-group="taste" value="kraeutig">
@@ -195,52 +195,6 @@
               </div>
             </fieldset>
 
-            <fieldset id="tageszeit" tabindex="-1" aria-required="true">
-              <legend><span class="step-kicker">Schritt 4</span> Tageszeit</legend>
-              <p class="hint" id="zeit-hinweis">Eine oder mehrere Tageszeiten.</p>
-              <div class="choice-grid time-grid" role="group" aria-describedby="zeit-hinweis">
-                <label class="choice">
-                  <input type="checkbox" data-group="time" value="morgen">
-                  <span class="choice-text"><span class="choice-title">Morgen</span><span class="choice-desc">Zum Start in den Tag</span></span>
-                </label>
-                <label class="choice">
-                  <input type="checkbox" data-group="time" value="mittag">
-                  <span class="choice-text"><span class="choice-title">Mittag</span><span class="choice-desc">Zur Mitte des Tages</span></span>
-                </label>
-                <label class="choice">
-                  <input type="checkbox" data-group="time" value="nachmittag">
-                  <span class="choice-text"><span class="choice-title">Nachmittag</span><span class="choice-desc">Später am Tag</span></span>
-                </label>
-                <label class="choice">
-                  <input type="checkbox" data-group="time" value="abend">
-                  <span class="choice-text"><span class="choice-title">Abend</span><span class="choice-desc">Zum Tagesausklang</span></span>
-                </label>
-              </div>
-            </fieldset>
-
-            <fieldset id="richtung" tabindex="-1">
-              <legend><span class="step-kicker">Optional</span> Wofür suchst du Tee?</legend>
-              <p class="hint" id="richtung-hinweis">Optional. Nochmal wählen hebt die Auswahl auf. Tees, die häufig mit dieser Richtung verbunden werden. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
-              <div class="choice-grid" role="group" aria-describedby="richtung-hinweis">
-                <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="fokus">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🎯</span> Fokus</span></span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="verdauung">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🌿</span> Verdauung</span></span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="beruhigung">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">😌</span> Beruhigung</span></span>
-                </label>
-                <label class="choice">
-                  <input type="radio" name="mood" data-group="mood" value="schlaf">
-                  <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🌙</span> Schlaf</span></span>
-                </label>
-              </div>
-            </fieldset>
-
             <p id="form-error" class="form-error" role="alert" hidden></p>
             <div class="form-actions">
               <button type="submit" class="btn btn-primary">Tee vorschlagen</button>
@@ -269,9 +223,10 @@
           <p class="eyebrow">Deine Auswahl</p>
           <h2 id="ergebnis-titel" tabindex="-1">Deine Tee-Empfehlung</h2>
           <p id="ergebnis-lead"></p>
+          <p id="ergebnis-hinweis" class="result-hint" hidden></p>
         </div>
         <div id="ergebnis-liste" class="results-list"></div>
-        <p class="fine-print">Koffein steht als keins, wenig, mittel oder viel. Das sind typische Orientierungswerte je Tasse (etwa 200 ml), keine Laborwerte und keine Empfehlung für oder gegen Koffein. Der Anlass nennt, wozu ein Tee traditionell getrunken wird. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
+        <p class="fine-print">Koffein steht als keins, wenig, mittel oder viel. Das sind typische Orientierungswerte je Tasse (etwa 200 ml), keine Laborwerte.</p>
         <div class="results-actions">
           <button type="button" class="btn btn-back" data-action="zurueck">Zurück</button>
           <button type="button" class="btn btn-ghost" data-action="neu">Neue Auswahl</button>
