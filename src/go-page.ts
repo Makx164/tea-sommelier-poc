@@ -1,3 +1,5 @@
+import { withAmazonPartnerTag } from './affiliate-url';
+
 export type GoPage = {
   slug: string;
   shopUrl: string;
@@ -17,7 +19,7 @@ function escapeHtml(value: string): string {
 
 export function renderGoPage({ slug, shopUrl, scriptSrc }: GoPage): string {
   if (!SLUG.test(slug)) throw new Error(`Ungültiger Tee-Slug: ${slug}`);
-  const shop = new URL(shopUrl);
+  const shop = new URL(withAmazonPartnerTag(shopUrl));
   if (shop.protocol !== 'https:') throw new Error(`Kauf-Link ist nicht https: ${slug}`);
   if (!scriptSrc.startsWith('/') || scriptSrc.includes('//')) {
     throw new Error(`Skriptpfad fehlt für ${slug}.`);

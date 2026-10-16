@@ -1,13 +1,14 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import affiliateLinks from './affiliate.json';
+import { withAmazonPartnerTag } from './affiliate-url';
 import { renderGoPage } from './go-page';
 import { teas } from './recommender';
 
 const links = affiliateLinks as Record<string, string>;
 
 describe('Affiliate-Konfiguration', () => {
-  it('hat für jeden Tee eine https-Kauf-URL ohne Partner-ID', () => {
+  it('hat für jeden Tee eine https-Kauf-URL mit Amazon-Partner-ID', () => {
     expect(Object.keys(links).sort()).toEqual(teas.map((tea) => tea.id).sort());
 
     for (const tea of teas) {
@@ -17,11 +18,34 @@ describe('Affiliate-Konfiguration', () => {
 
       const parsed = new URL(url!);
       expect(parsed.protocol, tea.id).toBe('https:');
-      expect(parsed.hostname.length, tea.id).toBeGreaterThan(0);
-      expect(parsed.searchParams.get('tag'), tea.id).toBeNull();
+      expect(parsed.hostname, tea.id).toMatch(/(^|\.)amazon\.de$/);
+      expect(parsed.searchParams.get('tag'), tea.id).toBe('teelotse-21');
+      expect(parsed.searchParams.getAll('tag'), tea.id).toEqual(['teelotse-21']);
+      expect(withAmazonPartnerTag(url!), tea.id).toBe(url);
       expect(parsed.searchParams.get('ascsubtag'), tea.id).toBeNull();
       expect(parsed.search, tea.id).not.toMatch(/[?&](affiliate|partner|utm_[^=]+)=/i);
     }
+  });
+
+  it('setzt tag=teelotse-21 mit und ohne Query und ersetzt ein vorhandenes tag', () => {
+    const cases = [
+      ['https://www.amazon.de/s?k=Assam%20Tee', 'https://www.amazon.de/s?k=Assam%20Tee&tag=teelotse-21'],
+      ['https://www.amazon.de/dp/B00TEST', 'https://www.amazon.de/dp/B00TEST?tag=teelotse-21'],
+      ['https://amazon.de/s?k=Tee', 'https://amazon.de/s?k=Tee&tag=teelotse-21'],
+      ['https://www.amazon.de/s?k=Tee&tag=andere-21', 'https://www.amazon.de/s?k=Tee&tag=teelotse-21'],
+      ['https://www.amazon.de/s?tag=alte-21&k=Sencha%20Tee', 'https://www.amazon.de/s?k=Sencha%20Tee&tag=teelotse-21'],
+      ['https://www.amazon.de/s?tag=a&k=Tee&tag=b', 'https://www.amazon.de/s?k=Tee&tag=teelotse-21'],
+    ] as const;
+
+    for (const [input, expected] of cases) {
+      expect(withAmazonPartnerTag(input)).toBe(expected);
+      const html = renderGoPage({ slug: 'sencha', shopUrl: input, scriptSrc: '/assets/go-redirect.js' });
+      const href = expected.replaceAll('&', '&amp;');
+      expect(html).toContain(`href="${href}"`);
+      expect(html).toContain(`content="0;url=${href}"`);
+    }
+
+    expect(withAmazonPartnerTag('https://example.com/tee?k=1')).toBe('https://example.com/tee?k=1');
   });
 
   it('zeigt den Kauf-Button mit Hinweis und interner Weiterleitung', () => {

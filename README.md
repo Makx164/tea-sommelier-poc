@@ -2,7 +2,7 @@
 
 Geschmacksempfehlung für Tee, direkt im Browser. Du wählst eine oder mehrere Geschmacksrichtungen (fruchtig, blumig, herb, kräftig), eine oder mehrere Tageszeiten (Morgen, Mittag, Nachmittag, Abend), optional wofür du Tee suchst (Fokus, Verdauung, Beruhigung, Schlaf) und Koffein (Ja, Nein, Egal). Teelotse schlägt ein bis drei Tees vor – mit kurzer Begründung, Zubereitung (Temperatur, Ziehzeit, Menge) und Koffeingehalt als Fakt. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.
 
-Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend und keine eigenen Produkte. Jede Empfehlung hat einen Link „Hier kaufen“ auf `/go/<Tee>`. Diese Seiten entstehen beim Bau aus `src/affiliate.json` und leiten auf eine Amazon-Suche ohne Partner-ID weiter. Vercel Web Analytics zählt den Aufruf als Seitenaufruf, ohne Cookies und ohne eigenes Ereignis.
+Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend und keine eigenen Produkte. Jede Empfehlung hat einen Link „Hier kaufen“ auf `/go/<Tee>`. Diese Seiten entstehen beim Bau aus `src/affiliate.json` und leiten auf eine Amazon-Suche mit der PartnerNet-ID `tag=teelotse-21` weiter. Vercel Web Analytics zählt den Aufruf als Seitenaufruf, ohne Cookies und ohne eigenes Ereignis.
 
 Farben: Teeblatt `#2F5D50`, Matcha `#9DBF8A`, Rooibos `#C8743A`, Creme `#F6F1E7`, Tinte `#1F2A2E`. Die Schriften Fraunces und Inter liegen im Bau (`@fontsource-variable/fraunces`, `@fontsource-variable/inter`, SIL Open Font License). Es wird kein externer Schrift-Server geladen. Die Wortmarke steht in Kopf- und Fußzeile, das Icon ist das Favicon.
 
