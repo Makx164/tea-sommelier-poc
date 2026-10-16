@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teelotse – Tee nach Geschmack, Richtung und Tageszeit</title>
-  <meta name="description" content="Wähle Geschmack, Tageszeit, eine Richtung und Koffein. Teelotse schlägt ein bis drei Tees vor. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.">
+  <meta name="description" content="Wähle Geschmack, eine oder mehrere Tageszeiten und Koffein. Die Richtung ist optional. Teelotse schlägt ein bis drei Tees vor. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.">
   <meta name="theme-color" content="#F6F1E7">
   <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
@@ -31,7 +31,7 @@
           <div class="hero-copy">
             <p class="eyebrow">Geschmack, Richtung, Tageszeit</p>
             <h1 id="hero-title">Finde den Tee für diesen Moment.</h1>
-            <p class="lead">Sag, wie er schmecken soll, wofür du ihn suchst und wann du ihn trinkst. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
+            <p class="lead">Sag, wie er schmecken soll und wann du ihn trinkst. Wofür du ihn suchst, kannst du leer lassen. Du bekommst ein bis drei Tees, mit Temperatur, Ziehzeit und Koffein.</p>
             <div class="hero-actions">
               <a class="btn btn-primary" id="finde-tee" href="#finder">Finde deinen Tee</a>
             </div>
@@ -59,7 +59,7 @@
           </div>
           <ol class="steps">
             <li><strong>Geschmack</strong><span>Fruchtig, blumig, herb oder kräftig. Auch mehrere.</span></li>
-            <li><strong>Tageszeit</strong><span>Morgen, Mittag, Nachmittag oder Abend.</span></li>
+            <li><strong>Tageszeit</strong><span>Morgen, Mittag, Nachmittag oder Abend. Auch mehrere.</span></li>
             <li><strong>Zubereitung</strong><span>Temperatur, Ziehzeit, Menge und Koffein. Feste Regeln, nur in deinem Browser.</span></li>
           </ol>
         </div>
@@ -69,7 +69,7 @@
         <div class="wrap">
           <div class="selector-intro">
             <h2 id="selector-title">Deine Auswahl</h2>
-            <p>Geschmack, Tageszeit, wofür du Tee suchst und ob er Koffein haben soll.</p>
+            <p>Geschmack, eine oder mehrere Tageszeiten, optional wofür du Tee suchst, und ob er Koffein haben soll.</p>
           </div>
           <noscript>
             <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Auswahl verlässt dabei den Browser nicht.</p>
@@ -100,22 +100,22 @@
 
             <fieldset id="tageszeit" tabindex="-1">
               <legend>Zu welcher Tageszeit?</legend>
-              <p class="hint" id="zeit-hinweis">Eine Tageszeit.</p>
-              <div class="choice-grid time-grid">
+              <p class="hint" id="zeit-hinweis">Eine oder mehrere Tageszeiten.</p>
+              <div class="choice-grid time-grid" role="group" aria-describedby="zeit-hinweis">
                 <label class="choice">
-                  <input type="radio" name="time" data-group="time" value="morgen">
+                  <input type="checkbox" data-group="time" value="morgen">
                   <span class="choice-text"><span class="choice-title">Morgen</span><span class="choice-desc">Zum Start in den Tag</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="time" data-group="time" value="mittag">
+                  <input type="checkbox" data-group="time" value="mittag">
                   <span class="choice-text"><span class="choice-title">Mittag</span><span class="choice-desc">Zur Mitte des Tages</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="time" data-group="time" value="nachmittag">
+                  <input type="checkbox" data-group="time" value="nachmittag">
                   <span class="choice-text"><span class="choice-title">Nachmittag</span><span class="choice-desc">Später am Tag</span></span>
                 </label>
                 <label class="choice">
-                  <input type="radio" name="time" data-group="time" value="abend">
+                  <input type="checkbox" data-group="time" value="abend">
                   <span class="choice-text"><span class="choice-title">Abend</span><span class="choice-desc">Zum Tagesausklang</span></span>
                 </label>
               </div>
@@ -123,8 +123,8 @@
 
             <fieldset id="richtung" tabindex="-1">
               <legend>Wofür suchst du Tee?</legend>
-              <p class="hint" id="richtung-hinweis">Tees, die häufig mit dieser Richtung verbunden werden. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
-              <div class="choice-grid">
+              <p class="hint" id="richtung-hinweis">Optional. Nochmal wählen hebt die Auswahl auf. Tees, die häufig mit dieser Richtung verbunden werden. Das ist eine Geschmacksorientierung, keine Gesundheitsaussage.</p>
+              <div class="choice-grid" role="group" aria-describedby="richtung-hinweis">
                 <label class="choice">
                   <input type="radio" name="mood" data-group="mood" value="fokus">
                   <span class="choice-text"><span class="choice-title"><span class="choice-emoji" aria-hidden="true">🎯</span> Fokus</span></span>

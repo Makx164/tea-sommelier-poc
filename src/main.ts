@@ -17,9 +17,7 @@ import {
   type Mood,
   type Preferences,
   type Recommendation,
-  type Taste,
   type Tea,
-  type TimeOfDay,
 } from './types';
 
 const AFFILIATE_NOTE =
@@ -67,6 +65,8 @@ finder.addEventListener('submit', (event) => {
   showResults(recommend(prefs), prefs);
 });
 
+bindMoodToggle();
+
 zurueck.addEventListener('click', () => {
   ergebnis.hidden = true;
   auswahl.hidden = false;
@@ -78,50 +78,74 @@ function checkedValue(group: string): string | undefined {
   return finder.querySelector<HTMLInputElement>(`input[data-group="${group}"]:checked`)?.value;
 }
 
-function readPreferences(): Preferences | null {
-  const tastes = [
-    ...finder.querySelectorAll<HTMLInputElement>('input[data-group="taste"]:checked'),
-  ]
+function checkedValues<T extends string>(group: string, allowed: readonly T[]): T[] {
+  return [...finder.querySelectorAll<HTMLInputElement>(`input[data-group="${group}"]:checked`)]
     .map((input) => input.value)
-    .filter((value): value is Taste => (TASTES as readonly string[]).includes(value));
-  const timeValue = checkedValue('time');
+    .filter((value): value is T => (allowed as readonly string[]).includes(value));
+}
+
+/** Richtung bleibt eine Einfachauswahl, lässt sich aber wieder leeren. */
+function bindMoodToggle(): void {
+  const inputs = [...moodField.querySelectorAll<HTMLInputElement>('input[data-group="mood"]')];
+  let armed: HTMLInputElement | null = null;
+  for (const input of inputs) {
+    input.addEventListener('click', () => {
+      if (armed === input) {
+        input.checked = false;
+        armed = null;
+        return;
+      }
+      armed = input.checked ? input : null;
+    });
+    input.addEventListener('keydown', (event) => {
+      if (event.key !== ' ' || !input.checked) return;
+      event.preventDefault();
+      input.checked = false;
+      if (armed === input) armed = null;
+    });
+  }
+}
+
+function readPreferences(): Preferences | null {
+  const tastes = checkedValues('taste', TASTES);
+  const times = checkedValues('time', TIMES);
   const moodValue = checkedValue('mood');
   const caffeineValue = checkedValue('caffeine');
-  const time = (TIMES as readonly string[]).includes(timeValue ?? '') ? (timeValue as TimeOfDay) : null;
   const mood = (MOODS as readonly string[]).includes(moodValue ?? '') ? (moodValue as Mood) : null;
   const caffeine = (CAFFEINE_CHOICES as readonly string[]).includes(caffeineValue ?? '')
     ? (caffeineValue as CaffeineChoice)
     : null;
 
   tasteField.setAttribute('aria-invalid', tastes.length ? 'false' : 'true');
-  timeField.setAttribute('aria-invalid', time ? 'false' : 'true');
-  moodField.setAttribute('aria-invalid', mood ? 'false' : 'true');
+  timeField.setAttribute('aria-invalid', times.length ? 'false' : 'true');
+  moodField.setAttribute('aria-invalid', 'false');
   caffeineField.setAttribute('aria-invalid', caffeine ? 'false' : 'true');
 
   const missing: string[] = [];
   if (!tastes.length) missing.push('mindestens einen Geschmack');
-  if (!time) missing.push('eine Tageszeit');
-  if (!mood) missing.push('eine Richtung');
+  if (!times.length) missing.push('mindestens eine Tageszeit');
   if (!caffeine) missing.push('eine Koffein-Auswahl');
 
-  if (missing.length || !time || !mood || !caffeine) {
+  if (missing.length || !caffeine) {
     formError.textContent = `Bitte wähle ${joinDe(missing)}.`;
     formError.hidden = false;
-    const focusTarget = !tastes.length ? tasteField : !time ? timeField : !mood ? moodField : caffeineField;
+    const focusTarget = !tastes.length ? tasteField : !times.length ? timeField : caffeineField;
     focusTarget.focus();
     return null;
   }
 
   formError.hidden = true;
-  return { tastes, time, mood, caffeine };
+  return { tastes, times, mood, caffeine };
 }
 
 function showResults(items: Recommendation[], prefs: Preferences): void {
   const tasteText = joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])));
+  const timeText = joinDe(prefs.times.map((time) => TIME_LABEL[time]));
+  const moodText = prefs.mood ? `, Richtung ${MOOD_LABEL[prefs.mood]}` : '';
   const count = items.length
     ? (COUNT_TEXT[items.length] ?? '')
     : 'Dazu liegt kein Tee im Satz.';
-  ergebnisLead.textContent = `Für ${tasteText} am ${TIME_LABEL[prefs.time]}, Richtung ${MOOD_LABEL[prefs.mood]}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
+  ergebnisLead.textContent = `Für ${tasteText} am ${timeText}${moodText}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
   ergebnisListe.replaceChildren(...items.map((item, index) => renderCard(item, index)));
   auswahl.hidden = true;
   ergebnis.hidden = false;
