@@ -6,13 +6,19 @@
     "origin": "Nordostindien",
     "summary": "Malziger, voller Schwarztee mit kräftigem Aufguss.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 3
+      "malzig": 3
     },
     "times": {
       "morgen": 3,
       "mittag": 2,
       "nachmittag": 1
+    },
+    "occasions": {
+      "wach": 3,
+      "start": 2,
+      "waermen": 2,
+      "schmuddel": 2,
+      "arbeit": 2
     },
     "moods": {
       "fokus": 2
@@ -29,13 +35,18 @@
     "origin": "Blend, oft Assam und Ceylon",
     "summary": "Klassisch malziger Frühstücks-Schwarztee, voll und ohne blumige Note.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 3
+      "malzig": 3
     },
     "times": {
       "morgen": 3,
       "mittag": 2,
       "nachmittag": 1
+    },
+    "occasions": {
+      "start": 3,
+      "wach": 2,
+      "arbeit": 2,
+      "schmuddel": 1
     },
     "moods": {
       "fokus": 2
@@ -52,15 +63,19 @@
     "origin": "Blend mit Bergamotte",
     "summary": "Schwarzer Tee mit deutlich zitronig-herber Bergamotte.",
     "tastes": {
-      "fruchtig": 2,
-      "blumig": 1,
-      "herb": 2,
-      "kraeftig": 2
+      "fruchtig": 3,
+      "wuerzig": 1
     },
     "times": {
       "morgen": 2,
       "mittag": 3,
       "nachmittag": 2
+    },
+    "occasions": {
+      "start": 2,
+      "wach": 2,
+      "erfrischen": 2,
+      "arbeit": 2
     },
     "moods": {
       "fokus": 2
@@ -77,14 +92,19 @@
     "origin": "Darjeeling, Indien",
     "summary": "Heller Schwarztee mit blumiger Art und feiner Muskateller-Note.",
     "tastes": {
+      "blumig": 3,
       "fruchtig": 2,
-      "blumig": 2,
-      "herb": 1
+      "mild": 2
     },
     "times": {
       "morgen": 2,
       "mittag": 2,
       "nachmittag": 3
+    },
+    "occasions": {
+      "arbeit": 3,
+      "start": 2,
+      "wach": 1
     },
     "moods": {
       "fokus": 3
@@ -103,13 +123,17 @@
     "summary": "Klarer, zitronig-frischer Schwarztee mit kräftigem Körper.",
     "tastes": {
       "fruchtig": 2,
-      "herb": 1,
-      "kraeftig": 2
+      "malzig": 2
     },
     "times": {
       "morgen": 3,
       "mittag": 2,
       "nachmittag": 1
+    },
+    "occasions": {
+      "start": 3,
+      "wach": 2,
+      "erfrischen": 1
     },
     "moods": {
       "fokus": 3
@@ -126,13 +150,17 @@
     "origin": "Fujian, China",
     "summary": "Über Kiefernholz geräucherter Schwarztee, rauchig und erdig.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 3
+      "rauchig": 3,
+      "malzig": 1
     },
     "times": {
       "mittag": 1,
       "nachmittag": 2,
       "abend": 1
+    },
+    "occasions": {
+      "schmuddel": 3,
+      "waermen": 2
     },
     "moods": {
       "beruhigung": 1
@@ -149,13 +177,19 @@
     "origin": "Indien, Gewürzmischung",
     "summary": "Schwarzer Tee mit Zimt, Kardamom, Ingwer und Nelke, würzig und kräftig.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 3
+      "wuerzig": 3,
+      "malzig": 2
     },
     "times": {
       "morgen": 3,
       "mittag": 2,
       "nachmittag": 2
+    },
+    "occasions": {
+      "waermen": 3,
+      "schmuddel": 3,
+      "nach_essen": 2,
+      "suesses": 1
     },
     "moods": {
       "verdauung": 3,
@@ -174,13 +208,17 @@
     "origin": "Japan",
     "summary": "Grasig-herber Grüntee mit einer leicht meerigen Note.",
     "tastes": {
-      "herb": 3,
-      "kraeftig": 1
+      "kraeutig": 2
     },
     "times": {
       "morgen": 2,
       "mittag": 3,
       "nachmittag": 2
+    },
+    "occasions": {
+      "arbeit": 3,
+      "wach": 2,
+      "erfrischen": 2
     },
     "moods": {
       "fokus": 3
@@ -198,13 +236,17 @@
     "origin": "China",
     "summary": "Zu Perlen gerollter Grüntee, herb und etwas kräftiger als feine Grüntees.",
     "tastes": {
-      "herb": 3,
-      "kraeftig": 2
+      "kraeutig": 2,
+      "malzig": 1
     },
     "times": {
       "morgen": 2,
       "mittag": 2,
       "nachmittag": 1
+    },
+    "occasions": {
+      "wach": 2,
+      "arbeit": 2
     },
     "moods": {
       "fokus": 3
@@ -222,13 +264,17 @@
     "summary": "Grüntee mit Jasminblüten, klar blumig und eher mild.",
     "tastes": {
       "blumig": 3,
-      "herb": 1
+      "mild": 2
     },
     "times": {
       "morgen": 1,
       "mittag": 2,
       "nachmittag": 3,
       "abend": 1
+    },
+    "occasions": {
+      "entspannen": 3,
+      "abends": 1
     },
     "moods": {
       "beruhigung": 3
@@ -245,12 +291,20 @@
     "origin": "Japan, geröstet",
     "summary": "Geröstete Blätter und Stängel, nussig-erdig und wenig bitter.",
     "tastes": {
-      "kraeftig": 3
+      "malzig": 2,
+      "mild": 2,
+      "rauchig": 1
     },
     "times": {
       "mittag": 1,
       "nachmittag": 3,
       "abend": 2
+    },
+    "occasions": {
+      "entspannen": 2,
+      "abends": 2,
+      "schmuddel": 2,
+      "suesses": 1
     },
     "moods": {
       "beruhigung": 3,
@@ -269,13 +323,18 @@
     "origin": "Japan",
     "summary": "Grüntee mit geröstetem Reis, mild und getreidig-erdig.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 2
+      "malzig": 2,
+      "mild": 3
     },
     "times": {
       "mittag": 2,
       "nachmittag": 3,
       "abend": 1
+    },
+    "occasions": {
+      "nach_essen": 2,
+      "entspannen": 2,
+      "suesses": 1
     },
     "moods": {
       "beruhigung": 2,
@@ -293,12 +352,16 @@
     "origin": "Japan, Pulver",
     "summary": "Fein vermahlener Grüntee, dicht grasig und umami, kräftiger als ein Aufguss.",
     "tastes": {
-      "herb": 2,
-      "kraeftig": 3
+      "kraeutig": 3
     },
     "times": {
       "morgen": 3,
       "mittag": 2
+    },
+    "occasions": {
+      "wach": 3,
+      "start": 2,
+      "arbeit": 2
     },
     "moods": {
       "fokus": 3
@@ -318,13 +381,17 @@
     "summary": "Weißer Tee aus Knospe und Blatt, blumig-mild mit leichter Herbe.",
     "tastes": {
       "blumig": 2,
-      "herb": 1
+      "mild": 3
     },
     "times": {
       "morgen": 1,
       "mittag": 2,
       "nachmittag": 3,
       "abend": 1
+    },
+    "occasions": {
+      "entspannen": 2,
+      "arbeit": 1
     },
     "moods": {
       "fokus": 2,
@@ -342,13 +409,18 @@
     "origin": "Fujian, China",
     "summary": "Nur ungeöffnete Knospen, sehr mild und zart blumig.",
     "tastes": {
-      "blumig": 3
+      "blumig": 3,
+      "mild": 3
     },
     "times": {
       "morgen": 1,
       "mittag": 1,
       "nachmittag": 3,
       "abend": 1
+    },
+    "occasions": {
+      "entspannen": 3,
+      "abends": 2
     },
     "moods": {
       "beruhigung": 2,
@@ -366,12 +438,17 @@
     "origin": "Anxi, China",
     "summary": "Leicht oxidierter Oolong mit Orchideennote, blumig und rund.",
     "tastes": {
-      "blumig": 3
+      "blumig": 3,
+      "mild": 2
     },
     "times": {
       "morgen": 1,
       "mittag": 2,
       "nachmittag": 3
+    },
+    "occasions": {
+      "entspannen": 2,
+      "arbeit": 2
     },
     "moods": {
       "fokus": 2,
@@ -389,13 +466,17 @@
     "origin": "Wuyi, China",
     "summary": "Dunkler Felsen-Oolong, mineralisch, geröstet und erdig-kräftig.",
     "tastes": {
-      "herb": 1,
-      "kraeftig": 3
+      "rauchig": 2,
+      "malzig": 2
     },
     "times": {
       "mittag": 1,
       "nachmittag": 3,
       "abend": 1
+    },
+    "occasions": {
+      "waermen": 2,
+      "schmuddel": 2
     },
     "moods": {
       "beruhigung": 2
@@ -412,11 +493,16 @@
     "origin": "Taiwan",
     "summary": "Heller Taiwan-Oolong, mild, blumig und cremig im Abgang.",
     "tastes": {
-      "blumig": 3
+      "blumig": 2,
+      "mild": 3
     },
     "times": {
       "mittag": 2,
       "nachmittag": 3
+    },
+    "occasions": {
+      "entspannen": 3,
+      "suesses": 1
     },
     "moods": {
       "beruhigung": 3
@@ -433,12 +519,17 @@
     "origin": "Yunnan, China",
     "summary": "Nachgereifter Tee, deutlich erdig, holzig und kräftig.",
     "tastes": {
-      "kraeftig": 3
+      "malzig": 2,
+      "rauchig": 1
     },
     "times": {
       "morgen": 1,
       "mittag": 2,
       "nachmittag": 3
+    },
+    "occasions": {
+      "nach_essen": 3,
+      "waermen": 2
     },
     "moods": {
       "verdauung": 2
@@ -456,11 +547,17 @@
     "origin": "Kamillenblüten",
     "summary": "Blumiger Kräutertee aus Kamillenblüten, honigartig und mild.",
     "tastes": {
-      "blumig": 3
+      "blumig": 3,
+      "mild": 2
     },
     "times": {
       "nachmittag": 2,
       "abend": 3
+    },
+    "occasions": {
+      "abends": 3,
+      "entspannen": 2,
+      "suesses": 2
     },
     "moods": {
       "schlaf": 3,
@@ -478,14 +575,20 @@
     "origin": "Pfefferminzblätter",
     "summary": "Klar minzig und herb, mit kräftig frischer Art.",
     "tastes": {
-      "herb": 3,
-      "kraeftig": 2
+      "minzig": 3,
+      "kraeutig": 2
     },
     "times": {
       "morgen": 1,
       "mittag": 3,
       "nachmittag": 2,
       "abend": 3
+    },
+    "occasions": {
+      "nach_essen": 3,
+      "erfrischen": 3,
+      "sport": 3,
+      "abends": 1
     },
     "moods": {
       "verdauung": 3,
@@ -503,11 +606,16 @@
     "origin": "Lavendelblüten",
     "summary": "Blumiger Aufguss aus Lavendelblüten, mild und deutlich floral.",
     "tastes": {
-      "blumig": 3
+      "blumig": 3,
+      "mild": 2
     },
     "times": {
       "nachmittag": 2,
       "abend": 3
+    },
+    "occasions": {
+      "abends": 3,
+      "entspannen": 3
     },
     "moods": {
       "beruhigung": 3,
@@ -526,13 +634,18 @@
     "origin": "Zitronenverbene",
     "summary": "Zitronig-fruchtiger Kräutertee, hell und eher herb als süß.",
     "tastes": {
-      "fruchtig": 2,
-      "herb": 2
+      "fruchtig": 3,
+      "kraeutig": 2
     },
     "times": {
       "mittag": 3,
       "nachmittag": 2,
       "abend": 2
+    },
+    "occasions": {
+      "erfrischen": 3,
+      "sport": 2,
+      "nach_essen": 1
     },
     "moods": {
       "verdauung": 2,
@@ -550,11 +663,17 @@
     "origin": "Fenchelsamen",
     "summary": "Milder, süßlicher Tee aus Fenchelsamen, ohne Herbe.",
     "tastes": {
-      "blumig": 2
+      "mild": 3,
+      "wuerzig": 2
     },
     "times": {
       "nachmittag": 1,
       "abend": 3
+    },
+    "occasions": {
+      "abends": 2,
+      "nach_essen": 3,
+      "suesses": 2
     },
     "moods": {
       "verdauung": 3,
@@ -572,12 +691,20 @@
     "origin": "Südafrika",
     "summary": "Rotbusch, von sich aus mild, holzig-süß und leicht erdig.",
     "tastes": {
-      "kraeftig": 2
+      "mild": 3,
+      "malzig": 2
     },
     "times": {
       "mittag": 1,
       "nachmittag": 2,
       "abend": 3
+    },
+    "occasions": {
+      "abends": 3,
+      "entspannen": 2,
+      "suesses": 3,
+      "schmuddel": 2,
+      "sport": 2
     },
     "moods": {
       "beruhigung": 3,
@@ -595,14 +722,18 @@
     "origin": "Hagebuttenschalen",
     "summary": "Fruchtig-säuerlicher Aufguss, recht kräftig in der Frucht.",
     "tastes": {
-      "fruchtig": 3,
-      "kraeftig": 2
+      "fruchtig": 3
     },
     "times": {
       "morgen": 1,
       "mittag": 2,
       "nachmittag": 2,
       "abend": 2
+    },
+    "occasions": {
+      "erfrischen": 2,
+      "sport": 2,
+      "schmuddel": 1
     },
     "moods": {
       "verdauung": 1
@@ -620,14 +751,16 @@
     "origin": "Hibiskusblüten",
     "summary": "Tiefrote, säuerlich-fruchtige Blüten, herb und kräftig.",
     "tastes": {
-      "fruchtig": 3,
-      "herb": 2,
-      "kraeftig": 2
+      "fruchtig": 3
     },
     "times": {
       "mittag": 2,
       "nachmittag": 2,
       "abend": 2
+    },
+    "occasions": {
+      "erfrischen": 3,
+      "sport": 2
     },
     "moods": {
       "verdauung": 1
@@ -644,12 +777,20 @@
     "origin": "Apfel und Zimt",
     "summary": "Fruchtiger Apfel mit süßer Zimtnote, insgesamt mild.",
     "tastes": {
-      "fruchtig": 3
+      "fruchtig": 3,
+      "wuerzig": 2,
+      "mild": 2
     },
     "times": {
       "mittag": 1,
       "nachmittag": 3,
       "abend": 2
+    },
+    "occasions": {
+      "suesses": 3,
+      "waermen": 3,
+      "schmuddel": 3,
+      "abends": 2
     },
     "moods": {
       "beruhigung": 2,
@@ -667,12 +808,18 @@
     "origin": "Südamerika, geröstet",
     "summary": "Gerösteter Mate, herb und leicht erdig, im Trunk kräftig.",
     "tastes": {
-      "herb": 2,
-      "kraeftig": 3
+      "kraeutig": 2,
+      "rauchig": 1,
+      "malzig": 1
     },
     "times": {
       "morgen": 3,
       "mittag": 2
+    },
+    "occasions": {
+      "wach": 3,
+      "start": 2,
+      "arbeit": 1
     },
     "moods": {
       "fokus": 3

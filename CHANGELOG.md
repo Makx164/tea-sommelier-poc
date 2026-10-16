@@ -1,5 +1,14 @@
 # Änderungsprotokoll
 
+## 2026-10-16 – Auswahl, Ergebnis, beliebte Tees
+
+- Schritt 1 ist Wirkung / Anlass und Pflicht: elf Kacheln mit Emoji, Mehrfachauswahl und kurze Tipp-Animation. Formulierung: wird traditionell getrunken zum gewählten Anlass
+- Schritt 2 Geschmack: kräutig, blumig, fruchtig, würzig, malzig, mild, rauchig, minzig
+- Danach Koffein, dann Tageszeit (weiter Mehrfachauswahl, mindestens eine). „Wofür suchst du Tee?“ bleibt optional
+- Ergebnis: ein bis zwei Sätze, warum der Tee zur Auswahl passt, darunter Faktkacheln (Teeart, Koffein als keins/wenig/mittel/viel, Geschmack, Ziehzeit, Wassertemperatur, beste Tageszeit, Herkunft). „Zurück“ behält die Auswahl, „Neue Auswahl“ setzt sie zurück
+- „Hier kaufen“ bleibt `/go/<Tee>` mit `tag=teelotse-21` und öffnet einen neuen Tab (`rel="sponsored noopener"`)
+- Abschnitt „Beliebte Tees für …“ mit festen Karten: Für die Arbeit, Für Sportler, Für den Abend, Koffeinfrei, Für Einsteiger, Für Schwangere. Für Schwangere nur Rooibos und reiner Hagebuttentee, dazu der Hinweis „Bitte im Zweifel mit Hebamme/Ärztin absprechen“
+
 ## 2026-10-16
 
 - Amazon-PartnerNet: jede amazon.de-URL in `src/affiliate.json` trägt `tag=teelotse-21`. Ein vorhandener `tag`-Parameter wird ersetzt, andere Query-Parameter bleiben. Werbehinweis, Analytics und `/go/`-Weiterleitung bleiben

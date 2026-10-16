@@ -2,9 +2,11 @@ import rawTeas from './data/teas.json';
 import {
   CAFFEINE_CHOICES,
   CAFFEINE_LEVELS,
-  MOODS,
   DIRECTION_PHRASE,
+  MOODS,
   MOOD_LABEL,
+  OCCASIONS,
+  OCCASION_LABEL,
   TASTES,
   TASTE_LABEL,
   TIMES,
@@ -13,6 +15,7 @@ import {
   type Caffeine,
   type CaffeineChoice,
   type Mood,
+  type Occasion,
   type Preferences,
   type Recommendation,
   type Taste,
@@ -21,6 +24,7 @@ import {
 } from './types';
 
 const TASTE_WEIGHT = 2.4;
+const OCCASION_WEIGHT = 2.2;
 const MOOD_WEIGHT = 1.6;
 const DIVERSE_RATIO = 0.6;
 
@@ -29,7 +33,7 @@ const DIVERSE_RATIO = 0.6;
  * Abend bevorzugt koffeinfrei, Morgen etwas mehr Koffein.
  * Mehrere Tageszeiten werden gemittelt, damit die Verschiebung nicht stapelt.
  * Eine gesetzte Koffein-Auswahl filtert vorher, die Verschiebung bleibt im Rest.
- * Ohne Richtung entfällt dieser Anteil; Geschmack, Tageszeit und Koffein bleiben.
+ * Ohne Richtung entfällt dieser Anteil; Anlass, Geschmack, Tageszeit und Koffein bleiben.
  */
 const CAFFEINE_BIAS: Record<TimeOfDay, Record<Caffeine, number>> = {
   morgen: { hoch: 1.6, mittel: 0.9, niedrig: 0.1, kein: -0.3 },
@@ -75,9 +79,11 @@ function parseTea(value: unknown, index: number): Tea {
   }
   const tastes = parseWeights(raw.tastes, TASTES, `${id} Geschmack`);
   const times = parseWeights(raw.times, TIMES, `${id} Tageszeit`);
+  const occasions = parseWeights(raw.occasions, OCCASIONS, `${id} Anlass`);
   const moods = parseWeights(raw.moods, MOODS, `${id} Richtung`);
   if (Object.keys(tastes).length === 0) throw new Error(`${id}: kein Geschmack.`);
   if (Object.keys(times).length === 0) throw new Error(`${id}: keine Tageszeit.`);
+  if (Object.keys(occasions).length === 0) throw new Error(`${id}: kein Anlass.`);
   if (Object.keys(moods).length === 0) throw new Error(`${id}: keine Richtung.`);
   const tea: Tea = {
     id,
@@ -87,6 +93,7 @@ function parseTea(value: unknown, index: number): Tea {
     summary: asText(raw.summary, `${id} Beschreibung`),
     tastes,
     times,
+    occasions,
     moods,
     caffeine: caffeine as Caffeine,
     temperature: asText(raw.temperature, `${id} Temperatur`),
@@ -125,14 +132,6 @@ function uniqueValues<T extends string>(values: readonly T[], allowed: readonly 
   return result;
 }
 
-function uniqueTastes(tastes: readonly Taste[]): Taste[] {
-  return uniqueValues(tastes, TASTES);
-}
-
-function uniqueTimes(times: readonly TimeOfDay[]): TimeOfDay[] {
-  return uniqueValues(times, TIMES);
-}
-
 function matchedWeight(tea: Tea, tastes: readonly Taste[]): number {
   return tastes.reduce((sum, taste) => sum + (tea.tastes[taste] ?? 0), 0);
 }
@@ -148,9 +147,23 @@ function average(values: readonly number[]): number {
   return values.reduce((sum, value) => sum + value, 0) / values.length;
 }
 
+export function bestTimes(tea: Tea): TimeOfDay[] {
+  let max = 0;
+  for (const time of TIMES) max = Math.max(max, tea.times[time] ?? 0);
+  return TIMES.filter((time) => (tea.times[time] ?? 0) === max && max > 0);
+}
+
+export function tasteLabelsByWeight(tea: Tea): string[] {
+  return (Object.entries(tea.tastes) as [Taste, number][])
+    .filter((entry) => entry[1] > 0)
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0], 'de'))
+    .map(([taste]) => TASTE_LABEL[taste]);
+}
+
 export function scoreTea(tea: Tea, prefs: Preferences): number {
-  const tastes = uniqueTastes(prefs.tastes);
-  const times = uniqueTimes(prefs.times);
+  const tastes = uniqueValues(prefs.tastes, TASTES);
+  const times = uniqueValues(prefs.times, TIMES);
+  const occasions = uniqueValues(prefs.occasions, OCCASIONS);
   let tasteSum = 0;
   let matched = 0;
   for (const taste of tastes) {
@@ -159,31 +172,46 @@ export function scoreTea(tea: Tea, prefs: Preferences): number {
     if (weight > 0) matched += 1;
   }
   const tasteAvg = tastes.length ? tasteSum / tastes.length : 0;
+  let occasionSum = 0;
+  let occasionHits = 0;
+  for (const occasion of occasions) {
+    const weight = tea.occasions[occasion] ?? 0;
+    occasionSum += weight;
+    if (weight > 0) occasionHits += 1;
+  }
+  const occasionAvg = occasions.length ? occasionSum / occasions.length : 0;
   const timeScore = average(times.map((time) => tea.times[time] ?? 0));
   const caffeineScore = average(times.map((time) => CAFFEINE_BIAS[time][tea.caffeine]));
   const moodScore = prefs.mood ? (tea.moods[prefs.mood] ?? 0) * MOOD_WEIGHT : 0;
   const missPenalty = matched === 0 ? 3 : 0;
-  return tasteAvg * TASTE_WEIGHT + timeScore + caffeineScore + moodScore - missPenalty;
-}
-
-function directionSentence(mood: Mood): string {
-  const phrase = DIRECTION_PHRASE.charAt(0).toLocaleUpperCase('de-DE') + DIRECTION_PHRASE.slice(1);
-  return `${phrase}: ${MOOD_LABEL[mood]}.`;
+  const occasionPenalty = occasionHits === 0 ? 2.5 : 0;
+  return (
+    tasteAvg * TASTE_WEIGHT +
+    occasionAvg * OCCASION_WEIGHT +
+    timeScore +
+    caffeineScore +
+    moodScore -
+    missPenalty -
+    occasionPenalty
+  );
 }
 
 function timePhrase(times: readonly TimeOfDay[]): string {
   return joinDe(times.map((time) => `zum ${TIME_LABEL[time]}`));
 }
 
-function buildReason(tea: Tea, prefs: Preferences, matched: readonly Taste[]): string {
+function buildReason(tea: Tea, prefs: Preferences, matched: readonly Taste[], matchedOccasions: readonly Occasion[]): string {
+  const occasionLabels = prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]);
+  const tasteLabels = prefs.tastes.map((taste) => TASTE_LABEL[taste]);
   const when = timePhrase(prefs.times);
   const moodFit = prefs.mood !== null && (tea.moods[prefs.mood] ?? 0) > 0;
-  const moodText = prefs.mood && moodFit ? ` ${directionSentence(prefs.mood)}` : '';
-  if (matched.length === 0) {
-    return `${tea.name} ist die nächste Entsprechung ${when}.${moodText} ${tea.summary}`;
-  }
-  const labels = matched.map((taste) => TASTE_LABEL[taste]);
-  return `${tea.name} trifft ${joinDe(labels)} und passt ${when}.${moodText} ${tea.summary}`;
+  const tradition = matchedOccasions.length
+    ? `, wird traditionell getrunken zu ${joinDe(matchedOccasions.map((occasion) => OCCASION_LABEL[occasion]))}`
+    : '';
+  const moodBit = moodFit && prefs.mood ? `, ${DIRECTION_PHRASE}: ${MOOD_LABEL[prefs.mood]}` : '';
+  const verb = matched.length ? 'passt zu' : 'ist die nächste Entsprechung für';
+  const lead = `${tea.name} ${verb} ${joinDe(occasionLabels)}, ${joinDe(tasteLabels)} und ${when}${tradition}${moodBit}.`;
+  return `${lead} ${tea.summary}`;
 }
 
 function moodWeight(tea: Tea, mood: Mood | null): number {
@@ -191,15 +219,16 @@ function moodWeight(tea: Tea, mood: Mood | null): number {
 }
 
 export function recommend(prefs: Preferences): Recommendation[] {
-  const tastes = uniqueTastes(prefs.tastes);
-  if (!Array.isArray(prefs.times)) {
-    throw new Error('Mindestens eine Tageszeit ist nötig.');
+  const tastes = uniqueValues(prefs.tastes, TASTES);
+  const times = uniqueValues(prefs.times ?? [], TIMES);
+  const occasions = uniqueValues(prefs.occasions ?? [], OCCASIONS);
+  if (!Array.isArray(prefs.occasions) || occasions.length === 0) {
+    throw new Error('Mindestens ein Anlass ist nötig.');
   }
-  const times = uniqueTimes(prefs.times);
   if (tastes.length === 0) {
     throw new Error('Mindestens ein Geschmack ist nötig.');
   }
-  if (times.length === 0) {
+  if (!Array.isArray(prefs.times) || times.length === 0) {
     throw new Error('Mindestens eine Tageszeit ist nötig.');
   }
   if (prefs.mood !== null && !MOODS.includes(prefs.mood)) {
@@ -209,6 +238,7 @@ export function recommend(prefs: Preferences): Recommendation[] {
     throw new Error('Unbekannte Koffein-Auswahl.');
   }
   const normalized: Preferences = {
+    occasions,
     tastes,
     times,
     mood: prefs.mood,
@@ -219,13 +249,15 @@ export function recommend(prefs: Preferences): Recommendation[] {
     .filter((tea) => passesCaffeine(tea, normalized.caffeine))
     .map((tea) => {
       const matchedTastes = tastes.filter((taste) => (tea.tastes[taste] ?? 0) > 0);
+      const matchedOccasions = occasions.filter((occasion) => (tea.occasions[occasion] ?? 0) > 0);
       const matchedMood = normalized.mood !== null && (tea.moods[normalized.mood] ?? 0) > 0;
       return {
         tea,
         score: scoreTea(tea, normalized),
         matchedTastes,
+        matchedOccasions,
         matchedMood,
-        reason: buildReason(tea, normalized, matchedTastes),
+        reason: buildReason(tea, normalized, matchedTastes, matchedOccasions),
       };
     })
     .sort((a, b) => {

@@ -1,18 +1,20 @@
 import './analytics';
-import { recommend } from './recommender';
+import { teasForCollection, COLLECTIONS } from './collections';
+import { bestTimes, recommend, tasteLabelsByWeight } from './recommender';
 import {
   CAFFEINE_CHOICES,
   CAFFEINE_CHOICE_LABEL,
-  CAFFEINE_LEVELS,
+  CAFFEINE_TILE_LABEL,
   MOODS,
   MOOD_LABEL,
+  OCCASIONS,
+  OCCASION_LABEL,
   TASTES,
   TASTE_LABEL,
   TIMES,
   TIME_LABEL,
   capitalizeDe,
   joinDe,
-  type Caffeine,
   type CaffeineChoice,
   type Mood,
   type Preferences,
@@ -23,13 +25,6 @@ import {
 const AFFILIATE_NOTE =
   'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
 
-const CAFFEINE_INFO: Record<Caffeine, { label: string; detail: string; level: number }> = {
-  kein: { label: 'Keines', detail: 'koffeinfrei', level: 0 },
-  niedrig: { label: 'Niedrig', detail: 'etwa 15–30 mg je Tasse', level: 1 },
-  mittel: { label: 'Mittel', detail: 'etwa 20–45 mg je Tasse', level: 2 },
-  hoch: { label: 'Hoch', detail: 'etwa 40–70 mg je Tasse', level: 3 },
-};
-
 const COUNT_TEXT = ['', 'Ein Tee liegt vorn.', 'Zwei Tees passen gut.', 'Drei Tees zur Auswahl.'];
 
 function required<T extends Element>(selector: string): T {
@@ -39,6 +34,7 @@ function required<T extends Element>(selector: string): T {
 }
 
 const finder = required<HTMLFormElement>('#finder');
+const occasionField = required<HTMLFieldSetElement>('#anlass');
 const tasteField = required<HTMLFieldSetElement>('#geschmack');
 const timeField = required<HTMLFieldSetElement>('#tageszeit');
 const moodField = required<HTMLFieldSetElement>('#richtung');
@@ -49,13 +45,14 @@ const ergebnis = required<HTMLElement>('#ergebnis');
 const ergebnisTitel = required<HTMLHeadingElement>('#ergebnis-titel');
 const ergebnisLead = required<HTMLParagraphElement>('#ergebnis-lead');
 const ergebnisListe = required<HTMLElement>('#ergebnis-liste');
-const zurueck = required<HTMLButtonElement>('#zurueck');
 const findeTee = required<HTMLAnchorElement>('#finde-tee');
+const beliebtListe = required<HTMLElement>('#beliebte-liste');
+
+const moodToggle = bindMoodToggle();
 
 findeTee.addEventListener('click', (event) => {
   event.preventDefault();
-  tasteField.focus({ preventScroll: true });
-  scrollTo(finder);
+  showForm(occasionField);
 });
 
 finder.addEventListener('submit', (event) => {
@@ -65,14 +62,30 @@ finder.addEventListener('submit', (event) => {
   showResults(recommend(prefs), prefs);
 });
 
-bindMoodToggle();
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="zurueck"]')) {
+  button.addEventListener('click', () => showForm(occasionField));
+}
 
-zurueck.addEventListener('click', () => {
+for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="neu"]')) {
+  button.addEventListener('click', () => {
+    finder.reset();
+    moodToggle.reset();
+    for (const field of [occasionField, tasteField, timeField, caffeineField, moodField]) {
+      field.setAttribute('aria-invalid', 'false');
+    }
+    formError.hidden = true;
+    showForm(occasionField);
+  });
+}
+
+renderCollections();
+
+function showForm(focusTarget: HTMLElement): void {
   ergebnis.hidden = true;
   auswahl.hidden = false;
-  tasteField.focus();
+  focusTarget.focus();
   scrollTo(auswahl);
-});
+}
 
 function checkedValue(group: string): string | undefined {
   return finder.querySelector<HTMLInputElement>(`input[data-group="${group}"]:checked`)?.value;
@@ -85,7 +98,7 @@ function checkedValues<T extends string>(group: string, allowed: readonly T[]): 
 }
 
 /** Richtung bleibt eine Einfachauswahl, lässt sich aber wieder leeren. */
-function bindMoodToggle(): void {
+function bindMoodToggle(): { reset: () => void } {
   const inputs = [...moodField.querySelectorAll<HTMLInputElement>('input[data-group="mood"]')];
   let armed: HTMLInputElement | null = null;
   for (const input of inputs) {
@@ -104,9 +117,15 @@ function bindMoodToggle(): void {
       if (armed === input) armed = null;
     });
   }
+  return {
+    reset() {
+      armed = null;
+    },
+  };
 }
 
 function readPreferences(): Preferences | null {
+  const occasions = checkedValues('occasion', OCCASIONS);
   const tastes = checkedValues('taste', TASTES);
   const times = checkedValues('time', TIMES);
   const moodValue = checkedValue('mood');
@@ -116,12 +135,14 @@ function readPreferences(): Preferences | null {
     ? (caffeineValue as CaffeineChoice)
     : null;
 
+  occasionField.setAttribute('aria-invalid', occasions.length ? 'false' : 'true');
   tasteField.setAttribute('aria-invalid', tastes.length ? 'false' : 'true');
   timeField.setAttribute('aria-invalid', times.length ? 'false' : 'true');
   moodField.setAttribute('aria-invalid', 'false');
   caffeineField.setAttribute('aria-invalid', caffeine ? 'false' : 'true');
 
   const missing: string[] = [];
+  if (!occasions.length) missing.push('mindestens einen Anlass');
   if (!tastes.length) missing.push('mindestens einen Geschmack');
   if (!times.length) missing.push('mindestens eine Tageszeit');
   if (!caffeine) missing.push('eine Koffein-Auswahl');
@@ -129,23 +150,28 @@ function readPreferences(): Preferences | null {
   if (missing.length || !caffeine) {
     formError.textContent = `Bitte wähle ${joinDe(missing)}.`;
     formError.hidden = false;
-    const focusTarget = !tastes.length ? tasteField : !times.length ? timeField : caffeineField;
+    const focusTarget = !occasions.length
+      ? occasionField
+      : !tastes.length
+        ? tasteField
+        : !caffeine
+          ? caffeineField
+          : timeField;
     focusTarget.focus();
     return null;
   }
 
   formError.hidden = true;
-  return { tastes, times, mood, caffeine };
+  return { occasions, tastes, times, mood, caffeine };
 }
 
 function showResults(items: Recommendation[], prefs: Preferences): void {
+  const occasionText = joinDe(prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]));
   const tasteText = joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])));
   const timeText = joinDe(prefs.times.map((time) => TIME_LABEL[time]));
   const moodText = prefs.mood ? `, Richtung ${MOOD_LABEL[prefs.mood]}` : '';
-  const count = items.length
-    ? (COUNT_TEXT[items.length] ?? '')
-    : 'Dazu liegt kein Tee im Satz.';
-  ergebnisLead.textContent = `Für ${tasteText} am ${timeText}${moodText}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
+  const count = items.length ? (COUNT_TEXT[items.length] ?? '') : 'Dazu liegt kein Tee im Satz.';
+  ergebnisLead.textContent = `Für ${occasionText}, ${tasteText}, ${timeText}${moodText}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
   ergebnisListe.replaceChildren(...items.map((item, index) => renderCard(item, index)));
   auswahl.hidden = true;
   ergebnis.hidden = false;
@@ -186,38 +212,12 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
   const title = document.createElement('h3');
   title.textContent = tea.name;
 
-  const meta = document.createElement('p');
-  meta.className = 'tea-meta';
-  meta.textContent = `${tea.type} · ${tea.origin}`;
-
-  card.append(renderArt(), body);
-  body.append(rank, title, meta);
-
-  if (item.matchedTastes.length) {
-    const tags = document.createElement('ul');
-    tags.className = 'tags';
-    for (const taste of item.matchedTastes) {
-      const tag = document.createElement('li');
-      tag.textContent = TASTE_LABEL[taste];
-      tags.append(tag);
-    }
-    body.append(tags);
-  }
-
   const reason = document.createElement('p');
   reason.className = 'tea-reason';
   reason.textContent = item.reason;
 
-  const brew = document.createElement('dl');
-  brew.className = 'brew';
-  brew.setAttribute('aria-label', `Zubereitung ${tea.name}`);
-  brew.append(
-    brewItem('Temperatur', tea.temperature),
-    brewItem('Ziehzeit', tea.steepTime),
-    brewItem('Menge', tea.amount),
-  );
-
-  body.append(reason, brew);
+  card.append(renderArt(), body);
+  body.append(rank, title, reason, renderFacts(tea));
 
   if (tea.brewNote) {
     const note = document.createElement('p');
@@ -226,33 +226,29 @@ function renderCard(item: Recommendation, index: number): HTMLElement {
     body.append(note);
   }
 
-  body.append(caffeineLine(tea.caffeine, tea.caffeineDetail), renderPurchase(tea));
+  body.append(renderPurchase(tea));
   return card;
 }
 
-function renderPurchase(tea: Tea): HTMLElement {
-  const block = document.createElement('div');
-  block.className = 'tea-buy';
-
-  const link = document.createElement('a');
-  link.className = 'btn btn-primary';
-  link.href = `/go/${tea.id}`;
-  link.textContent = 'Hier kaufen';
-  link.setAttribute('target', '_blank');
-  link.setAttribute('rel', 'sponsored noopener');
-  link.setAttribute('aria-label', `Hier kaufen: ${tea.name}`);
-
-  const hint = document.createElement('p');
-  hint.className = 'affiliate-note';
-  hint.id = `affiliate-${tea.id}`;
-  hint.textContent = AFFILIATE_NOTE;
-  link.setAttribute('aria-describedby', hint.id);
-
-  block.append(link, hint);
-  return block;
+function renderFacts(tea: Tea): HTMLElement {
+  const facts = document.createElement('dl');
+  facts.className = 'facts';
+  facts.setAttribute('aria-label', `Fakten ${tea.name}`);
+  const caffeine = CAFFEINE_TILE_LABEL[tea.caffeine];
+  const times = bestTimes(tea).map((time) => TIME_LABEL[time]);
+  facts.append(
+    factItem('Teeart', tea.type),
+    factItem('Koffein', caffeine),
+    factItem('Geschmack', joinDe(tasteLabelsByWeight(tea))),
+    factItem('Ziehzeit', tea.steepTime),
+    factItem('Wassertemperatur', tea.temperature),
+    factItem('Beste Tageszeit', joinDe(times)),
+    factItem('Herkunft', tea.origin),
+  );
+  return facts;
 }
 
-function brewItem(label: string, value: string): HTMLElement {
+function factItem(label: string, value: string): HTMLElement {
   const wrap = document.createElement('div');
   const term = document.createElement('dt');
   term.textContent = label;
@@ -262,31 +258,86 @@ function brewItem(label: string, value: string): HTMLElement {
   return wrap;
 }
 
-function caffeineLine(level: Caffeine, custom?: string): HTMLElement {
-  const info = CAFFEINE_INFO[level];
-  const line = document.createElement('p');
-  line.className = 'caffeine';
+let purchaseSeq = 0;
 
-  const meter = document.createElement('span');
-  meter.className = 'meter';
-  meter.setAttribute('aria-hidden', 'true');
-  for (let step = 1; step <= 3; step += 1) {
-    const dot = document.createElement('span');
-    dot.className = step <= info.level ? 'meter-on' : 'meter-off';
-    meter.append(dot);
-  }
+function renderBuyLink(tea: Tea, describedBy?: string): HTMLAnchorElement {
+  const link = document.createElement('a');
+  link.className = 'btn btn-primary';
+  link.href = `/go/${tea.id}`;
+  link.textContent = 'Hier kaufen';
+  link.setAttribute('target', '_blank');
+  link.setAttribute('rel', 'sponsored noopener');
+  link.setAttribute('aria-label', `Hier kaufen: ${tea.name}`);
+  if (describedBy) link.setAttribute('aria-describedby', describedBy);
+  return link;
+}
 
-  const text = document.createElement('span');
-  if (!CAFFEINE_LEVELS.includes(level)) {
-    text.textContent = 'Koffein: keine Angabe';
-  } else if (level === 'kein') {
-    text.textContent = 'Koffein: keines';
-  } else {
-    text.textContent = `Koffein: ${info.label} · ${custom ?? info.detail}`;
-  }
+function renderPurchase(tea: Tea): HTMLElement {
+  const block = document.createElement('div');
+  block.className = 'tea-buy';
+  purchaseSeq += 1;
+  const hintId = `affiliate-${tea.id}-${purchaseSeq}`;
 
-  line.append(meter, text);
-  return line;
+  const link = renderBuyLink(tea, hintId);
+  const hint = document.createElement('p');
+  hint.className = 'affiliate-note';
+  hint.id = hintId;
+  hint.textContent = AFFILIATE_NOTE;
+
+  block.append(link, hint);
+  return block;
+}
+
+function renderCollections(): void {
+  beliebtListe.replaceChildren(
+    ...COLLECTIONS.map((collection) => {
+      const card = document.createElement('article');
+      card.className = 'collection-card';
+      card.dataset.collection = collection.id;
+
+      const title = document.createElement('h3');
+      title.textContent = collection.title;
+      card.append(title);
+
+      if (collection.intro) {
+        const intro = document.createElement('p');
+        intro.className = 'collection-intro';
+        intro.textContent = collection.intro;
+        card.append(intro);
+      }
+
+      if (collection.note) {
+        const note = document.createElement('p');
+        note.className = 'collection-note';
+        note.textContent = collection.note;
+        card.append(note);
+      }
+
+      const affiliate = document.createElement('p');
+      affiliate.className = 'affiliate-note';
+      affiliate.id = `affiliate-sammlung-${collection.id}`;
+      affiliate.textContent = AFFILIATE_NOTE;
+
+      const list = document.createElement('ul');
+      list.className = 'collection-teas';
+      for (const entry of teasForCollection(collection)) {
+        const item = document.createElement('li');
+        const name = document.createElement('p');
+        name.className = 'collection-name';
+        name.textContent = entry.tea.name;
+        const reason = document.createElement('p');
+        reason.className = 'collection-reason';
+        reason.textContent = entry.reason;
+        const buy = document.createElement('div');
+        buy.className = 'tea-buy';
+        buy.append(renderBuyLink(entry.tea, affiliate.id));
+        item.append(name, reason, buy);
+        list.append(item);
+      }
+      card.append(list, affiliate);
+      return card;
+    }),
+  );
 }
 
 function scrollTo(node: HTMLElement): void {
