@@ -57,7 +57,7 @@ export function renderGoPage({ slug, shopUrl, scriptSrc }: GoPage): string {
     <p class="brand">Teelotse</p>
     <h1>Weiter zum Shop</h1>
     <p>Wenn die Weiterleitung nicht startet, nutze den Link.</p>
-    <p><a id="shop" href="${href}" rel="sponsored noopener">Hier kaufen</a></p>
+    <p><a id="shop" href="${href}" target="_blank" rel="sponsored noopener">Hier kaufen</a></p>
   </main>
 </body>
 </html>

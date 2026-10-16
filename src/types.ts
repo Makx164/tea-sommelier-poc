@@ -1,8 +1,33 @@
-export const TASTES = ['fruchtig', 'blumig', 'herb', 'kraeftig'] as const;
+export const TASTES = [
+  'kraeutig',
+  'blumig',
+  'fruchtig',
+  'wuerzig',
+  'malzig',
+  'mild',
+  'rauchig',
+  'minzig',
+] as const;
 export type Taste = (typeof TASTES)[number];
 
 export const TIMES = ['morgen', 'mittag', 'nachmittag', 'abend'] as const;
 export type TimeOfDay = (typeof TIMES)[number];
+
+/** Anlässe in Schritt 1. Mehrfachauswahl, mindestens einer. */
+export const OCCASIONS = [
+  'abends',
+  'wach',
+  'entspannen',
+  'nach_essen',
+  'erfrischen',
+  'waermen',
+  'suesses',
+  'sport',
+  'arbeit',
+  'start',
+  'schmuddel',
+] as const;
+export type Occasion = (typeof OCCASIONS)[number];
 
 export const MOODS = ['fokus', 'verdauung', 'beruhigung', 'schlaf'] as const;
 export type Mood = (typeof MOODS)[number];
@@ -21,6 +46,8 @@ export type Tea = {
   summary: string;
   tastes: Partial<Record<Taste, number>>;
   times: Partial<Record<TimeOfDay, number>>;
+  /** Passung zu einem Anlass, 1–3. Traditioneller Trinkmoment, keine Gesundheitsaussage. */
+  occasions: Partial<Record<Occasion, number>>;
   /** Passung zu einer Richtung, 1–3. Geschmacksorientierung, keine Gesundheitsaussage. */
   moods: Partial<Record<Mood, number>>;
   caffeine: Caffeine;
@@ -33,6 +60,8 @@ export type Tea = {
 };
 
 export type Preferences = {
+  /** Mindestens ein Anlass. Mehrere sind erlaubt. */
+  occasions: Occasion[];
   tastes: Taste[];
   /** Mindestens eine Tageszeit. Mehrere sind erlaubt. */
   times: TimeOfDay[];
@@ -46,14 +75,19 @@ export type Recommendation = {
   score: number;
   reason: string;
   matchedTastes: Taste[];
+  matchedOccasions: Occasion[];
   matchedMood: boolean;
 };
 
 export const TASTE_LABEL: Record<Taste, string> = {
-  fruchtig: 'fruchtig',
+  kraeutig: 'kräutig',
   blumig: 'blumig',
-  herb: 'herb',
-  kraeftig: 'kräftig',
+  fruchtig: 'fruchtig',
+  wuerzig: 'würzig',
+  malzig: 'malzig',
+  mild: 'mild',
+  rauchig: 'rauchig',
+  minzig: 'minzig',
 };
 
 export const TIME_LABEL: Record<TimeOfDay, string> = {
@@ -61,6 +95,34 @@ export const TIME_LABEL: Record<TimeOfDay, string> = {
   mittag: 'Mittag',
   nachmittag: 'Nachmittag',
   abend: 'Abend',
+};
+
+export const OCCASION_LABEL: Record<Occasion, string> = {
+  abends: 'Abends runterkommen',
+  wach: 'Wach werden',
+  entspannen: 'Entspannen',
+  nach_essen: 'Nach dem Essen',
+  erfrischen: 'Erfrischen',
+  waermen: 'Wärmen',
+  suesses: 'Lust auf Süßes',
+  sport: 'Nach dem Sport',
+  arbeit: 'Konzentriert arbeiten',
+  start: 'Guter Start in den Tag',
+  schmuddel: 'Gemütlich bei Schmuddelwetter',
+};
+
+export const OCCASION_EMOJI: Record<Occasion, string> = {
+  abends: '😴',
+  wach: '⚡',
+  entspannen: '🧘',
+  nach_essen: '🍽️',
+  erfrischen: '🧊',
+  waermen: '🔥',
+  suesses: '🍰',
+  sport: '🏃',
+  arbeit: '💻',
+  start: '☀️',
+  schmuddel: '🤧',
 };
 
 export const MOOD_LABEL: Record<Mood, string> = {
@@ -71,6 +133,14 @@ export const MOOD_LABEL: Record<Mood, string> = {
 };
 
 export const DIRECTION_PHRASE = 'häufig mit dieser Richtung verbunden';
+
+/** Koffein in den Faktkacheln: keins, wenig, mittel, viel. */
+export const CAFFEINE_TILE_LABEL: Record<Caffeine, string> = {
+  kein: 'keins',
+  niedrig: 'wenig',
+  mittel: 'mittel',
+  hoch: 'viel',
+};
 
 export const CAFFEINE_CHOICE_LABEL: Record<CaffeineChoice, string> = {
   ja: 'mit Koffein',
