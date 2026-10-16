@@ -1,5 +1,9 @@
 # Änderungsprotokoll
 
+## 2026-10-16
+
+- Amazon-PartnerNet: jede amazon.de-URL in `src/affiliate.json` trägt `tag=teelotse-21`. Ein vorhandener `tag`-Parameter wird ersetzt, andere Query-Parameter bleiben. Werbehinweis, Analytics und `/go/`-Weiterleitung bleiben
+
 ## 2026-10-15 – Auswahl
 
 - „Wofür suchst du Tee?“ ist optional. Ohne Richtung zählen Geschmack, Tageszeit und Koffein
