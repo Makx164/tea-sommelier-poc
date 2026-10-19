@@ -1,4 +1,5 @@
 import './analytics';
+import { initMixer } from './mixer-ui';
 import { MOMENT_LINE } from './tea-copy';
 import { contradictionHints, recommend } from './recommender';
 import { teaVisual } from './visual';
@@ -94,6 +95,7 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action=
 }
 
 updateProgress();
+initMixer();
 
 function showForm(focusTarget: HTMLElement): void {
   ergebnis.hidden = true;

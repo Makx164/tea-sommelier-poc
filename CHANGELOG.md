@@ -6,7 +6,7 @@
 - Finden: sechs Momente (Mehrfachauswahl), Geschmack optional, Koffein. Ein bis drei Tees. Karten mit Satz, Zubereitung, Koffein und Zutatenzeile
 - Entdecken: Listen nach Anlass, im HTML vorrendern, Kauf-Links als Werbung über `/go/` mit `tag=teelotse-21`
 - Hinweis zu Schwangerschaft, Stillzeit und Medikamenten im Footer und unter dem Ergebnis
-- Mischen ist in diesem Stand nur als „Bald verfügbar“ markiert
+- Mischen, als Vorschau und noch nicht bestellbar: bis zu fünf Teesorten, Anteile immer 100 %, Zutaten nach Anteil, Geschmacksbalken und Koffein-Fakt. Nichts wird gespeichert
 
 ## 2026-10-16 – Moment, Treffer, Koffein
 

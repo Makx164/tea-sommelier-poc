@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { DISCOVER_LISTS } from './collections';
 import { FORBIDDEN_COPY, visibleTextFromHtml } from './copy-guard';
 import { HINT_EVENING_WITH_CAFFEINE, HINT_WITHOUT_CAFFEINE, teas } from './recommender';
+import { MIXER_TEXT } from './mixer';
 import { MOMENT_LINE } from './tea-copy';
 import {
   CARE_NOTE,
@@ -44,6 +45,7 @@ function corpus(): { label: string; text: string }[] {
       INGREDIENTS_GAP,
       'Enthält Koffein',
       'Koffeinfrei',
+      ...Object.values(MIXER_TEXT),
     ].join(' '),
   });
   return parts;
