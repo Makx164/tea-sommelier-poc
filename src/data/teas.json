@@ -14,11 +14,8 @@
       "nachmittag": 1
     },
     "occasions": {
-      "wach": 3,
-      "start": 2,
-      "waermen": 2,
-      "schmuddel": 2,
-      "arbeit": 2
+      "fokus": 3,
+      "aufwaermen": 2
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -40,10 +37,8 @@
       "nachmittag": 1
     },
     "occasions": {
-      "start": 3,
-      "wach": 2,
-      "arbeit": 2,
-      "schmuddel": 1
+      "fokus": 3,
+      "aufwaermen": 1
     },
     "caffeine": "hoch",
     "temperature": "95–100 °C",
@@ -65,10 +60,8 @@
       "nachmittag": 2
     },
     "occasions": {
-      "start": 2,
-      "wach": 2,
-      "erfrischen": 2,
-      "arbeit": 2
+      "fokus": 2,
+      "erfrischen": 2
     },
     "caffeine": "hoch",
     "temperature": "90–95 °C",
@@ -92,9 +85,7 @@
       "nachmittag": 3
     },
     "occasions": {
-      "arbeit": 3,
-      "start": 2,
-      "wach": 1
+      "fokus": 3
     },
     "caffeine": "hoch",
     "temperature": "85–90 °C",
@@ -118,8 +109,7 @@
       "nachmittag": 1
     },
     "occasions": {
-      "start": 3,
-      "wach": 2,
+      "fokus": 3,
       "erfrischen": 1
     },
     "caffeine": "hoch",
@@ -142,8 +132,7 @@
       "nachmittag": 2
     },
     "occasions": {
-      "schmuddel": 3,
-      "waermen": 2
+      "aufwaermen": 3
     },
     "caffeine": "hoch",
     "temperature": "95 °C",
@@ -166,9 +155,8 @@
       "nachmittag": 2
     },
     "occasions": {
-      "waermen": 3,
-      "schmuddel": 3,
       "nach_essen": 2,
+      "aufwaermen": 3,
       "suesses": 1
     },
     "caffeine": "hoch",
@@ -192,8 +180,7 @@
       "nachmittag": 2
     },
     "occasions": {
-      "arbeit": 3,
-      "wach": 2,
+      "fokus": 3,
       "erfrischen": 2
     },
     "caffeine": "mittel",
@@ -218,8 +205,7 @@
       "nachmittag": 1
     },
     "occasions": {
-      "wach": 2,
-      "arbeit": 2
+      "fokus": 2
     },
     "caffeine": "mittel",
     "temperature": "80 °C",
@@ -242,7 +228,7 @@
       "nachmittag": 3
     },
     "occasions": {
-      "entspannen": 3
+      "abend": 3
     },
     "caffeine": "mittel",
     "temperature": "80 °C",
@@ -266,9 +252,8 @@
       "abend": 2
     },
     "occasions": {
-      "entspannen": 2,
-      "abends": 2,
-      "schmuddel": 2,
+      "abend": 2,
+      "aufwaermen": 2,
       "suesses": 1
     },
     "caffeine": "niedrig",
@@ -292,8 +277,8 @@
       "nachmittag": 3
     },
     "occasions": {
+      "abend": 2,
       "nach_essen": 2,
-      "entspannen": 2,
       "suesses": 1
     },
     "caffeine": "niedrig",
@@ -315,9 +300,7 @@
       "mittag": 2
     },
     "occasions": {
-      "wach": 3,
-      "start": 2,
-      "arbeit": 2
+      "fokus": 3
     },
     "caffeine": "hoch",
     "caffeineDetail": "oft höher als 70 mg, weil das Pulver mitgetrunken wird",
@@ -342,8 +325,8 @@
       "nachmittag": 3
     },
     "occasions": {
-      "entspannen": 2,
-      "arbeit": 1
+      "fokus": 1,
+      "abend": 2
     },
     "caffeine": "niedrig",
     "temperature": "80–85 °C",
@@ -366,8 +349,7 @@
       "nachmittag": 3
     },
     "occasions": {
-      "entspannen": 3,
-      "abends": 2
+      "abend": 3
     },
     "caffeine": "niedrig",
     "temperature": "75–80 °C",
@@ -390,8 +372,8 @@
       "nachmittag": 3
     },
     "occasions": {
-      "entspannen": 2,
-      "arbeit": 2
+      "fokus": 2,
+      "abend": 2
     },
     "caffeine": "mittel",
     "temperature": "90–95 °C",
@@ -413,8 +395,7 @@
       "nachmittag": 3
     },
     "occasions": {
-      "waermen": 2,
-      "schmuddel": 2
+      "aufwaermen": 2
     },
     "caffeine": "mittel",
     "temperature": "95 °C",
@@ -436,7 +417,7 @@
       "nachmittag": 3
     },
     "occasions": {
-      "entspannen": 3,
+      "abend": 3,
       "suesses": 1
     },
     "caffeine": "mittel",
@@ -460,7 +441,7 @@
     },
     "occasions": {
       "nach_essen": 3,
-      "waermen": 2
+      "aufwaermen": 2
     },
     "caffeine": "mittel",
     "temperature": "95–100 °C",
@@ -483,8 +464,7 @@
       "abend": 3
     },
     "occasions": {
-      "abends": 3,
-      "entspannen": 2,
+      "abend": 3,
       "suesses": 2
     },
     "caffeine": "kein",
@@ -509,10 +489,9 @@
       "abend": 3
     },
     "occasions": {
+      "abend": 1,
       "nach_essen": 3,
-      "erfrischen": 3,
-      "sport": 3,
-      "abends": 1
+      "erfrischen": 3
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -534,8 +513,7 @@
       "abend": 3
     },
     "occasions": {
-      "abends": 3,
-      "entspannen": 3
+      "abend": 3
     },
     "caffeine": "kein",
     "temperature": "95 °C",
@@ -559,9 +537,8 @@
       "abend": 2
     },
     "occasions": {
-      "erfrischen": 3,
-      "sport": 2,
-      "nach_essen": 1
+      "nach_essen": 1,
+      "erfrischen": 3
     },
     "caffeine": "kein",
     "temperature": "95–100 °C",
@@ -583,7 +560,7 @@
       "abend": 3
     },
     "occasions": {
-      "abends": 2,
+      "abend": 2,
       "nach_essen": 3,
       "suesses": 2
     },
@@ -608,11 +585,10 @@
       "abend": 3
     },
     "occasions": {
-      "abends": 3,
-      "entspannen": 2,
-      "suesses": 3,
-      "schmuddel": 2,
-      "sport": 2
+      "abend": 3,
+      "aufwaermen": 2,
+      "erfrischen": 2,
+      "suesses": 3
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -635,9 +611,8 @@
       "abend": 2
     },
     "occasions": {
-      "erfrischen": 2,
-      "sport": 2,
-      "schmuddel": 1
+      "aufwaermen": 1,
+      "erfrischen": 2
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -660,8 +635,7 @@
       "abend": 2
     },
     "occasions": {
-      "erfrischen": 3,
-      "sport": 2
+      "erfrischen": 3
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -684,9 +658,8 @@
       "nachmittag": 3
     },
     "occasions": {
-      "suesses": 3,
-      "waermen": 3,
-      "schmuddel": 3
+      "aufwaermen": 3,
+      "suesses": 3
     },
     "caffeine": "kein",
     "temperature": "100 °C",
@@ -709,9 +682,7 @@
       "mittag": 2
     },
     "occasions": {
-      "wach": 3,
-      "start": 2,
-      "arbeit": 1
+      "fokus": 3
     },
     "caffeine": "hoch",
     "caffeineDetail": "etwa 60–80 mg je Tasse, je nach Menge",

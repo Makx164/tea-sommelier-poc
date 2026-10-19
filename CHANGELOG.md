@@ -1,10 +1,18 @@
 # Änderungsprotokoll
 
+## 2026-10-19 – Seite in drei Bereiche
+
+- Kopfzeile mit „Find your taste. Find your moment. Find your tea.“ und „Dein Tee für den richtigen Moment.“ Navigation: Finden, Entdecken, Mischen. Die Wortmarke nennt nur noch Teelotse
+- Finden: sechs Momente (Mehrfachauswahl), Geschmack optional, Koffein. Ein bis drei Tees. Karten mit Satz, Zubereitung, Koffein und Zutatenzeile
+- Entdecken: Listen nach Anlass, im HTML vorrendern, Kauf-Links als Werbung über `/go/` mit `tag=teelotse-21`
+- Hinweis zu Schwangerschaft, Stillzeit und Medikamenten im Footer und unter dem Ergebnis
+- Mischen ist in diesem Stand nur als „Bald verfügbar“ markiert
+
 ## 2026-10-16 – Moment, Treffer, Koffein
 
 - Die Tageszeit ist kein Schritt mehr. Sie folgt aus dem Anlass: Abends runterkommen wird Abend, Guter Start und Wach werden werden Morgen. Pflicht ist nur noch „Worauf hast du Lust?“ mit der Zeile „Dein Moment“. Geschmack bleibt optional, Koffein steht auf Egal
 - „Wofür suchst du Tee?“ (Fokus, Verdauung, Beruhigung, Schlaf) entfällt
-- Widerspruch: Wach werden oder Konzentriert arbeiten mit koffeinfrei zeigt „Ohne Koffein eher belebend-frisch statt wach machend“. Abends runterkommen mit Koffein ja zeigt einen Hinweis und sortiert Tees mit wenig Koffein nach vorn
+- Widerspruch: Wach werden oder Konzentriert arbeiten mit koffeinfrei zeigt einen Hinweis zum klaren, frischen Geschmack. Abends runterkommen mit Koffein ja zeigt einen Hinweis und sortiert Tees mit wenig Koffein nach vorn
 - „Egal“ verschiebt die Punktzahl nicht mehr nach dem Koffeingehalt
 - Auf der Karte steht ein Satz. „passt zu“ nennt höchstens zwei Treffer, die im Datensatz stehen. Sonst heißt es „nächste Entsprechung“
 - Ein oder zwei Karten stehen mittig

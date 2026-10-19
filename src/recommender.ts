@@ -25,9 +25,9 @@ const OCCASION_WEIGHT = 2.2;
 const DIVERSE_RATIO = 0.6;
 
 /**
- * Nur bei „Ja“ und ohne Abend-Anlass: Tageszeit verschiebt den Koffeingehalt.
- * „Egal“ bleibt ohne diese Verschiebung und sortiert nach der Punktzahl aus Anlass, Geschmack und Tageszeit.
- * „Abends runterkommen“ mit „Ja“ hebt stattdessen Tees mit wenig Koffein.
+ * Nur bei „Ja“ und ohne Abendritual: Tageszeit verschiebt den Koffeingehalt.
+ * „Egal“ bleibt ohne diese Verschiebung und sortiert nach der Punktzahl aus Moment, Geschmack und Tageszeit.
+ * Abendritual mit „Ja“ hebt stattdessen Tees mit wenig Koffein.
  */
 const CAFFEINE_BIAS: Record<TimeOfDay, Record<Caffeine, number>> = {
   morgen: { hoch: 1.6, mittel: 0.9, niedrig: 0.1, kein: -0.3 },
@@ -43,10 +43,10 @@ const LOW_CAFFEINE_LIFT: Record<Caffeine, number> = {
   hoch: -2,
 };
 
-export const HINT_WITHOUT_CAFFEINE = 'Ohne Koffein eher belebend-frisch statt wach machend';
+export const HINT_WITHOUT_CAFFEINE = 'Ohne Koffein bleibt der Geschmack klar und frisch.';
 export const HINT_EVENING_WITH_CAFFEINE = 'Am Abend mit Koffein eher Tees mit wenig Koffein.';
 
-const ALERT_OCCASIONS = new Set<Occasion>(['wach', 'arbeit']);
+const ALERT_OCCASIONS = new Set<Occasion>(['fokus']);
 
 function asRecord(value: unknown, label: string): Record<string, unknown> {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
@@ -183,7 +183,7 @@ export function tasteLabelsByWeight(tea: Tea): string[] {
 
 function caffeineAdjustment(tea: Tea, prefs: Preferences, times: readonly TimeOfDay[]): number {
   if (prefs.caffeine === 'egal' || prefs.caffeine === 'nein') return 0;
-  if (prefs.occasions.includes('abends')) return LOW_CAFFEINE_LIFT[tea.caffeine];
+  if (prefs.occasions.includes('abend')) return LOW_CAFFEINE_LIFT[tea.caffeine];
   return average(times.map((time) => CAFFEINE_BIAS[time][tea.caffeine]));
 }
 
@@ -259,7 +259,7 @@ export function contradictionHints(prefs: Preferences): string[] {
   if (normalized.caffeine === 'nein' && normalized.occasions.some((occasion) => ALERT_OCCASIONS.has(occasion))) {
     hints.push(HINT_WITHOUT_CAFFEINE);
   }
-  if (normalized.caffeine === 'ja' && normalized.occasions.includes('abends')) {
+  if (normalized.caffeine === 'ja' && normalized.occasions.includes('abend')) {
     hints.push(HINT_EVENING_WITH_CAFFEINE);
   }
   return hints;
