@@ -13,19 +13,14 @@ export type Taste = (typeof TASTES)[number];
 export const TIMES = ['morgen', 'mittag', 'nachmittag', 'abend'] as const;
 export type TimeOfDay = (typeof TIMES)[number];
 
-/** Anlässe in Schritt 1. Mehrfachauswahl, mindestens einer. */
+/** Momente in Schritt 1. Mehrfachauswahl, mindestens einer. */
 export const OCCASIONS = [
-  'abends',
-  'wach',
-  'entspannen',
+  'fokus',
+  'abend',
   'nach_essen',
+  'aufwaermen',
   'erfrischen',
-  'waermen',
   'suesses',
-  'sport',
-  'arbeit',
-  'start',
-  'schmuddel',
 ] as const;
 export type Occasion = (typeof OCCASIONS)[number];
 
@@ -43,19 +38,21 @@ export type Tea = {
   summary: string;
   tastes: Partial<Record<Taste, number>>;
   times: Partial<Record<TimeOfDay, number>>;
-  /** Passung zu einem Anlass, 1–3. Traditioneller Trinkmoment. */
+  /** Passung zu einem Moment, 1–3. Aus den früheren Anlass-Gewichten übernommen. */
   occasions: Partial<Record<Occasion, number>>;
   caffeine: Caffeine;
-  /** Abweichende Orientierung, z. B. bei Matcha. */
+  /** Abweichende Orientierung, z. B. bei Matcha. Wird auf der Karte nicht gezeigt. */
   caffeineDetail?: string;
   temperature: string;
   steepTime: string;
   amount: string;
   brewNote?: string;
+  /** Vollständige Zutatenliste, nur wenn sie im Produktdatensatz steht. */
+  ingredients?: string;
 };
 
 export type Preferences = {
-  /** Mindestens ein Anlass. Mehrere sind erlaubt. Nur dieser Schritt ist Pflicht. */
+  /** Mindestens ein Moment. Mehrere sind erlaubt. Nur dieser Schritt ist Pflicht. */
   occasions: Occasion[];
   /** Leer ist erlaubt. */
   tastes: Taste[];
@@ -72,21 +69,16 @@ export type Recommendation = {
 };
 
 /**
- * Tageszeit kommt aus dem Anlass, nicht aus einem eigenen Schritt.
- * Abends runterkommen ist Abend, Guter Start und Wach werden sind Morgen.
+ * Tageszeit kommt aus dem Moment, nicht aus einem eigenen Schritt.
+ * Fokussierter Start ist Morgen, Abendritual ist Abend.
  */
 export const OCCASION_TIME: Record<Occasion, TimeOfDay> = {
-  abends: 'abend',
-  wach: 'morgen',
-  entspannen: 'nachmittag',
+  fokus: 'morgen',
+  abend: 'abend',
   nach_essen: 'mittag',
+  aufwaermen: 'nachmittag',
   erfrischen: 'nachmittag',
-  waermen: 'nachmittag',
   suesses: 'nachmittag',
-  sport: 'nachmittag',
-  arbeit: 'morgen',
-  start: 'morgen',
-  schmuddel: 'nachmittag',
 };
 
 export function timesForOccasions(occasions: readonly Occasion[]): TimeOfDay[] {
@@ -117,46 +109,43 @@ export const TIME_LABEL: Record<TimeOfDay, string> = {
 };
 
 export const OCCASION_LABEL: Record<Occasion, string> = {
-  abends: 'Abends runterkommen',
-  wach: 'Wach werden',
-  entspannen: 'Entspannen',
+  fokus: 'Fokussierter Start',
+  abend: 'Abendritual',
   nach_essen: 'Nach dem Essen',
-  erfrischen: 'Erfrischen',
-  waermen: 'Wärmen',
-  suesses: 'Lust auf Süßes',
-  sport: 'Nach dem Sport',
-  arbeit: 'Konzentriert arbeiten',
-  start: 'Guter Start in den Tag',
-  schmuddel: 'Gemütlich bei Schmuddelwetter',
+  aufwaermen: 'Aufwärmen',
+  erfrischen: 'Erfrischen & Aktiv',
+  suesses: 'Etwas Süßes',
 };
 
-export const OCCASION_EMOJI: Record<Occasion, string> = {
-  abends: '😴',
-  wach: '⚡',
-  entspannen: '🧘',
-  nach_essen: '🍽️',
-  erfrischen: '🧊',
-  waermen: '🔥',
-  suesses: '🍰',
-  sport: '🏃',
-  arbeit: '💻',
-  start: '☀️',
-  schmuddel: '🤧',
+/** Einmalig an der Kachel, keine zweite Erklärung daneben. */
+export const OCCASION_NOTE: Record<Occasion, string> = {
+  fokus: 'Klar, kräftig, wach im Geschmack, Morgenritual',
+  abend: 'Sanft, weich, ruhiger Ausklang',
+  nach_essen: 'Frisch, aromatisch, Abschluss der Mahlzeit',
+  aufwaermen: 'Würzig, heiß, kuschelig, für kalte Tage',
+  erfrischen: 'Spritzig, frisch, nach dem Training, für unterwegs',
+  suesses: 'Süßlich im Geschmack, ohne Zuckerzusatz',
 };
 
-/** Koffein in den Faktkacheln: keins, wenig, mittel, viel. */
-export const CAFFEINE_TILE_LABEL: Record<Caffeine, string> = {
-  kein: 'keins',
-  niedrig: 'wenig',
-  mittel: 'mittel',
-  hoch: 'viel',
-};
+/** Koffein auf der Karte, abgeleitet aus dem vorhandenen Stufenwert. */
+export function caffeineFact(level: Caffeine): 'Enthält Koffein' | 'Koffeinfrei' {
+  return level === 'kein' ? 'Koffeinfrei' : 'Enthält Koffein';
+}
 
 export const CAFFEINE_CHOICE_LABEL: Record<CaffeineChoice, string> = {
   ja: 'mit Koffein',
   nein: 'ohne Koffein',
   egal: 'Koffein egal',
 };
+
+export const CARE_NOTE =
+  'Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.';
+
+export const AFFILIATE_NOTE =
+  'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
+
+/** Nicht auf der Karte. Die Zutatenzeile erscheint nur bei befülltem `ingredients`. */
+export const INGREDIENTS_GAP = 'liegt nicht vor';
 
 export function joinDe(items: readonly string[]): string {
   if (items.length === 0) return '';
@@ -169,4 +158,8 @@ export function joinDe(items: readonly string[]): string {
 export function capitalizeDe(text: string): string {
   if (!text) return text;
   return text.charAt(0).toLocaleUpperCase('de-DE') + text.slice(1);
+}
+
+export function preparationFact(tea: Pick<Tea, 'temperature' | 'steepTime'>): string {
+  return `${tea.temperature}, ${tea.steepTime}`;
 }

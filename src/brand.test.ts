@@ -18,9 +18,10 @@ describe('Teelotse', () => {
       expect(html.match(new RegExp(WORTMARKE_SLOT, 'g'))?.length, file).toBe(2);
     }
     const home = readFileSync('index.html', 'utf8');
-    expect(home).toContain('Finde deinen Tee');
-    expect(home).toContain('id="finde-tee"');
-    expect(home).toContain('href="#finder"');
+    expect(home).toContain('Find your taste.');
+    expect(home).toContain('id="finden"');
+    expect(home).toContain('id="finder"');
+    expect(home).not.toContain('Tee-Sommelier');
   });
 
   it('setzt die Wortmarke aus der Markendatei ein', () => {
@@ -43,7 +44,7 @@ describe('Teelotse', () => {
     expect(css).toContain('fraunces-latin-full-normal.woff2');
     expect(css).toContain('inter-latin-wght-normal.woff2');
     expect(css).not.toContain('fonts.googleapis.com');
-    expect(readFileSync('src/main.ts', 'utf8')).toContain('#finde-tee');
+    expect(readFileSync('src/main.ts', 'utf8')).toContain('#finder');
   });
 
   it('nennt die Weiterleitung Teelotse', () => {

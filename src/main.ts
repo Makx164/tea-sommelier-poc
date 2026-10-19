@@ -1,18 +1,19 @@
 import './analytics';
-import { teasForCollection, COLLECTIONS } from './collections';
-import { bestTimes, contradictionHints, recommend, tasteLabelsByWeight } from './recommender';
+import { initMixer } from './mixer-ui';
+import { MOMENT_LINE } from './tea-copy';
+import { contradictionHints, recommend } from './recommender';
 import {
   CAFFEINE_CHOICES,
   CAFFEINE_CHOICE_LABEL,
-  CAFFEINE_TILE_LABEL,
+  CARE_NOTE,
   OCCASIONS,
   OCCASION_LABEL,
   TASTES,
   TASTE_LABEL,
-  TIME_LABEL,
+  caffeineFact,
   capitalizeDe,
   joinDe,
-  timesForOccasions,
+  preparationFact,
   type CaffeineChoice,
   type Preferences,
   type Recommendation,
@@ -41,19 +42,37 @@ const ergebnisTitel = required<HTMLHeadingElement>('#ergebnis-titel');
 const ergebnisLead = required<HTMLParagraphElement>('#ergebnis-lead');
 const ergebnisHinweis = required<HTMLParagraphElement>('#ergebnis-hinweis');
 const ergebnisListe = required<HTMLElement>('#ergebnis-liste');
-const findeTee = required<HTMLAnchorElement>('#finde-tee');
-const beliebtListe = required<HTMLElement>('#beliebte-liste');
+const progressFill = required<HTMLElement>('#progress-fill');
+const progressText = required<HTMLElement>('#progress-text');
+const careNotes = document.querySelectorAll<HTMLElement>('[data-care-note]');
+for (const note of careNotes) note.textContent = CARE_NOTE;
 
-findeTee.addEventListener('click', (event) => {
-  event.preventDefault();
-  showForm(occasionField);
-});
+const stepNodes = {
+  moment: required<HTMLElement>('[data-step="moment"]'),
+  taste: required<HTMLElement>('[data-step="taste"]'),
+  caffeine: required<HTMLElement>('[data-step="caffeine"]'),
+};
+
+let tasteSkipped = false;
 
 finder.addEventListener('submit', (event) => {
   event.preventDefault();
   const prefs = readPreferences();
   if (!prefs) return;
+  if (prefs.tastes.length === 0) tasteSkipped = true;
+  updateProgress();
   showResults(recommend(prefs), prefs);
+});
+
+finder.addEventListener('change', () => {
+  formError.hidden = true;
+  occasionField.setAttribute('aria-invalid', 'false');
+  updateProgress();
+});
+
+caffeineField.addEventListener('focusin', () => {
+  if (checkedValues('taste', TASTES).length === 0) tasteSkipped = true;
+  updateProgress();
 });
 
 for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="zurueck"]')) {
@@ -63,18 +82,23 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action=
 for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="neu"]')) {
   button.addEventListener('click', () => {
     finder.reset();
+    tasteSkipped = false;
     for (const field of [occasionField, tasteField, caffeineField]) {
       field.setAttribute('aria-invalid', 'false');
     }
     formError.hidden = true;
+    updateProgress();
     showForm(occasionField);
   });
 }
 
-renderCollections();
+updateProgress();
+initDiscover();
+initMixer();
 
 function showForm(focusTarget: HTMLElement): void {
   ergebnis.hidden = true;
+  ergebnis.classList.remove('is-in');
   auswahl.hidden = false;
   focusTarget.focus();
   scrollTo(auswahl);
@@ -103,7 +127,7 @@ function readPreferences(): Preferences | null {
   caffeineField.setAttribute('aria-invalid', 'false');
 
   if (!occasions.length) {
-    formError.textContent = 'Bitte wähle mindestens einen Anlass.';
+    formError.textContent = 'Bitte wähle mindestens einen Moment.';
     formError.hidden = false;
     occasionField.focus();
     return null;
@@ -113,71 +137,72 @@ function readPreferences(): Preferences | null {
   return { occasions, tastes, caffeine };
 }
 
+function updateProgress(): void {
+  const momentDone = checkedValues('occasion', OCCASIONS).length > 0;
+  const tasteDone = checkedValues('taste', TASTES).length > 0 || tasteSkipped;
+  const current = !momentDone ? 'moment' : !tasteDone ? 'taste' : 'caffeine';
+  const stateOf = (step: 'moment' | 'taste' | 'caffeine'): string => {
+    if (step === 'moment') return momentDone ? 'done' : 'current';
+    if (step === 'taste') {
+      if (!momentDone) return 'idle';
+      return tasteDone ? 'done' : 'current';
+    }
+    return momentDone && tasteDone ? 'done' : 'idle';
+  };
+  progressFill.style.width = current === 'moment' ? '33%' : current === 'taste' ? '66%' : '100%';
+  for (const key of ['moment', 'taste', 'caffeine'] as const) {
+    const node = stepNodes[key];
+    node.dataset.state = stateOf(key);
+    if (key === current) node.setAttribute('aria-current', 'step');
+    else node.removeAttribute('aria-current');
+  }
+  const labels = { moment: 'Moment', taste: 'Geschmack', caffeine: 'Koffein' };
+  const index = current === 'moment' ? 1 : current === 'taste' ? 2 : 3;
+  progressText.textContent = `Schritt ${index} von 3: ${labels[current]}`;
+}
+
 function showResults(items: Recommendation[], prefs: Preferences): void {
-  const parts = [joinDe(prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]))];
-  if (prefs.tastes.length) parts.push(joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste]))));
-  parts.push(joinDe(timesForOccasions(prefs.occasions).map((time) => TIME_LABEL[time])));
+  const momentText = joinDe(prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]));
+  const tasteText = prefs.tastes.length
+    ? ` Geschmack: ${joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])))}.`
+    : '';
   const count = items.length ? (COUNT_TEXT[items.length] ?? '') : 'Dazu liegt kein Tee im Satz.';
-  ergebnisLead.textContent = `Für ${joinDe(parts)}, ${CAFFEINE_CHOICE_LABEL[prefs.caffeine]}. ${count}`;
+  ergebnisLead.textContent = `${count} Moment: ${momentText}.${tasteText} ${capitalizeDe(CAFFEINE_CHOICE_LABEL[prefs.caffeine])}.`;
   const hints = contradictionHints(prefs);
   ergebnisHinweis.textContent = hints.join(' ');
   ergebnisHinweis.hidden = hints.length === 0;
   ergebnisListe.dataset.count = String(items.length);
-  ergebnisListe.replaceChildren(...items.map((item, index) => renderCard(item, index)));
+  ergebnisListe.replaceChildren(...items.map((item) => renderCard(item)));
   auswahl.hidden = true;
   ergebnis.hidden = false;
+  ergebnis.classList.add('is-in');
   ergebnisTitel.focus();
   scrollTo(ergebnis);
 }
 
-const CARD_ART = `<svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg" focusable="false">
-  <circle cx="530" cy="36" r="92" fill="currentColor" opacity="0.16"/>
-  <circle cx="70" cy="250" r="120" fill="currentColor" opacity="0.1"/>
-  <path d="M168 86c18 34-10 48 6 84" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" opacity="0.8"/>
-  <path d="M214 62c16 32-8 42 6 76" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" opacity="0.5"/>
-  <path d="M248 236C312 118 430 52 536 18 438 96 360 168 248 236Z" fill="currentColor"/>
-  <path class="vein" d="M268 218C348 128 446 62 522 28" fill="none" stroke="var(--art-vein)" stroke-width="4" stroke-linecap="round"/>
-</svg>`;
-
-function renderArt(): HTMLElement {
-  const art = document.createElement('div');
-  art.className = 'tea-art';
-  art.setAttribute('aria-hidden', 'true');
-  art.innerHTML = CARD_ART;
-  return art;
-}
-
-function renderCard(item: Recommendation, index: number): HTMLElement {
+function renderCard(item: Recommendation): HTMLElement {
   const { tea } = item;
   const card = document.createElement('article');
   card.className = 'tea-card';
   card.dataset.type = tea.type;
+  card.dataset.tea = tea.id;
 
   const body = document.createElement('div');
   body.className = 'tea-body';
 
-  const rank = document.createElement('p');
-  rank.className = 'tea-rank';
-  rank.textContent = `Vorschlag ${index + 1}`;
+  const kind = document.createElement('p');
+  kind.className = 'tea-kind';
+  kind.textContent = tea.type;
 
   const title = document.createElement('h3');
   title.textContent = tea.name;
 
-  const reason = document.createElement('p');
-  reason.className = 'tea-reason';
-  reason.textContent = item.reason;
+  const line = document.createElement('p');
+  line.className = 'tea-line';
+  line.textContent = MOMENT_LINE[tea.id] ?? tea.summary;
 
-  card.append(renderArt(), body);
-  body.append(rank, title, reason, renderFacts(tea));
-
-  if (tea.brewNote) {
-    const note = document.createElement('p');
-    note.className = 'brew-note';
-    note.textContent = tea.brewNote;
-    body.append(note);
-  }
-
-  body.append(renderPurchase(tea));
+  card.append(body);
+  body.append(kind, title, line, renderFacts(tea), renderPurchase(tea));
   return card;
 }
 
@@ -185,18 +210,40 @@ function renderFacts(tea: Tea): HTMLElement {
   const facts = document.createElement('dl');
   facts.className = 'facts';
   facts.setAttribute('aria-label', `Fakten ${tea.name}`);
-  const caffeine = CAFFEINE_TILE_LABEL[tea.caffeine];
-  const times = bestTimes(tea).map((time) => TIME_LABEL[time]);
-  facts.append(
-    factItem('Teeart', tea.type),
-    factItem('Koffein', caffeine),
-    factItem('Geschmack', joinDe(tasteLabelsByWeight(tea))),
-    factItem('Ziehzeit', tea.steepTime),
-    factItem('Wassertemperatur', tea.temperature),
-    factItem('Beste Tageszeit', joinDe(times)),
-    factItem('Herkunft', tea.origin),
-  );
+  const rows = [factItem('Zubereitung', preparationFact(tea)), factItem('Koffein', caffeineFact(tea.caffeine))];
+  const ingredients = tea.ingredients?.trim();
+  if (ingredients) rows.push(factItem('Zutaten', ingredients));
+  facts.append(...rows);
   return facts;
+}
+
+function initDiscover(): void {
+  for (const rest of document.querySelectorAll<HTMLElement>('.discover-rest')) {
+    const button = document.querySelector<HTMLButtonElement>(`[aria-controls="${CSS.escape(rest.id)}"]`);
+    if (!button) continue;
+    const extra = rest.querySelectorAll('.tea-card').length;
+    const collapse = (): void => {
+      if (rest.contains(document.activeElement)) button.focus();
+      rest.classList.add('is-collapsed');
+      rest.setAttribute('aria-hidden', 'true');
+      rest.inert = true;
+      button.setAttribute('aria-expanded', 'false');
+      button.textContent = `Alle anzeigen (${extra})`;
+    };
+    const expand = (): void => {
+      rest.classList.remove('is-collapsed');
+      rest.removeAttribute('aria-hidden');
+      rest.inert = false;
+      button.setAttribute('aria-expanded', 'true');
+      button.textContent = 'Weniger anzeigen';
+    };
+    button.hidden = false;
+    collapse();
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-expanded') === 'true') collapse();
+      else expand();
+    });
+  }
 }
 
 function factItem(label: string, value: string): HTMLElement {
@@ -229,66 +276,18 @@ function renderPurchase(tea: Tea): HTMLElement {
   purchaseSeq += 1;
   const hintId = `affiliate-${tea.id}-${purchaseSeq}`;
 
+  const tag = document.createElement('p');
+  tag.className = 'ad-tag';
+  tag.textContent = 'Werbung';
+
   const link = renderBuyLink(tea, hintId);
   const hint = document.createElement('p');
   hint.className = 'affiliate-note';
   hint.id = hintId;
   hint.textContent = AFFILIATE_NOTE;
 
-  block.append(link, hint);
+  block.append(tag, link, hint);
   return block;
-}
-
-function renderCollections(): void {
-  beliebtListe.replaceChildren(
-    ...COLLECTIONS.map((collection) => {
-      const card = document.createElement('article');
-      card.className = 'collection-card';
-      card.dataset.collection = collection.id;
-
-      const title = document.createElement('h3');
-      title.textContent = collection.title;
-      card.append(title);
-
-      if (collection.intro) {
-        const intro = document.createElement('p');
-        intro.className = 'collection-intro';
-        intro.textContent = collection.intro;
-        card.append(intro);
-      }
-
-      if (collection.note) {
-        const note = document.createElement('p');
-        note.className = 'collection-note';
-        note.textContent = collection.note;
-        card.append(note);
-      }
-
-      const affiliate = document.createElement('p');
-      affiliate.className = 'affiliate-note';
-      affiliate.id = `affiliate-sammlung-${collection.id}`;
-      affiliate.textContent = AFFILIATE_NOTE;
-
-      const list = document.createElement('ul');
-      list.className = 'collection-teas';
-      for (const entry of teasForCollection(collection)) {
-        const item = document.createElement('li');
-        const name = document.createElement('p');
-        name.className = 'collection-name';
-        name.textContent = entry.tea.name;
-        const reason = document.createElement('p');
-        reason.className = 'collection-reason';
-        reason.textContent = entry.reason;
-        const buy = document.createElement('div');
-        buy.className = 'tea-buy';
-        buy.append(renderBuyLink(entry.tea, affiliate.id));
-        item.append(name, reason, buy);
-        list.append(item);
-      }
-      card.append(list, affiliate);
-      return card;
-    }),
-  );
 }
 
 function scrollTo(node: HTMLElement): void {
