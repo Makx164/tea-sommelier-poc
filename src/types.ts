@@ -144,7 +144,7 @@ export const CARE_NOTE =
 export const AFFILIATE_NOTE =
   'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
 
-/** Steht auf der Karte, solange keine vollständige Zutatenliste im Datensatz liegt. */
+/** Nicht auf der Karte. Die Zutatenzeile erscheint nur bei befülltem `ingredients`. */
 export const INGREDIENTS_GAP = 'liegt nicht vor';
 
 export function joinDe(items: readonly string[]): string {

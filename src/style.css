@@ -384,7 +384,7 @@ legend {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.55rem;
-  margin: 0 0 1.1rem;
+  margin: 1rem 0 0;
 }
 
 .results.is-in { animation: rise 220ms ease; }
@@ -411,6 +411,29 @@ legend {
 .discover-list { margin-top: 1.6rem; }
 .discover-list:first-child { margin-top: 0.2rem; }
 
+.discover-rest {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: grid-template-rows 220ms ease, opacity 220ms ease;
+}
+
+.discover-rest.is-collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+}
+
+.discover-rest > .discover-grid {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.discover-rest:not(.is-collapsed) {
+  margin-top: 0.85rem;
+}
+
+.discover-toggle { margin-top: 0.85rem; }
+
 .tea-card {
   background: var(--paper);
   border: 1px solid var(--linie);
@@ -422,41 +445,39 @@ legend {
   transition: transform 200ms ease, box-shadow 200ms ease;
 }
 
+.tea-card::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background: #8a7a68;
+}
+
+.tea-card[data-type="Schwarztee"]::before { background: #5c4a3a; }
+.tea-card[data-type="Grüntee"]::before { background: #7d9a72; }
+.tea-card[data-type="Weißtee"]::before { background: #c4b49a; }
+.tea-card[data-type="Oolong"]::before { background: #a68462; }
+.tea-card[data-type="Pu-Erh"]::before { background: #6e5344; }
+.tea-card[data-type="Kräutertee"]::before { background: #6f8f78; }
+.tea-card[data-type="Rooibos"]::before { background: #a56b45; }
+.tea-card[data-type="Früchtetee"]::before { background: #a36b62; }
+.tea-card[data-type="Mate"]::before { background: #6d7a4e; }
+
 .tea-card:hover,
 .tea-card:focus-within {
   transform: translateY(-4px);
   box-shadow: var(--shadow);
 }
 
-.tea-visual {
-  height: 7.25rem;
-  display: grid;
-  place-items: center;
-  color: var(--teeblatt);
-  background: #f4eee4;
+.tea-kind {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
-.tea-card[data-type="Grüntee"] .tea-visual,
-.tea-card[data-type="Kräutertee"] .tea-visual,
-.tea-card[data-type="Mate"] .tea-visual { background: var(--sage); }
-
-.tea-card[data-type="Rooibos"] .tea-visual,
-.tea-card[data-type="Früchtetee"] .tea-visual,
-.tea-card[data-type="Pu-Erh"] .tea-visual { background: #f6e6d6; }
-
-.tea-card[data-type="Weißtee"] .tea-visual { background: #f7f4ee; }
-.tea-card[data-type="Oolong"] .tea-visual { background: #efe6d4; }
-
-.tea-visual svg {
-  width: 5.25rem;
-  height: 5.25rem;
-  transition: transform 220ms ease;
-}
-
-.tea-card:hover .tea-visual svg,
-.tea-card:focus-within .tea-visual svg { transform: scale(1.04); }
-
-.tea-body { padding: 0.95rem 1rem 1.05rem; display: flex; flex-direction: column; flex: 1; }
+.tea-body { padding: 0.85rem 1rem 1.05rem; display: flex; flex-direction: column; flex: 1; }
 .tea-body h3 { font-size: 1.45rem; margin-bottom: 0.35rem; }
 .tea-line { margin: 0 0 0.8rem; }
 
@@ -675,9 +696,7 @@ address.contact {
     transition: none !important;
   }
   .tea-card:hover,
-  .tea-card:focus-within,
-  .tea-card:hover .tea-visual svg,
-  .tea-card:focus-within .tea-visual svg {
+  .tea-card:focus-within {
     transform: none;
   }
 }

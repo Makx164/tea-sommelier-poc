@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { DISCOVER_LISTS, MIN_LIST_WEIGHT, teasForList } from './collections';
-import { discoverListsHtml } from './discover-html';
+import { discoverListsHtml, ingredientFactHtml } from './discover-html';
 import { MOMENT_LINE } from './tea-copy';
 import { caffeineFact } from './types';
 
@@ -76,5 +76,50 @@ describe('Entdecken', () => {
     expect(html).toContain('target="_blank"');
     expect(html).toContain('>Werbung</p>');
     expect(html).toContain('>Hier kaufen</a>');
+    expect(html).not.toContain('tea-visual');
+    expect(html).not.toContain('liegt nicht vor');
+    expect(html).toContain('class="tea-kind"');
+  });
+
+  it('lässt die Zutatenzeile weg, solange das Feld leer ist', () => {
+    expect(ingredientFactHtml(undefined)).toBe('');
+    expect(ingredientFactHtml('   ')).toBe('');
+    expect(ingredientFactHtml('Apfel, Zimt')).toBe('<div><dt>Zutaten</dt><dd>Apfel, Zimt</dd></div>');
+    expect(discoverListsHtml()).not.toContain('<dt>Zutaten</dt>');
+  });
+
+  it('zeigt ohne JavaScript alle Karten und den Einklapp-Button nur versteckt', () => {
+    const html = discoverListsHtml();
+    for (const list of DISCOVER_LISTS) {
+      const entries = teasForList(list);
+      const block = html.slice(html.indexOf(`data-list="${list.id}"`), html.indexOf(`id="werbung-${list.id}"`));
+      expect(block).toContain('class="tea-kind"');
+      if (entries.length <= 3) {
+        expect(block).not.toContain('discover-rest');
+        expect(block).not.toContain('discover-toggle');
+        continue;
+      }
+      const extra = entries.length - 3;
+      expect(block).toContain(`id="rest-${list.id}"`);
+      expect(block).toContain(`aria-controls="rest-${list.id}"`);
+      expect(block).toContain('aria-expanded="true"');
+      expect(block).toContain('hidden');
+      expect(block).toContain(`Alle anzeigen (${extra})`);
+      const restAt = block.indexOf(`id="rest-${list.id}"`);
+      for (const entry of entries.slice(3)) {
+        expect(block.indexOf(`data-tea="${entry.tea.id}"`)).toBeGreaterThan(restAt);
+      }
+      for (const entry of entries.slice(0, 3)) {
+        expect(block.indexOf(`data-tea="${entry.tea.id}"`)).toBeLessThan(restAt);
+      }
+    }
+  });
+
+  it('legt Zurück und Neue Auswahl nur unter den Schwangerschafts-Hinweis', () => {
+    const html = readFileSync('index.html', 'utf8');
+    const ergebnis = html.slice(html.indexOf('id="ergebnis"'), html.indexOf('id="entdecken"'));
+    expect(ergebnis.match(/data-action="zurueck"/g)).toHaveLength(1);
+    expect(ergebnis.match(/data-action="neu"/g)).toHaveLength(1);
+    expect(ergebnis.indexOf('data-care-note')).toBeLessThan(ergebnis.indexOf('data-action="zurueck"'));
   });
 });

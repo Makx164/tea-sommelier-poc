@@ -3,8 +3,8 @@
 ## 2026-10-19 – Seite in drei Bereiche
 
 - Kopfzeile mit „Find your taste. Find your moment. Find your tea.“ und „Dein Tee für den richtigen Moment.“ Navigation: Finden, Entdecken, Mischen. Die Wortmarke nennt nur noch Teelotse
-- Finden: sechs Momente (Mehrfachauswahl), Geschmack optional, Koffein. Ein bis drei Tees. Karten mit Satz, Zubereitung, Koffein und Zutatenzeile
-- Entdecken: Listen nach Anlass, im HTML vorrendern, Kauf-Links als Werbung über `/go/` mit `tag=teelotse-21`
+- Finden: sechs Momente (Mehrfachauswahl), Geschmack optional, Koffein. Ein bis drei Tees. Karten mit Teeart, Satz, Zubereitung und Koffein. Die Zutatenzeile nur, wenn der Datensatz sie enthält. „Zurück“ und „Neue Auswahl“ einmal, unter dem Hinweis
+- Entdecken: Listen nach Anlass, im HTML vollständig vorrendern. Mit JavaScript die ersten drei je Liste, der Rest über „Alle anzeigen“. Kauf-Links als Werbung über `/go/` mit `tag=teelotse-21`
 - Hinweis zu Schwangerschaft, Stillzeit und Medikamenten im Footer und unter dem Ergebnis
 - Mischen, als Vorschau und noch nicht bestellbar: bis zu fünf Teesorten, Anteile immer 100 %, Zutaten nach Anteil, Geschmacksbalken und Koffein-Fakt. Nichts wird gespeichert
 

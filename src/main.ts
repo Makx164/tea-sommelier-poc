@@ -2,12 +2,10 @@ import './analytics';
 import { initMixer } from './mixer-ui';
 import { MOMENT_LINE } from './tea-copy';
 import { contradictionHints, recommend } from './recommender';
-import { teaVisual } from './visual';
 import {
   CAFFEINE_CHOICES,
   CAFFEINE_CHOICE_LABEL,
   CARE_NOTE,
-  INGREDIENTS_GAP,
   OCCASIONS,
   OCCASION_LABEL,
   TASTES,
@@ -95,6 +93,7 @@ for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action=
 }
 
 updateProgress();
+initDiscover();
 initMixer();
 
 function showForm(focusTarget: HTMLElement): void {
@@ -188,13 +187,12 @@ function renderCard(item: Recommendation): HTMLElement {
   card.dataset.type = tea.type;
   card.dataset.tea = tea.id;
 
-  const visual = document.createElement('div');
-  visual.className = 'tea-visual';
-  visual.setAttribute('aria-hidden', 'true');
-  visual.innerHTML = teaVisual(tea.type);
-
   const body = document.createElement('div');
   body.className = 'tea-body';
+
+  const kind = document.createElement('p');
+  kind.className = 'tea-kind';
+  kind.textContent = tea.type;
 
   const title = document.createElement('h3');
   title.textContent = tea.name;
@@ -203,8 +201,8 @@ function renderCard(item: Recommendation): HTMLElement {
   line.className = 'tea-line';
   line.textContent = MOMENT_LINE[tea.id] ?? tea.summary;
 
-  card.append(visual, body);
-  body.append(title, line, renderFacts(tea), renderPurchase(tea));
+  card.append(body);
+  body.append(kind, title, line, renderFacts(tea), renderPurchase(tea));
   return card;
 }
 
@@ -212,12 +210,40 @@ function renderFacts(tea: Tea): HTMLElement {
   const facts = document.createElement('dl');
   facts.className = 'facts';
   facts.setAttribute('aria-label', `Fakten ${tea.name}`);
-  facts.append(
-    factItem('Zubereitung', preparationFact(tea)),
-    factItem('Koffein', caffeineFact(tea.caffeine)),
-    factItem('Zutaten', tea.ingredients?.trim() || INGREDIENTS_GAP),
-  );
+  const rows = [factItem('Zubereitung', preparationFact(tea)), factItem('Koffein', caffeineFact(tea.caffeine))];
+  const ingredients = tea.ingredients?.trim();
+  if (ingredients) rows.push(factItem('Zutaten', ingredients));
+  facts.append(...rows);
   return facts;
+}
+
+function initDiscover(): void {
+  for (const rest of document.querySelectorAll<HTMLElement>('.discover-rest')) {
+    const button = document.querySelector<HTMLButtonElement>(`[aria-controls="${CSS.escape(rest.id)}"]`);
+    if (!button) continue;
+    const extra = rest.querySelectorAll('.tea-card').length;
+    const collapse = (): void => {
+      if (rest.contains(document.activeElement)) button.focus();
+      rest.classList.add('is-collapsed');
+      rest.setAttribute('aria-hidden', 'true');
+      rest.inert = true;
+      button.setAttribute('aria-expanded', 'false');
+      button.textContent = `Alle anzeigen (${extra})`;
+    };
+    const expand = (): void => {
+      rest.classList.remove('is-collapsed');
+      rest.removeAttribute('aria-hidden');
+      rest.inert = false;
+      button.setAttribute('aria-expanded', 'true');
+      button.textContent = 'Weniger anzeigen';
+    };
+    button.hidden = false;
+    collapse();
+    button.addEventListener('click', () => {
+      if (button.getAttribute('aria-expanded') === 'true') collapse();
+      else expand();
+    });
+  }
 }
 
 function factItem(label: string, value: string): HTMLElement {
