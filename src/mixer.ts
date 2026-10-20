@@ -8,7 +8,7 @@ export type MixItem = {
 };
 
 export const MIXER_TEXT = {
-  empty: 'Wähle bis zu fünf Teesorten.',
+  empty: 'Wähl links bis zu fünf Teesorten für deine Mischung.',
   limit: 'Höchstens fünf Zutaten.',
   sum: 'Die Anteile bleiben zusammen bei 100 %.',
   preview: 'Nichts wird bestellt oder gespeichert.',
