@@ -4,6 +4,7 @@ import { resolve } from 'node:path';
 import affiliateLinks from './src/affiliate.json';
 import { applyBrandHtml } from './src/brand-html';
 import { renderGoPage } from './src/go-page';
+import { sitePages } from './src/site-plugin';
 
 const root = import.meta.dirname;
 const shopBySlug = affiliateLinks as Record<string, string>;
@@ -67,7 +68,7 @@ function slugFrom(url: string): string | null {
 
 export default defineConfig({
   base: '/',
-  plugins: [brandMarkup(), goPages()],
+  plugins: [brandMarkup(), sitePages(), goPages()],
   build: {
     outDir: 'dist',
     rollupOptions: {

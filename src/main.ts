@@ -1,5 +1,7 @@
 import './analytics';
+import { initHeader } from './header';
 import { initMixer } from './mixer-ui';
+import { initReveal } from './reveal';
 import { MOMENT_LINE } from './tea-copy';
 import { contradictionHints, recommend } from './recommender';
 import {
@@ -31,153 +33,161 @@ function required<T extends Element>(selector: string): T {
   return node;
 }
 
-const finder = required<HTMLFormElement>('#finder');
-const occasionField = required<HTMLFieldSetElement>('#anlass');
-const tasteField = required<HTMLFieldSetElement>('#geschmack');
-const caffeineField = required<HTMLFieldSetElement>('#koffein');
-const formError = required<HTMLParagraphElement>('#form-error');
-const auswahl = required<HTMLElement>('#auswahl');
-const ergebnis = required<HTMLElement>('#ergebnis');
-const ergebnisTitel = required<HTMLHeadingElement>('#ergebnis-titel');
-const ergebnisLead = required<HTMLParagraphElement>('#ergebnis-lead');
-const ergebnisHinweis = required<HTMLParagraphElement>('#ergebnis-hinweis');
-const ergebnisListe = required<HTMLElement>('#ergebnis-liste');
-const progressFill = required<HTMLElement>('#progress-fill');
-const progressText = required<HTMLElement>('#progress-text');
 const careNotes = document.querySelectorAll<HTMLElement>('[data-care-note]');
 for (const note of careNotes) note.textContent = CARE_NOTE;
 
-const stepNodes = {
-  moment: required<HTMLElement>('[data-step="moment"]'),
-  taste: required<HTMLElement>('[data-step="taste"]'),
-  caffeine: required<HTMLElement>('[data-step="caffeine"]'),
-};
-
-let tasteSkipped = false;
-
-finder.addEventListener('submit', (event) => {
-  event.preventDefault();
-  const prefs = readPreferences();
-  if (!prefs) return;
-  if (prefs.tastes.length === 0) tasteSkipped = true;
-  updateProgress();
-  showResults(recommend(prefs), prefs);
-});
-
-finder.addEventListener('change', () => {
-  formError.hidden = true;
-  occasionField.setAttribute('aria-invalid', 'false');
-  updateProgress();
-});
-
-caffeineField.addEventListener('focusin', () => {
-  if (checkedValues('taste', TASTES).length === 0) tasteSkipped = true;
-  updateProgress();
-});
-
-for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="zurueck"]')) {
-  button.addEventListener('click', () => showForm(occasionField));
-}
-
-for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="neu"]')) {
-  button.addEventListener('click', () => {
-    finder.reset();
-    tasteSkipped = false;
-    for (const field of [occasionField, tasteField, caffeineField]) {
-      field.setAttribute('aria-invalid', 'false');
-    }
-    formError.hidden = true;
-    updateProgress();
-    showForm(occasionField);
-  });
-}
-
-updateProgress();
+initHeader();
+initReveal();
 initDiscover();
 initMixer();
 
-function showForm(focusTarget: HTMLElement): void {
-  ergebnis.hidden = true;
-  ergebnis.classList.remove('is-in');
-  auswahl.hidden = false;
-  focusTarget.focus();
-  scrollTo(auswahl);
-}
+const finderForm = document.querySelector<HTMLFormElement>('#finder');
+if (finderForm) mountFinder(finderForm);
 
-function checkedValue(group: string): string | undefined {
-  return finder.querySelector<HTMLInputElement>(`input[data-group="${group}"]:checked`)?.value;
-}
+function mountFinder(finder: HTMLFormElement): void {
+  const occasionField = required<HTMLFieldSetElement>('#anlass');
+  const tasteField = required<HTMLFieldSetElement>('#geschmack');
+  const caffeineField = required<HTMLFieldSetElement>('#koffein');
+  const formError = required<HTMLParagraphElement>('#form-error');
+  const auswahl = required<HTMLElement>('#auswahl');
+  const ergebnis = required<HTMLElement>('#ergebnis');
+  const ergebnisTitel = required<HTMLHeadingElement>('#ergebnis-titel');
+  const ergebnisLead = required<HTMLParagraphElement>('#ergebnis-lead');
+  const ergebnisHinweis = required<HTMLParagraphElement>('#ergebnis-hinweis');
+  const ergebnisListe = required<HTMLElement>('#ergebnis-liste');
+  const progressFill = required<HTMLElement>('#progress-fill');
+  const progressText = required<HTMLElement>('#progress-text');
 
-function checkedValues<T extends string>(group: string, allowed: readonly T[]): T[] {
-  return [...finder.querySelectorAll<HTMLInputElement>(`input[data-group="${group}"]:checked`)]
-    .map((input) => input.value)
-    .filter((value): value is T => (allowed as readonly string[]).includes(value));
-}
-
-function readPreferences(): Preferences | null {
-  const occasions = checkedValues('occasion', OCCASIONS);
-  const tastes = checkedValues('taste', TASTES);
-  const caffeineValue = checkedValue('caffeine');
-  const caffeine = (CAFFEINE_CHOICES as readonly string[]).includes(caffeineValue ?? '')
-    ? (caffeineValue as CaffeineChoice)
-    : 'egal';
-
-  occasionField.setAttribute('aria-invalid', occasions.length ? 'false' : 'true');
-  tasteField.setAttribute('aria-invalid', 'false');
-  caffeineField.setAttribute('aria-invalid', 'false');
-
-  if (!occasions.length) {
-    formError.textContent = 'Bitte wähle mindestens einen Moment.';
-    formError.hidden = false;
-    occasionField.focus();
-    return null;
-  }
-
-  formError.hidden = true;
-  return { occasions, tastes, caffeine };
-}
-
-function updateProgress(): void {
-  const momentDone = checkedValues('occasion', OCCASIONS).length > 0;
-  const tasteDone = checkedValues('taste', TASTES).length > 0 || tasteSkipped;
-  const current = !momentDone ? 'moment' : !tasteDone ? 'taste' : 'caffeine';
-  const stateOf = (step: 'moment' | 'taste' | 'caffeine'): string => {
-    if (step === 'moment') return momentDone ? 'done' : 'current';
-    if (step === 'taste') {
-      if (!momentDone) return 'idle';
-      return tasteDone ? 'done' : 'current';
-    }
-    return momentDone && tasteDone ? 'done' : 'idle';
+  const stepNodes = {
+    moment: required<HTMLElement>('[data-step="moment"]'),
+    taste: required<HTMLElement>('[data-step="taste"]'),
+    caffeine: required<HTMLElement>('[data-step="caffeine"]'),
   };
-  progressFill.style.width = current === 'moment' ? '33%' : current === 'taste' ? '66%' : '100%';
-  for (const key of ['moment', 'taste', 'caffeine'] as const) {
-    const node = stepNodes[key];
-    node.dataset.state = stateOf(key);
-    if (key === current) node.setAttribute('aria-current', 'step');
-    else node.removeAttribute('aria-current');
-  }
-  const labels = { moment: 'Moment', taste: 'Geschmack', caffeine: 'Koffein' };
-  const index = current === 'moment' ? 1 : current === 'taste' ? 2 : 3;
-  progressText.textContent = `Schritt ${index} von 3: ${labels[current]}`;
-}
 
-function showResults(items: Recommendation[], prefs: Preferences): void {
-  const momentText = joinDe(prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]));
-  const tasteText = prefs.tastes.length
-    ? ` Geschmack: ${joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])))}.`
-    : '';
-  const count = items.length ? (COUNT_TEXT[items.length] ?? '') : 'Dazu liegt kein Tee im Satz.';
-  ergebnisLead.textContent = `${count} Moment: ${momentText}.${tasteText} ${capitalizeDe(CAFFEINE_CHOICE_LABEL[prefs.caffeine])}.`;
-  const hints = contradictionHints(prefs);
-  ergebnisHinweis.textContent = hints.join(' ');
-  ergebnisHinweis.hidden = hints.length === 0;
-  ergebnisListe.dataset.count = String(items.length);
-  ergebnisListe.replaceChildren(...items.map((item) => renderCard(item)));
-  auswahl.hidden = true;
-  ergebnis.hidden = false;
-  ergebnis.classList.add('is-in');
-  ergebnisTitel.focus();
-  scrollTo(ergebnis);
+  let tasteSkipped = false;
+
+  finder.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const prefs = readPreferences();
+    if (!prefs) return;
+    if (prefs.tastes.length === 0) tasteSkipped = true;
+    updateProgress();
+    showResults(recommend(prefs), prefs);
+  });
+
+  finder.addEventListener('change', () => {
+    formError.hidden = true;
+    occasionField.setAttribute('aria-invalid', 'false');
+    updateProgress();
+  });
+
+  caffeineField.addEventListener('focusin', () => {
+    if (checkedValues('taste', TASTES).length === 0) tasteSkipped = true;
+    updateProgress();
+  });
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="zurueck"]')) {
+    button.addEventListener('click', () => showForm(occasionField));
+  }
+
+  for (const button of document.querySelectorAll<HTMLButtonElement>('[data-action="neu"]')) {
+    button.addEventListener('click', () => {
+      finder.reset();
+      tasteSkipped = false;
+      for (const field of [occasionField, tasteField, caffeineField]) {
+        field.setAttribute('aria-invalid', 'false');
+      }
+      formError.hidden = true;
+      updateProgress();
+      showForm(occasionField);
+    });
+  }
+
+  updateProgress();
+
+  function showForm(focusTarget: HTMLElement): void {
+    ergebnis.hidden = true;
+    ergebnis.classList.remove('is-in');
+    auswahl.hidden = false;
+    focusTarget.focus();
+    scrollTo(auswahl);
+  }
+
+  function checkedValue(group: string): string | undefined {
+    return finder.querySelector<HTMLInputElement>(`input[data-group="${group}"]:checked`)?.value;
+  }
+
+  function checkedValues<T extends string>(group: string, allowed: readonly T[]): T[] {
+    return [...finder.querySelectorAll<HTMLInputElement>(`input[data-group="${group}"]:checked`)]
+      .map((input) => input.value)
+      .filter((value): value is T => (allowed as readonly string[]).includes(value));
+  }
+
+  function readPreferences(): Preferences | null {
+    const occasions = checkedValues('occasion', OCCASIONS);
+    const tastes = checkedValues('taste', TASTES);
+    const caffeineValue = checkedValue('caffeine');
+    const caffeine = (CAFFEINE_CHOICES as readonly string[]).includes(caffeineValue ?? '')
+      ? (caffeineValue as CaffeineChoice)
+      : 'egal';
+
+    occasionField.setAttribute('aria-invalid', occasions.length ? 'false' : 'true');
+    tasteField.setAttribute('aria-invalid', 'false');
+    caffeineField.setAttribute('aria-invalid', 'false');
+
+    if (!occasions.length) {
+      formError.textContent = 'Bitte wähle mindestens einen Moment.';
+      formError.hidden = false;
+      occasionField.focus();
+      return null;
+    }
+
+    formError.hidden = true;
+    return { occasions, tastes, caffeine };
+  }
+
+  function updateProgress(): void {
+    const momentDone = checkedValues('occasion', OCCASIONS).length > 0;
+    const tasteDone = checkedValues('taste', TASTES).length > 0 || tasteSkipped;
+    const current = !momentDone ? 'moment' : !tasteDone ? 'taste' : 'caffeine';
+    const stateOf = (step: 'moment' | 'taste' | 'caffeine'): string => {
+      if (step === 'moment') return momentDone ? 'done' : 'current';
+      if (step === 'taste') {
+        if (!momentDone) return 'idle';
+        return tasteDone ? 'done' : 'current';
+      }
+      return momentDone && tasteDone ? 'done' : 'idle';
+    };
+    progressFill.style.width = current === 'moment' ? '33%' : current === 'taste' ? '66%' : '100%';
+    for (const key of ['moment', 'taste', 'caffeine'] as const) {
+      const node = stepNodes[key];
+      node.dataset.state = stateOf(key);
+      if (key === current) node.setAttribute('aria-current', 'step');
+      else node.removeAttribute('aria-current');
+    }
+    const labels = { moment: 'Moment', taste: 'Geschmack', caffeine: 'Koffein' };
+    const index = current === 'moment' ? 1 : current === 'taste' ? 2 : 3;
+    progressText.textContent = `Schritt ${index} von 3: ${labels[current]}`;
+  }
+
+  function showResults(items: Recommendation[], prefs: Preferences): void {
+    const momentText = joinDe(prefs.occasions.map((occasion) => OCCASION_LABEL[occasion]));
+    const tasteText = prefs.tastes.length
+      ? ` Geschmack: ${joinDe(prefs.tastes.map((taste) => capitalizeDe(TASTE_LABEL[taste])))}.`
+      : '';
+    const count = items.length ? (COUNT_TEXT[items.length] ?? '') : 'Dazu liegt kein Tee im Satz.';
+    ergebnisLead.textContent = `${count} Moment: ${momentText}.${tasteText} ${capitalizeDe(CAFFEINE_CHOICE_LABEL[prefs.caffeine])}.`;
+    const hints = contradictionHints(prefs);
+    ergebnisHinweis.textContent = hints.join(' ');
+    ergebnisHinweis.hidden = hints.length === 0;
+    ergebnisListe.dataset.count = String(items.length);
+    ergebnisListe.replaceChildren(...items.map((item) => renderCard(item)));
+    auswahl.hidden = true;
+    ergebnis.hidden = false;
+    ergebnis.classList.add('is-in');
+    ergebnisTitel.focus();
+    scrollTo(ergebnis);
+  }
 }
 
 function renderCard(item: Recommendation): HTMLElement {

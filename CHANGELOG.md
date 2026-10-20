@@ -1,5 +1,14 @@
 # Änderungsprotokoll
 
+## 2026-10-20 – Auftritt, Bereiche, Sichtbarkeit
+
+- Hero nach der freigegebenen Vorlage: Leuchtturm-Zeichnung, Schriftzug TEELOTSE und die Zeile „Find your taste. Find your moment. Find your tea.“ Die vier Ecken-Labels sind nicht übernommen. Farben Creme, Dunkelgrün und Grau. Display-Schrift Bodoni Moda, selbst gehostet
+- Hero über die erste Ansicht, feste Kopfzeile, deutlichere Schrift und wechselnde Flächen für die Bereiche
+- Navigation: Finden, Entdecken, Create, Zubehör, Blog. Create ist die bisherige Misch-Vorschau
+- Zubehör mit Kauf-Links über `/go/` und `tag=teelotse-21`
+- Blog aus Markdown, Entwürfe nicht in der Sitemap
+- Eigene Adressen, Meta-Angaben, strukturierte Daten, Sitemap, robots.txt, llms.txt
+
 ## 2026-10-19 – Seite in drei Bereiche
 
 - Kopfzeile mit „Find your taste. Find your moment. Find your tea.“ und „Dein Tee für den richtigen Moment.“ Navigation: Finden, Entdecken, Mischen. Die Wortmarke nennt nur noch Teelotse

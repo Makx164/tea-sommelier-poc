@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { ACCESSORIES } from './accessories';
 import affiliateLinks from './affiliate.json';
 import { isSensibleTeaSearch, withAmazonPartnerTag } from './affiliate-url';
 import { renderGoPage } from './go-page';
@@ -10,8 +11,8 @@ const links = affiliateLinks as Record<string, string>;
 describe('Affiliate-Konfiguration', () => {
   it('hat für jeden der 29 /go/-Slugs eine Amazon-Suche mit Partner-ID und passendem Begriff', () => {
     expect(teas).toHaveLength(29);
-    expect(Object.keys(links)).toHaveLength(29);
-    expect(Object.keys(links).sort()).toEqual(teas.map((tea) => tea.id).sort());
+    const teaIds = teas.map((tea) => tea.id).sort();
+    for (const id of teaIds) expect(links[id], id).toEqual(expect.any(String));
 
     for (const tea of teas) {
       const url = links[tea.id];
@@ -31,6 +32,23 @@ describe('Affiliate-Konfiguration', () => {
       expect(isSensibleTeaSearch(term ?? '', tea.name), `${tea.id} ${term}`).toBe(true);
       expect(parsed.pathname, tea.id).toBe('/s');
     }
+  });
+
+  it('führt Zubehör über /go/ mit tag=teelotse-21', () => {
+    const teaIds = new Set(teas.map((tea) => tea.id));
+    expect(ACCESSORIES.length).toBeGreaterThan(0);
+    for (const item of ACCESSORIES) {
+      expect(teaIds.has(item.slug), item.slug).toBe(false);
+      const url = links[item.slug];
+      expect(url, item.slug).toEqual(expect.any(String));
+      const parsed = new URL(url!);
+      expect(parsed.hostname).toMatch(/(^|\.)amazon\.de$/);
+      expect(parsed.pathname).toBe('/s');
+      expect(parsed.searchParams.get('tag')).toBe('teelotse-21');
+      expect(isSensibleTeaSearch(parsed.searchParams.get('k') ?? '', item.name)).toBe(true);
+    }
+    const extra = Object.keys(links).filter((slug) => !teaIds.has(slug)).sort();
+    expect(extra).toEqual(ACCESSORIES.map((item) => item.slug).sort());
   });
 
   it('setzt tag=teelotse-21 mit und ohne Query und ersetzt ein vorhandenes tag', () => {

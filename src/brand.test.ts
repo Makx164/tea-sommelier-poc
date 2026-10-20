@@ -34,13 +34,17 @@ describe('Teelotse', () => {
     expect(readFileSync('public/brand/teelotse-logo-b-icon.svg', 'utf8')).toContain('fill="#2F5D50"');
   });
 
-  it('lädt Fraunces und Inter von dieser Seite', () => {
+  it('lädt die Schriften von dieser Seite', () => {
     const css = readFileSync('src/style.css', 'utf8');
-    for (const hex of ['#2F5D50', '#9DBF8A', '#C8743A', '#F6F1E7', '#1F2A2E']) {
+    for (const hex of ['#1F3C2D', '#FFFCF5', '#2A312E', '#E6E7E2']) {
       expect(css).toContain(hex);
     }
+    expect(css).toContain('font-family: "Bodoni Moda Variable"');
+    expect(css).toContain('font-family: "Great Vibes"');
     expect(css).toContain("font-family: Fraunces");
     expect(css).toContain("font-family: Inter");
+    expect(css).toContain('bodoni-moda-latin-opsz-normal.woff2');
+    expect(css).toContain('great-vibes-latin-400-normal.woff2');
     expect(css).toContain('fraunces-latin-full-normal.woff2');
     expect(css).toContain('inter-latin-wght-normal.woff2');
     expect(css).not.toContain('fonts.googleapis.com');
@@ -55,7 +59,7 @@ describe('Teelotse', () => {
     });
     expect(html).toContain('Weiter zum Shop – Teelotse');
     expect(html).not.toContain('Tee-Sommelier');
-    expect(html).toContain('#F6F1E7');
-    expect(html).toContain('#2F5D50');
+    expect(html).toContain('#FFFCF5');
+    expect(html).toContain('#1F3C2D');
   });
 });
