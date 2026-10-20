@@ -33,11 +33,24 @@
           <!-- teelotse-wortmarke -->
         </a>
         <nav class="topnav" aria-label="Bereiche">
-          <a href="/finden">Finden</a>
-          <a href="/entdecken">Entdecken</a>
-          <a href="/create">Create</a>
-          <a href="/zubehoer">Zubehör</a>
-          <a href="/blog">Blog</a>
+          <details class="nav-fold">
+            <summary class="nav-burger" aria-controls="bereich-nav">
+              <span class="nav-burger-bars" aria-hidden="true"></span>
+              <span class="nav-burger-label">Menü</span>
+            </summary>
+          </details>
+          <div class="nav-panel" id="bereich-nav">
+              <div class="nav-group">
+                <a href="/finden">Finden</a>
+                <a href="/entdecken">Entdecken</a>
+                <a href="/create">Create</a>
+              </div>
+              <span class="nav-sep" aria-hidden="true"></span>
+              <div class="nav-group">
+                <a href="/zubehoer">Zubehör</a>
+                <a href="/blog">Blog</a>
+              </div>
+            </div>
         </nav>
       </div>
     </div>
@@ -67,16 +80,13 @@
         <h1 id="hero-title">TEELOTSE</h1>
       </div>
       <p class="hero-tagline">Find your taste. Find your moment. Find your <em>tea</em>.</p>
-      <p class="tagline">Dein Tee für den richtigen Moment.</p>
-      <p class="hero-actions"><a class="btn btn-hero" href="#finden">Zu Finden</a></p>
+      <p class="hero-actions"><a class="btn btn-hero" href="#finden">Los geht's</a></p>
     </section>
 
     <!-- section:finden -->
     <section id="finden" class="area" aria-labelledby="finden-titel">
       <div class="wrap">
-        <p class="eyebrow">Auswahl</p>
         <h2 id="finden-titel" class="area-title">Finden</h2>
-        <p class="area-lead">Pflicht ist der Moment. Geschmack kannst du leer lassen. Koffein steht auf Egal.</p>
         <div id="auswahl">
           <noscript>
             <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Listen unter Entdecken bleiben auch ohne JavaScript sichtbar. Die Auswahl verlässt den Browser nicht.</p>
@@ -129,7 +139,8 @@
               </div>
             </fieldset>
 
-            <fieldset id="geschmack" tabindex="-1">
+            <div class="step-fold">
+            <fieldset id="geschmack" tabindex="-1" inert>
               <legend>Geschmack</legend>
               <p class="hint" id="geschmack-hinweis">Optional.</p>
               <div class="chip-grid chip-grid-taste" role="group" aria-describedby="geschmack-hinweis">
@@ -143,8 +154,10 @@
                 <label class="chip chip-compact"><input type="checkbox" data-group="taste" value="minzig"><span class="chip-title">Minzig</span></label>
               </div>
             </fieldset>
+            </div>
 
-            <fieldset id="koffein" tabindex="-1">
+            <div class="step-fold">
+            <fieldset id="koffein" tabindex="-1" inert>
               <legend>Koffein</legend>
               <div class="chip-grid chip-grid-taste">
                 <label class="chip chip-compact"><input type="radio" name="caffeine" data-group="caffeine" value="ja"><span class="chip-title">Ja</span></label>
@@ -152,6 +165,7 @@
                 <label class="chip chip-compact"><input type="radio" name="caffeine" data-group="caffeine" value="egal" checked><span class="chip-title">Egal</span></label>
               </div>
             </fieldset>
+            </div>
 
             <p id="form-error" class="form-error" role="alert" hidden></p>
             <div class="form-actions">
@@ -182,144 +196,182 @@
     <!-- section:entdecken -->
     <section id="entdecken" class="area" aria-labelledby="entdecken-titel">
       <div class="wrap">
-        <p class="eyebrow">Listen</p>
         <h2 id="entdecken-titel" class="area-title">Entdecken</h2>
-        <p class="area-lead">Tees nach Anlass. Zuerst drei Karten, der Rest über „Alle anzeigen“.</p>
         <!-- discover:start -->
 <section class="discover-list" aria-labelledby="liste-fokus" data-list="fokus">
           <h3 id="liste-fokus">Für den fokussierten Start</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="assam" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Assam</h3>
-              <p class="tea-line">Malzig und kräftig, eine klare Tasse für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/assam" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-assam">
+                <span class="tea-name">Assam</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Malzig und kräftig, eine klare Tasse für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-assam">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/assam" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="ceylon" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Ceylon</h3>
-              <p class="tea-line">Zitronig und klar, kräftig für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/ceylon" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-ceylon">
+                <span class="tea-name">Ceylon</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Zitronig und klar, kräftig für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-ceylon">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/ceylon" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="darjeeling" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Darjeeling First Flush</h3>
-              <p class="tea-line">Blumig und fein, eine helle Tasse für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>85–90 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/darjeeling" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-darjeeling">
+                <span class="tea-name">Darjeeling First Flush</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Blumig und fein, eine helle Tasse für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-darjeeling">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 85–90 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/darjeeling" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-fokus">
           <div class="discover-grid">
             <article class="tea-card" data-tea="english-breakfast" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>English Breakfast</h3>
-              <p class="tea-line">Malzig und voll, für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/english-breakfast" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-english-breakfast">
+                <span class="tea-name">English Breakfast</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Malzig und voll, für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-english-breakfast">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/english-breakfast" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="matcha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Matcha</h3>
-              <p class="tea-line">Grasig und dicht, kräftig für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>75 °C, nicht ziehen lassen</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/matcha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-matcha">
+                <span class="tea-name">Matcha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Grasig und dicht, kräftig für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-matcha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 75 °C, nicht ziehen lassen</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/matcha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="mate" data-type="Mate">
-            <div class="tea-body">
-              <p class="tea-kind">Mate</p>
-              <h3>Mate</h3>
-              <p class="tea-line">Herb und erdig, kräftig für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>70–80 °C, 4–5 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/mate" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-mate">
+                <span class="tea-name">Mate</span>
+                <span class="tea-kind">Mate</span>
+                <span class="tea-line">Herb und erdig, kräftig für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-mate">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 70–80 °C, 4–5 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/mate" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="sencha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Sencha</h3>
-              <p class="tea-line">Grasig und herb, klar für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>70–80 °C, 60–90 Sek.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/sencha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-sencha">
+                <span class="tea-name">Sencha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Grasig und herb, klar für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-sencha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 70–80 °C, 60–90 Sek.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/sencha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="earl-grey" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Earl Grey</h3>
-              <p class="tea-line">Zitronig und herb, klar für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>90–95 °C, 3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/earl-grey" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-earl-grey">
+                <span class="tea-name">Earl Grey</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Zitronig und herb, klar für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-earl-grey">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 90–95 °C, 3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/earl-grey" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="gunpowder" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Gunpowder</h3>
-              <p class="tea-line">Herb und kräftig, eine klare Tasse für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>80 °C, 2 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/gunpowder" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-gunpowder">
+                <span class="tea-name">Gunpowder</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Herb und kräftig, eine klare Tasse für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-gunpowder">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 80 °C, 2 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/gunpowder" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="tie-guan-yin" data-type="Oolong">
-            <div class="tea-body">
-              <p class="tea-kind">Oolong</p>
-              <h3>Tie Guan Yin</h3>
-              <p class="tea-line">Blumig und rund, sanft für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>90–95 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/tie-guan-yin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-tie-guan-yin">
+                <span class="tea-name">Tie Guan Yin</span>
+                <span class="tea-kind">Oolong</span>
+                <span class="tea-line">Blumig und rund, sanft für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-fokus-tie-guan-yin">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 90–95 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/tie-guan-yin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-fokus">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -331,149 +383,193 @@
           <h3 id="liste-feierabend">Für den Feierabend</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="silver-needle" data-type="Weißtee">
-            <div class="tea-body">
-              <p class="tea-kind">Weißtee</p>
-              <h3>Bai Hao Yinzhen</h3>
-              <p class="tea-line">Zart blumig und sehr mild, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>75–80 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/silver-needle" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-silver-needle">
+                <span class="tea-name">Bai Hao Yinzhen</span>
+                <span class="tea-kind">Weißtee</span>
+                <span class="tea-line">Zart blumig und sehr mild, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-silver-needle">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 75–80 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/silver-needle" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="jasmin" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Jasmintee</h3>
-              <p class="tea-line">Blumig und mild, weich für den ruhigen Ausklang.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>80 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/jasmin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-jasmin">
+                <span class="tea-name">Jasmintee</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Blumig und mild, weich für den ruhigen Ausklang.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-jasmin">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 80 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/jasmin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="jin-xuan" data-type="Oolong">
-            <div class="tea-body">
-              <p class="tea-kind">Oolong</p>
-              <h3>Jin Xuan</h3>
-              <p class="tea-line">Mild und blumig, weich im Abgang für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>90 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/jin-xuan" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-jin-xuan">
+                <span class="tea-name">Jin Xuan</span>
+                <span class="tea-kind">Oolong</span>
+                <span class="tea-line">Mild und blumig, weich im Abgang für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-jin-xuan">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 90 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/jin-xuan" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-feierabend">
           <div class="discover-grid">
             <article class="tea-card" data-tea="kamille" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Kamillentee</h3>
-              <p class="tea-line">Blumig und honigartig, sanft für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/kamille" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-kamille">
+                <span class="tea-name">Kamillentee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Blumig und honigartig, sanft für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-kamille">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/kamille" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="lavendel" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Lavendeltee</h3>
-              <p class="tea-line">Floral und mild, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95 °C, 4–6 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/lavendel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-lavendel">
+                <span class="tea-name">Lavendeltee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Floral und mild, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-lavendel">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95 °C, 4–6 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/lavendel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="rooibos" data-type="Rooibos">
-            <div class="tea-body">
-              <p class="tea-kind">Rooibos</p>
-              <h3>Rooibos</h3>
-              <p class="tea-line">Mild und holzig-süß, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-rooibos">
+                <span class="tea-name">Rooibos</span>
+                <span class="tea-kind">Rooibos</span>
+                <span class="tea-line">Mild und holzig-süß, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-rooibos">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="bai-mu-dan" data-type="Weißtee">
-            <div class="tea-body">
-              <p class="tea-kind">Weißtee</p>
-              <h3>Bai Mu Dan</h3>
-              <p class="tea-line">Blumig und mild, sanft für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>80–85 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/bai-mu-dan" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-bai-mu-dan">
+                <span class="tea-name">Bai Mu Dan</span>
+                <span class="tea-kind">Weißtee</span>
+                <span class="tea-line">Blumig und mild, sanft für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-bai-mu-dan">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 80–85 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/bai-mu-dan" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="fenchel" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Fencheltee</h3>
-              <p class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 6–8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-fenchel">
+                <span class="tea-name">Fencheltee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-fenchel">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 6–8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="genmaicha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Genmaicha</h3>
-              <p class="tea-line">Mild und getreidig, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>80–85 °C, 1–2 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/genmaicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-genmaicha">
+                <span class="tea-name">Genmaicha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Mild und getreidig, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-genmaicha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 80–85 °C, 1–2 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/genmaicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="hojicha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Hojicha</h3>
-              <p class="tea-line">Geröstet und nussig, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>85–90 °C, 30–60 Sek.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/hojicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-hojicha">
+                <span class="tea-name">Hojicha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Geröstet und nussig, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-hojicha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 85–90 °C, 30–60 Sek.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/hojicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="tie-guan-yin" data-type="Oolong">
-            <div class="tea-body">
-              <p class="tea-kind">Oolong</p>
-              <h3>Tie Guan Yin</h3>
-              <p class="tea-line">Blumig und rund, sanft für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>90–95 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/tie-guan-yin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-tie-guan-yin">
+                <span class="tea-name">Tie Guan Yin</span>
+                <span class="tea-kind">Oolong</span>
+                <span class="tea-line">Blumig und rund, sanft für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-feierabend-tie-guan-yin">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 90–95 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/tie-guan-yin" target="_blank" rel="sponsored noopener" aria-describedby="werbung-feierabend">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -485,71 +581,91 @@
           <h3 id="liste-nach-essen">Nach dem Essen</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="fenchel" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Fencheltee</h3>
-              <p class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 6–8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-fenchel">
+                <span class="tea-name">Fencheltee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-nach-essen-fenchel">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 6–8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="pfefferminze" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Pfefferminztee</h3>
-              <p class="tea-line">Klar minzig und herb, spritzig und frisch.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/pfefferminze" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-pfefferminze">
+                <span class="tea-name">Pfefferminztee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Klar minzig und herb, spritzig und frisch.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-nach-essen-pfefferminze">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/pfefferminze" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="pu-erh" data-type="Pu-Erh">
-            <div class="tea-body">
-              <p class="tea-kind">Pu-Erh</p>
-              <h3>Reifer Pu-Erh</h3>
-              <p class="tea-line">Erdig und holzig, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/pu-erh" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-pu-erh">
+                <span class="tea-name">Reifer Pu-Erh</span>
+                <span class="tea-kind">Pu-Erh</span>
+                <span class="tea-line">Erdig und holzig, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-nach-essen-pu-erh">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/pu-erh" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-nach-essen">
           <div class="discover-grid">
             <article class="tea-card" data-tea="genmaicha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Genmaicha</h3>
-              <p class="tea-line">Mild und getreidig, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>80–85 °C, 1–2 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/genmaicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-genmaicha">
+                <span class="tea-name">Genmaicha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Mild und getreidig, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-nach-essen-genmaicha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 80–85 °C, 1–2 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/genmaicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="masala-chai" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Masala Chai</h3>
-              <p class="tea-line">Würzig und kräftig, heiß für kalte Tage.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 4–5 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/masala-chai" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-masala-chai">
+                <span class="tea-name">Masala Chai</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Würzig und kräftig, heiß für kalte Tage.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-nach-essen-masala-chai">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 4–5 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/masala-chai" target="_blank" rel="sponsored noopener" aria-describedby="werbung-nach-essen">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -561,110 +677,142 @@
           <h3 id="liste-kalte-tage">Für kalte Tage</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="apfel-zimt" data-type="Früchtetee">
-            <div class="tea-body">
-              <p class="tea-kind">Früchtetee</p>
-              <h3>Apfel-Zimt-Tee</h3>
-              <p class="tea-line">Nach Apfel und Zimt, süßlich und ohne Zuckerzusatz.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/apfel-zimt" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-apfel-zimt">
+                <span class="tea-name">Apfel-Zimt-Tee</span>
+                <span class="tea-kind">Früchtetee</span>
+                <span class="tea-line">Nach Apfel und Zimt, süßlich und ohne Zuckerzusatz.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-apfel-zimt">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/apfel-zimt" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="lapsang-souchong" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Lapsang Souchong</h3>
-              <p class="tea-line">Rauchig und erdig, eine warme Tasse für kalte Tage.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/lapsang-souchong" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-lapsang-souchong">
+                <span class="tea-name">Lapsang Souchong</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Rauchig und erdig, eine warme Tasse für kalte Tage.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-lapsang-souchong">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/lapsang-souchong" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="masala-chai" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Masala Chai</h3>
-              <p class="tea-line">Würzig und kräftig, heiß für kalte Tage.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 4–5 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/masala-chai" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-masala-chai">
+                <span class="tea-name">Masala Chai</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Würzig und kräftig, heiß für kalte Tage.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-masala-chai">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 4–5 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/masala-chai" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-kalte-tage">
           <div class="discover-grid">
             <article class="tea-card" data-tea="assam" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Assam</h3>
-              <p class="tea-line">Malzig und kräftig, eine klare Tasse für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3–4 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/assam" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-assam">
+                <span class="tea-name">Assam</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Malzig und kräftig, eine klare Tasse für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-assam">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3–4 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/assam" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="da-hong-pao" data-type="Oolong">
-            <div class="tea-body">
-              <p class="tea-kind">Oolong</p>
-              <h3>Da Hong Pao</h3>
-              <p class="tea-line">Geröstet und erdig, warm für kalte Tage.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95 °C, 2–3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/da-hong-pao" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-da-hong-pao">
+                <span class="tea-name">Da Hong Pao</span>
+                <span class="tea-kind">Oolong</span>
+                <span class="tea-line">Geröstet und erdig, warm für kalte Tage.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-da-hong-pao">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95 °C, 2–3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/da-hong-pao" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="hojicha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Hojicha</h3>
-              <p class="tea-line">Geröstet und nussig, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>85–90 °C, 30–60 Sek.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/hojicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-hojicha">
+                <span class="tea-name">Hojicha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Geröstet und nussig, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-hojicha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 85–90 °C, 30–60 Sek.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/hojicha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="pu-erh" data-type="Pu-Erh">
-            <div class="tea-body">
-              <p class="tea-kind">Pu-Erh</p>
-              <h3>Reifer Pu-Erh</h3>
-              <p class="tea-line">Erdig und holzig, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/pu-erh" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-pu-erh">
+                <span class="tea-name">Reifer Pu-Erh</span>
+                <span class="tea-kind">Pu-Erh</span>
+                <span class="tea-line">Erdig und holzig, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-pu-erh">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/pu-erh" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="rooibos" data-type="Rooibos">
-            <div class="tea-body">
-              <p class="tea-kind">Rooibos</p>
-              <h3>Rooibos</h3>
-              <p class="tea-line">Mild und holzig-süß, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-rooibos">
+                <span class="tea-name">Rooibos</span>
+                <span class="tea-kind">Rooibos</span>
+                <span class="tea-line">Mild und holzig-süß, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-kalte-tage-rooibos">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-kalte-tage">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -676,97 +824,125 @@
           <h3 id="liste-training">Beliebt nach dem Training</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="hibiskus" data-type="Früchtetee">
-            <div class="tea-body">
-              <p class="tea-kind">Früchtetee</p>
-              <h3>Hibiskustee</h3>
-              <p class="tea-line">Säuerlich und fruchtig, spritzig und frisch.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/hibiskus" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-hibiskus">
+                <span class="tea-name">Hibiskustee</span>
+                <span class="tea-kind">Früchtetee</span>
+                <span class="tea-line">Säuerlich und fruchtig, spritzig und frisch.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-hibiskus">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/hibiskus" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="pfefferminze" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Pfefferminztee</h3>
-              <p class="tea-line">Klar minzig und herb, spritzig und frisch.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/pfefferminze" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-pfefferminze">
+                <span class="tea-name">Pfefferminztee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Klar minzig und herb, spritzig und frisch.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-pfefferminze">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/pfefferminze" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="zitronenverbene" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Zitronenverbene</h3>
-              <p class="tea-line">Zitronig und hell, spritzig und frisch.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>95–100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/zitronenverbene" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-zitronenverbene">
+                <span class="tea-name">Zitronenverbene</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Zitronig und hell, spritzig und frisch.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-zitronenverbene">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 95–100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/zitronenverbene" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-training">
           <div class="discover-grid">
             <article class="tea-card" data-tea="earl-grey" data-type="Schwarztee">
-            <div class="tea-body">
-              <p class="tea-kind">Schwarztee</p>
-              <h3>Earl Grey</h3>
-              <p class="tea-line">Zitronig und herb, klar für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>90–95 °C, 3 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/earl-grey" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-earl-grey">
+                <span class="tea-name">Earl Grey</span>
+                <span class="tea-kind">Schwarztee</span>
+                <span class="tea-line">Zitronig und herb, klar für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-earl-grey">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 90–95 °C, 3 Min.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/earl-grey" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="hagebutte" data-type="Früchtetee">
-            <div class="tea-body">
-              <p class="tea-kind">Früchtetee</p>
-              <h3>Hagebuttentee</h3>
-              <p class="tea-line">Fruchtig und säuerlich, spritzig für unterwegs.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 8–10 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/hagebutte" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-hagebutte">
+                <span class="tea-name">Hagebuttentee</span>
+                <span class="tea-kind">Früchtetee</span>
+                <span class="tea-line">Fruchtig und säuerlich, spritzig für unterwegs.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-hagebutte">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 8–10 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/hagebutte" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="rooibos" data-type="Rooibos">
-            <div class="tea-body">
-              <p class="tea-kind">Rooibos</p>
-              <h3>Rooibos</h3>
-              <p class="tea-line">Mild und holzig-süß, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-rooibos">
+                <span class="tea-name">Rooibos</span>
+                <span class="tea-kind">Rooibos</span>
+                <span class="tea-line">Mild und holzig-süß, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-rooibos">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="sencha" data-type="Grüntee">
-            <div class="tea-body">
-              <p class="tea-kind">Grüntee</p>
-              <h3>Sencha</h3>
-              <p class="tea-line">Grasig und herb, klar für den fokussierten Start.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>70–80 °C, 60–90 Sek.</dd></div>
-                <div><dt>Koffein</dt><dd>Enthält Koffein</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/sencha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-sencha">
+                <span class="tea-name">Sencha</span>
+                <span class="tea-kind">Grüntee</span>
+                <span class="tea-line">Grasig und herb, klar für den fokussierten Start.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-training-sencha">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 70–80 °C, 60–90 Sek.</p>
+                <p class="tea-caffeine">Enthält Koffein</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/sencha" target="_blank" rel="sponsored noopener" aria-describedby="werbung-training">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -778,58 +954,74 @@
           <h3 id="liste-suesses">Etwas Süßes</h3>
           <div class="discover-grid">
             <article class="tea-card" data-tea="apfel-zimt" data-type="Früchtetee">
-            <div class="tea-body">
-              <p class="tea-kind">Früchtetee</p>
-              <h3>Apfel-Zimt-Tee</h3>
-              <p class="tea-line">Nach Apfel und Zimt, süßlich und ohne Zuckerzusatz.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/apfel-zimt" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-suesses-apfel-zimt">
+                <span class="tea-name">Apfel-Zimt-Tee</span>
+                <span class="tea-kind">Früchtetee</span>
+                <span class="tea-line">Nach Apfel und Zimt, süßlich und ohne Zuckerzusatz.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-suesses-apfel-zimt">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/apfel-zimt" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="rooibos" data-type="Rooibos">
-            <div class="tea-body">
-              <p class="tea-kind">Rooibos</p>
-              <h3>Rooibos</h3>
-              <p class="tea-line">Mild und holzig-süß, weich für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-suesses-rooibos">
+                <span class="tea-name">Rooibos</span>
+                <span class="tea-kind">Rooibos</span>
+                <span class="tea-line">Mild und holzig-süß, weich für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-suesses-rooibos">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/rooibos" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
 <article class="tea-card" data-tea="fenchel" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Fencheltee</h3>
-              <p class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 6–8 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-suesses-fenchel">
+                <span class="tea-name">Fencheltee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Mild und süßlich, aromatisch nach dem Essen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-suesses-fenchel">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 6–8 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/fenchel" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
           <div class="discover-rest" id="rest-suesses">
           <div class="discover-grid">
             <article class="tea-card" data-tea="kamille" data-type="Kräutertee">
-            <div class="tea-body">
-              <p class="tea-kind">Kräutertee</p>
-              <h3>Kamillentee</h3>
-              <p class="tea-line">Blumig und honigartig, sanft für den Abend.</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>100 °C, 5–7 Min.</dd></div>
-                <div><dt>Koffein</dt><dd>Koffeinfrei</dd></div>
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/kamille" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-suesses-kamille">
+                <span class="tea-name">Kamillentee</span>
+                <span class="tea-kind">Kräutertee</span>
+                <span class="tea-line">Blumig und honigartig, sanft für den Abend.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-werbung-suesses-kamille">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> 100 °C, 5–7 Min.</p>
+                <p class="tea-caffeine">Koffeinfrei</p>
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/kamille" target="_blank" rel="sponsored noopener" aria-describedby="werbung-suesses">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           </div>
@@ -845,10 +1037,8 @@
     <!-- section:create -->
     <section id="create" class="area" aria-labelledby="create-titel">
       <div class="wrap">
-        <p class="eyebrow">Vorschau</p>
         <h2 id="create-titel" class="area-title">Create</h2>
         <p class="soon">Bald verfügbar.</p>
-        <p class="mixer-lead">Nichts wird bestellt oder gespeichert. Höchstens fünf Zutaten, die Anteile bleiben zusammen bei 100 %.</p>
         <noscript>
           <p class="form-error">Für die Vorschau muss JavaScript aktiv sein. Es wird nichts gespeichert.</p>
         </noscript>
@@ -858,7 +1048,7 @@
             <div id="mixer-tees" class="chip-grid chip-grid-taste" role="group" aria-labelledby="mixer-tees-titel"></div>
           </div>
           <div class="mixer-side">
-            <p id="mixer-empty" class="hint">Wähle bis zu fünf Teesorten.</p>
+            <p id="mixer-empty" class="mixer-empty">Wähl links bis zu fünf Teesorten für deine Mischung.</p>
             <div id="mixer-detail" hidden>
               <h3>Zutaten</h3>
               <ol id="mixer-lines" class="mix-lines"></ol>
@@ -882,51 +1072,80 @@
         <p class="area-lead">Teile für den Tee im Alltag. Keine eigenen Produkte. Die Links führen zu einer Shop-Suche und sind Werbung.</p>
         <div class="discover-grid">
           <article class="tea-card" data-accessory="teesieb" data-type="Zubehör">
-            <div class="tea-body">
-              <p class="tea-kind">Zubehör</p>
-              <h3>Teesieb</h3>
-              <p class="tea-line">Hält lose Blätter beim Ausgießen zurück.</p>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/teesieb" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-zubehoer-teesieb">
+                <span class="tea-name">Teesieb</span>
+                <span class="tea-kind">Zubehör</span>
+                <span class="tea-line">Hält lose Blätter beim Ausgießen zurück.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-zubehoer-teesieb">
+              <div class="tea-more-inner">
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/teesieb" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           <article class="tea-card" data-accessory="teekanne" data-type="Zubehör">
-            <div class="tea-body">
-              <p class="tea-kind">Zubehör</p>
-              <h3>Teekanne</h3>
-              <p class="tea-line">Nimmt den Aufguss auf, wenn mehrere Tassen aus demselben Ziehen kommen.</p>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/teekanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-zubehoer-teekanne">
+                <span class="tea-name">Teekanne</span>
+                <span class="tea-kind">Zubehör</span>
+                <span class="tea-line">Nimmt den Aufguss auf, wenn mehrere Tassen aus demselben Ziehen kommen.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-zubehoer-teekanne">
+              <div class="tea-more-inner">
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/teekanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           <article class="tea-card" data-accessory="thermokanne" data-type="Zubehör">
-            <div class="tea-body">
-              <p class="tea-kind">Zubehör</p>
-              <h3>Thermoskanne</h3>
-              <p class="tea-line">Hält den Aufguss heiß für unterwegs. Gemeint ist eine Isolierflasche für Tee.</p>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/thermokanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-zubehoer-thermokanne">
+                <span class="tea-name">Thermoskanne</span>
+                <span class="tea-kind">Zubehör</span>
+                <span class="tea-line">Hält den Aufguss heiß für unterwegs. Gemeint ist eine Isolierflasche für Tee.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-zubehoer-thermokanne">
+              <div class="tea-more-inner">
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/thermokanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           <article class="tea-card" data-accessory="teebecher" data-type="Zubehör">
-            <div class="tea-body">
-              <p class="tea-kind">Zubehör</p>
-              <h3>Teebecher und Teetasse</h3>
-              <p class="tea-line">Für eine Tasse unterwegs oder am Tisch.</p>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/teebecher" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-zubehoer-teebecher">
+                <span class="tea-name">Teebecher und Teetasse</span>
+                <span class="tea-kind">Zubehör</span>
+                <span class="tea-line">Für eine Tasse unterwegs oder am Tisch.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-zubehoer-teebecher">
+              <div class="tea-more-inner">
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/teebecher" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
           <article class="tea-card" data-accessory="teefilter" data-type="Zubehör">
-            <div class="tea-body">
-              <p class="tea-kind">Zubehör</p>
-              <h3>Teefilter</h3>
-              <p class="tea-line">Nimmt feine Blätter auf, wenn kein Sieb zur Hand ist.</p>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/teefilter" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-zubehoer-teefilter">
+                <span class="tea-name">Teefilter</span>
+                <span class="tea-kind">Zubehör</span>
+                <span class="tea-line">Nimmt feine Blätter auf, wenn kein Sieb zur Hand ist.</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="mehr-zubehoer-teefilter">
+              <div class="tea-more-inner">
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/teefilter" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+              </div>
             </div>
           </article>
-        </div>
         <p class="affiliate-note" id="werbung-zubehoer">Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.</p>
       </div>
     </section>

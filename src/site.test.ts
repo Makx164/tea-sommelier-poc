@@ -59,7 +59,7 @@ describe('Hero', () => {
     expect(indexHtml).toContain('Find your taste.');
     expect(indexHtml).toContain('Find your moment.');
     expect(indexHtml).toContain('Find your <em>tea</em>.');
-    expect(indexHtml).toContain('href="#finden">Zu Finden</a>');
+    expect(indexHtml).toContain('href="#finden">Los geht\'s</a>');
     expect(indexHtml).toContain('type="image/avif"');
     expect(indexHtml).toContain('type="image/webp"');
     expect(indexHtml).toContain('alt="Leuchtturm an einer Küste, dahinter Berge, davor ruhiges Wasser."');
