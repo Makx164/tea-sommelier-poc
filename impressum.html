@@ -25,11 +25,24 @@
           <!-- teelotse-wortmarke -->
         </a>
         <nav class="topnav" aria-label="Bereiche">
-          <a href="/finden">Finden</a>
-          <a href="/entdecken">Entdecken</a>
-          <a href="/create">Create</a>
-          <a href="/zubehoer">Zubehör</a>
-          <a href="/blog">Blog</a>
+          <details class="nav-fold">
+            <summary class="nav-burger" aria-controls="bereich-nav">
+              <span class="nav-burger-bars" aria-hidden="true"></span>
+              <span class="nav-burger-label">Menü</span>
+            </summary>
+          </details>
+          <div class="nav-panel" id="bereich-nav">
+              <div class="nav-group">
+                <a href="/finden">Finden</a>
+                <a href="/entdecken">Entdecken</a>
+                <a href="/create">Create</a>
+              </div>
+              <span class="nav-sep" aria-hidden="true"></span>
+              <div class="nav-group">
+                <a href="/zubehoer">Zubehör</a>
+                <a href="/blog">Blog</a>
+              </div>
+            </div>
         </nav>
       </div>
     </div>

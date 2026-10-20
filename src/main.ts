@@ -39,6 +39,7 @@ for (const note of careNotes) note.textContent = CARE_NOTE;
 initHeader();
 initReveal();
 initDiscover();
+initTeaCards();
 initMixer();
 
 const finderForm = document.querySelector<HTMLFormElement>('#finder');
@@ -168,6 +169,17 @@ function mountFinder(finder: HTMLFormElement): void {
     const labels = { moment: 'Moment', taste: 'Geschmack', caffeine: 'Koffein' };
     const index = current === 'moment' ? 1 : current === 'taste' ? 2 : 3;
     progressText.textContent = `Schritt ${index} von 3: ${labels[current]}`;
+    const momentOn = checkedValues('occasion', OCCASIONS).length > 0;
+    const tasteOn = checkedValues('taste', TASTES).length > 0;
+    setFold(tasteField, momentOn);
+    setFold(caffeineField, momentOn && tasteOn);
+  }
+
+  function setFold(field: HTMLFieldSetElement, open: boolean): void {
+    field.closest('.step-fold')?.classList.toggle('is-open', open);
+    field.inert = !open;
+    if (open) field.removeAttribute('aria-hidden');
+    else field.setAttribute('aria-hidden', 'true');
   }
 
   function showResults(items: Recommendation[], prefs: Preferences): void {
@@ -182,6 +194,7 @@ function mountFinder(finder: HTMLFormElement): void {
     ergebnisHinweis.hidden = hints.length === 0;
     ergebnisListe.dataset.count = String(items.length);
     ergebnisListe.replaceChildren(...items.map((item) => renderCard(item)));
+    bindTeaCards(ergebnisListe);
     auswahl.hidden = true;
     ergebnis.hidden = false;
     ergebnis.classList.add('is-in');
@@ -197,34 +210,100 @@ function renderCard(item: Recommendation): HTMLElement {
   card.dataset.type = tea.type;
   card.dataset.tea = tea.id;
 
-  const body = document.createElement('div');
-  body.className = 'tea-body';
+  const heading = document.createElement('h3');
+  heading.className = 'tea-heading';
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'tea-toggle';
+  button.setAttribute('aria-expanded', 'false');
+  const moreId = `mehr-ergebnis-${tea.id}`;
+  button.setAttribute('aria-controls', moreId);
 
-  const kind = document.createElement('p');
+  const name = document.createElement('span');
+  name.className = 'tea-name';
+  name.textContent = tea.name;
+  const kind = document.createElement('span');
   kind.className = 'tea-kind';
   kind.textContent = tea.type;
-
-  const title = document.createElement('h3');
-  title.textContent = tea.name;
-
-  const line = document.createElement('p');
+  const line = document.createElement('span');
   line.className = 'tea-line';
   line.textContent = MOMENT_LINE[tea.id] ?? tea.summary;
+  button.append(name, kind, line);
+  heading.append(button);
 
-  card.append(body);
-  body.append(kind, title, line, renderFacts(tea), renderPurchase(tea));
+  const more = document.createElement('div');
+  more.className = 'tea-more';
+  more.id = moreId;
+  const inner = document.createElement('div');
+  inner.className = 'tea-more-inner';
+  inner.append(prepLine(tea), caffeineLine(tea));
+  const ingredients = tea.ingredients?.trim();
+  if (ingredients) inner.append(ingredientLine(ingredients));
+  inner.append(renderPurchase(tea));
+  more.append(inner);
+  card.append(heading, more);
   return card;
 }
 
-function renderFacts(tea: Tea): HTMLElement {
-  const facts = document.createElement('dl');
-  facts.className = 'facts';
-  facts.setAttribute('aria-label', `Fakten ${tea.name}`);
-  const rows = [factItem('Zubereitung', preparationFact(tea)), factItem('Koffein', caffeineFact(tea.caffeine))];
-  const ingredients = tea.ingredients?.trim();
-  if (ingredients) rows.push(factItem('Zutaten', ingredients));
-  facts.append(...rows);
-  return facts;
+function prepLine(tea: Tea): HTMLElement {
+  const line = document.createElement('p');
+  line.className = 'tea-prep';
+  const label = document.createElement('span');
+  label.textContent = 'Zubereitung';
+  line.append(label, document.createTextNode(` ${preparationFact(tea)}`));
+  return line;
+}
+
+function caffeineLine(tea: Tea): HTMLElement {
+  const line = document.createElement('p');
+  line.className = 'tea-caffeine';
+  line.textContent = caffeineFact(tea.caffeine);
+  return line;
+}
+
+function ingredientLine(ingredients: string): HTMLElement {
+  const line = document.createElement('p');
+  line.className = 'tea-ingredients';
+  const label = document.createElement('span');
+  label.textContent = 'Zutaten';
+  line.append(label, document.createTextNode(` ${ingredients}`));
+  return line;
+}
+
+function initTeaCards(): void {
+  bindTeaCards(document);
+}
+
+function bindTeaCards(root: ParentNode): void {
+  for (const card of root.querySelectorAll<HTMLElement>('.tea-card')) {
+    const button = card.querySelector<HTMLButtonElement>('.tea-toggle');
+    if (!button || button.dataset.bound === '1') continue;
+    button.dataset.bound = '1';
+    button.addEventListener('click', () => {
+      const open = card.classList.contains('is-open');
+      if (open) {
+        closeTeaCard(card);
+        return;
+      }
+      for (const other of document.querySelectorAll<HTMLElement>('.tea-card.is-open')) {
+        if (other !== card) closeTeaCard(other);
+      }
+      openTeaCard(card);
+    });
+  }
+}
+
+function openTeaCard(card: HTMLElement): void {
+  card.classList.add('is-open');
+  card.querySelector('.tea-toggle')?.setAttribute('aria-expanded', 'true');
+}
+
+function closeTeaCard(card: HTMLElement): void {
+  if (card.contains(document.activeElement) && document.activeElement !== card.querySelector('.tea-toggle')) {
+    card.querySelector<HTMLButtonElement>('.tea-toggle')?.focus();
+  }
+  card.classList.remove('is-open');
+  card.querySelector('.tea-toggle')?.setAttribute('aria-expanded', 'false');
 }
 
 function initDiscover(): void {
@@ -254,16 +333,6 @@ function initDiscover(): void {
       else expand();
     });
   }
-}
-
-function factItem(label: string, value: string): HTMLElement {
-  const wrap = document.createElement('div');
-  const term = document.createElement('dt');
-  term.textContent = label;
-  const detail = document.createElement('dd');
-  detail.textContent = value;
-  wrap.append(term, detail);
-  return wrap;
 }
 
 let purchaseSeq = 0;

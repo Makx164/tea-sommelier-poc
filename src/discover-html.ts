@@ -31,18 +31,23 @@ function teaCardHtml(
   noteId: string,
 ): string {
   const ingredient = ingredientFactHtml(ingredients);
-  const ingredientLine = ingredient ? `\n                ${ingredient}` : '';
+  const ingredientBlock = ingredient ? `\n                <div class="tea-ingredients">${ingredient}</div>` : '';
+  const moreId = `mehr-${noteId}-${teaId}`;
   return `<article class="tea-card" data-tea="${escapeHtml(teaId)}" data-type="${escapeHtml(type)}">
-            <div class="tea-body">
-              <p class="tea-kind">${escapeHtml(type)}</p>
-              <h3>${escapeHtml(name)}</h3>
-              <p class="tea-line">${escapeHtml(line)}</p>
-              <dl class="facts">
-                <div><dt>Zubereitung</dt><dd>${escapeHtml(preparation)}</dd></div>
-                <div><dt>Koffein</dt><dd>${escapeHtml(caffeine)}</dd></div>${ingredientLine}
-              </dl>
-              <p class="ad-tag">Werbung</p>
-              <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(teaId)}" target="_blank" rel="sponsored noopener" aria-describedby="${escapeHtml(noteId)}">Hier kaufen</a></p>
+            <h3 class="tea-heading">
+              <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="${escapeHtml(moreId)}">
+                <span class="tea-name">${escapeHtml(name)}</span>
+                <span class="tea-kind">${escapeHtml(type)}</span>
+                <span class="tea-line">${escapeHtml(line)}</span>
+              </button>
+            </h3>
+            <div class="tea-more" id="${escapeHtml(moreId)}">
+              <div class="tea-more-inner">
+                <p class="tea-prep"><span>Zubereitung</span> ${escapeHtml(preparation)}</p>
+                <p class="tea-caffeine">${escapeHtml(caffeine)}</p>${ingredientBlock}
+                <p class="ad-tag">Werbung</p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(teaId)}" target="_blank" rel="sponsored noopener" aria-describedby="${escapeHtml(noteId)}">Hier kaufen</a></p>
+              </div>
             </div>
           </article>`;
 }
