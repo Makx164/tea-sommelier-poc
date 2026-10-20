@@ -1,0 +1,27 @@
+[
+  {
+    "slug": "teesieb",
+    "name": "Teesieb",
+    "line": "Hält lose Blätter beim Ausgießen zurück."
+  },
+  {
+    "slug": "teekanne",
+    "name": "Teekanne",
+    "line": "Nimmt den Aufguss auf, wenn mehrere Tassen aus demselben Ziehen kommen."
+  },
+  {
+    "slug": "thermokanne",
+    "name": "Thermoskanne",
+    "line": "Hält den Aufguss heiß für unterwegs. Gemeint ist eine Isolierflasche für Tee."
+  },
+  {
+    "slug": "teebecher",
+    "name": "Teebecher und Teetasse",
+    "line": "Für eine Tasse unterwegs oder am Tisch."
+  },
+  {
+    "slug": "teefilter",
+    "name": "Teefilter",
+    "line": "Nimmt feine Blätter auf, wenn kein Sieb zur Hand ist."
+  }
+]

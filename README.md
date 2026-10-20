@@ -1,10 +1,10 @@
 # Teelotse
 
-Geschmacksempfehlung für Tee, direkt im Browser. Drei Bereiche: Finden, Entdecken, Mischen. Pflicht ist nur der Moment, sechs zur Auswahl, auch mehrere. Geschmack (kräutig, blumig, fruchtig, würzig, malzig, mild, rauchig, minzig) kannst du leer lassen. Koffein (Ja, Nein, Egal) steht vorausgewählt auf Egal. Eine eigene Tageszeit gibt es nicht: Fokussierter Start zählt als Morgen, Abendritual als Abend, die übrigen Momente als Mittag oder Nachmittag. Teelotse schlägt ein bis drei Tees vor. Jede Karte nennt Name, einen Satz aus Geschmack und Moment, Zubereitung, Koffein als „Enthält Koffein“ oder „Koffeinfrei“ und die Zutaten, soweit sie im Datensatz stehen. Entdecken listet Tees nach Anlass. Mischen ist eine Vorschau.
+Geschmacksempfehlung für Tee, direkt im Browser. Bereiche: Finden, Entdecken, Create, Zubehör, Blog. Pflicht ist nur der Moment, sechs zur Auswahl, auch mehrere. Geschmack (kräutig, blumig, fruchtig, würzig, malzig, mild, rauchig, minzig) kannst du leer lassen. Koffein (Ja, Nein, Egal) steht vorausgewählt auf Egal. Eine eigene Tageszeit gibt es nicht: Fokussierter Start zählt als Morgen, Abendritual als Abend, die übrigen Momente als Mittag oder Nachmittag. Teelotse schlägt ein bis drei Tees vor. Jede Karte nennt Name, einen Satz aus Geschmack und Moment, Zubereitung, Koffein als „Enthält Koffein“ oder „Koffeinfrei“ und die Zutaten, soweit sie im Datensatz stehen. Entdecken listet Tees nach Anlass. Create ist die bisherige Misch-Vorschau. Zubehör verlinkt auf Shop-Suchen. Der Blog liegt als Markdown unter `content/blog/`.
 
 Die Vorschläge kommen aus festen Regeln und einem lokalen Datensatz mit 29 gängigen Tees. Es gibt kein Backend und keine eigenen Produkte. Jede Empfehlung hat einen Link „Hier kaufen“ auf `/go/<Tee>`. Diese Seiten entstehen beim Bau aus `src/affiliate.json` und leiten auf eine Amazon-Suche mit der PartnerNet-ID `tag=teelotse-21` weiter. Vercel Web Analytics zählt den Aufruf als Seitenaufruf, ohne Cookies und ohne eigenes Ereignis.
 
-Farben: Teeblatt `#2F5D50`, Matcha `#9DBF8A`, Rooibos `#C8743A`, Creme `#F6F1E7`, Tinte `#1F2A2E`. Die Schriften Fraunces und Inter liegen im Bau (`@fontsource-variable/fraunces`, `@fontsource-variable/inter`, SIL Open Font License). Es wird kein externer Schrift-Server geladen. Die Wortmarke steht in Kopf- und Fußzeile, das Icon ist das Favicon.
+Farben aus der Hero-Vorlage: Dunkelgrün `#1F3C2D`, Creme `#FFFCF5`, Tinte `#2A312E`, weiches Grau `#E6E7E2`. Die Display-Schrift Bodoni Moda, die Schreibschrift Great Vibes für das Wort tea, die Wortmarke Fraunces und der Lauftext Inter liegen im Bau (SIL Open Font License). Es wird kein externer Schrift-Server geladen. Die Wortmarke steht in Kopf- und Fußzeile, das Icon ist das Favicon. Die Leuchtturm-Zeichnung liegt unter `public/hero/` als AVIF und WebP.
 
 **Status: v2.0, noch nicht veröffentlicht.** Die bisherige Fassung läuft auf https://teelotse.de (Vercel).
 
@@ -25,7 +25,7 @@ npm run build
 npm run preview
 ```
 
-`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website (Start, Impressum, Datenschutz und eine Weiterleitung je Tee unter `go/`).
+`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website: Start, die Bereiche unter `/finden`, `/entdecken`, `/create`, `/zubehoer` und `/blog`, Impressum, Datenschutz, `sitemap.xml`, `robots.txt`, `llms.txt` und eine Weiterleitung je Tee und je Zubehör unter `go/`. Entwürfe im Blog (`draft: true`) fehlen in diesem Bau und in der Sitemap. Auf einer Vercel-Vorschau (`VERCEL_ENV=preview`) sind sie mit dem Hinweis „Entwurf“ sichtbar.
 
 ## Empfehlung
 

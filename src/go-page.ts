@@ -45,11 +45,11 @@ export function renderGoPage({ slug, shopUrl, scriptSrc }: GoPage): string {
     }
   </script>
   <style>
-    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #F6F1E7; color: #1F2A2E; font-family: Inter, system-ui, sans-serif; line-height: 1.5; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #FFFCF5; color: #2A312E; font-family: Inter, system-ui, sans-serif; line-height: 1.5; }
     main { max-width: 28rem; padding: 1.5rem; }
-    .brand { margin: 0 0 0.8rem; font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.5rem; color: #2F5D50; }
-    h1 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 1.8rem; margin: 0 0 0.6rem; }
-    a { color: #2F5D50; font-weight: 700; }
+    .brand { margin: 0 0 0.8rem; font-family: "Bodoni Moda Variable", Georgia, serif; font-weight: 560; font-size: 1.5rem; color: #1F3C2D; }
+    h1 { font-family: "Bodoni Moda Variable", Georgia, serif; font-weight: 560; font-size: 1.8rem; margin: 0 0 0.6rem; }
+    a { color: #1F3C2D; font-weight: 700; }
   </style>
 </head>
 <body>

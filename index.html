@@ -5,39 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teelotse – Tee für deinen Moment</title>
   <meta name="description" content="Finde deinen Tee für den Moment. Teelotse schlägt ein bis drei Tees vor, nach Geschmack und Koffein.">
-  <meta name="theme-color" content="#F6F1E7">
+  <link rel="canonical" href="https://teelotse.de/">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Teelotse">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:title" content="Teelotse – Tee für deinen Moment">
+  <meta property="og:description" content="Finde deinen Tee für den Moment. Teelotse schlägt ein bis drei Tees vor, nach Geschmack und Koffein.">
+  <meta property="og:url" content="https://teelotse.de/">
+  <meta property="og:image" content="https://teelotse.de/hero/leuchtturm-1120.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Teelotse – Tee für deinen Moment">
+  <meta name="twitter:description" content="Finde deinen Tee für den Moment. Teelotse schlägt ein bis drei Tees vor, nach Geschmack und Koffein.">
+  <meta name="twitter:image" content="https://teelotse.de/hero/leuchtturm-1120.webp">
+  <meta name="theme-color" content="#FFFCF5">
+  <!-- jsonld:home -->
   <link rel="icon" href="/brand/teelotse-logo-b-icon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/src/style.css">
 </head>
 <body>
   <a class="skip" href="#inhalt">Zum Inhalt</a>
+  <!-- chrome:header -->
   <header class="site-head">
     <div class="topbar">
       <div class="bar">
-        <a class="logo" href="index.html" aria-label="Teelotse, zur Startseite">
+        <a class="logo" href="/" aria-label="Teelotse, zur Startseite">
           <!-- teelotse-wortmarke -->
         </a>
         <nav class="topnav" aria-label="Bereiche">
-          <a href="#finden">Finden</a>
-          <a href="#entdecken">Entdecken</a>
-          <a href="#mischen">Mischen</a>
+          <a href="/finden">Finden</a>
+          <a href="/entdecken">Entdecken</a>
+          <a href="/create">Create</a>
+          <a href="/zubehoer">Zubehör</a>
+          <a href="/blog">Blog</a>
         </nav>
       </div>
     </div>
-    <div class="wrap mast">
-      <h1 id="hero-title">
-        <span>Find your taste.</span>
-        <span>Find your moment.</span>
-        <span>Find your tea.</span>
-      </h1>
-      <p class="tagline">Dein Tee für den richtigen Moment.</p>
-    </div>
   </header>
+  <!-- /chrome:header -->
 
   <main id="inhalt" class="page">
-    <section id="finden" aria-labelledby="finden-titel">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-stage">
+        <picture>
+          <source
+            type="image/avif"
+            srcset="/hero/leuchtturm-640.avif 640w, /hero/leuchtturm-1120.avif 1120w, /hero/leuchtturm-1792.avif 1792w"
+            sizes="(min-width: 1180px) 1120px, 100vw">
+          <source
+            type="image/webp"
+            srcset="/hero/leuchtturm-640.webp 640w, /hero/leuchtturm-1120.webp 1120w, /hero/leuchtturm-1792.webp 1792w"
+            sizes="(min-width: 1180px) 1120px, 100vw">
+          <img
+            src="/hero/leuchtturm-1120.webp"
+            alt="Leuchtturm an einer Küste, dahinter Berge, davor ruhiges Wasser."
+            width="1792"
+            height="817"
+            decoding="async"
+            fetchpriority="high">
+        </picture>
+        <h1 id="hero-title">TEELOTSE</h1>
+      </div>
+      <p class="hero-tagline">Find your taste. Find your moment. Find your <em>tea</em>.</p>
+      <p class="tagline">Dein Tee für den richtigen Moment.</p>
+      <p class="hero-actions"><a class="btn btn-hero" href="#finden">Zu Finden</a></p>
+    </section>
+
+    <!-- section:finden -->
+    <section id="finden" class="area" aria-labelledby="finden-titel">
       <div class="wrap">
-        <h2 id="finden-titel">Finden</h2>
+        <p class="eyebrow">Auswahl</p>
+        <h2 id="finden-titel" class="area-title">Finden</h2>
+        <p class="area-lead">Pflicht ist der Moment. Geschmack kannst du leer lassen. Koffein steht auf Egal.</p>
         <div id="auswahl">
           <noscript>
             <p class="form-error">Für die Empfehlung muss JavaScript aktiv sein. Die Listen unter Entdecken bleiben auch ohne JavaScript sichtbar. Die Auswahl verlässt den Browser nicht.</p>
@@ -138,9 +177,14 @@
       </div>
     </section>
 
-    <section id="entdecken" aria-labelledby="entdecken-titel">
+    <!-- /section:finden -->
+
+    <!-- section:entdecken -->
+    <section id="entdecken" class="area" aria-labelledby="entdecken-titel">
       <div class="wrap">
-        <h2 id="entdecken-titel">Entdecken</h2>
+        <p class="eyebrow">Listen</p>
+        <h2 id="entdecken-titel" class="area-title">Entdecken</h2>
+        <p class="area-lead">Tees nach Anlass. Zuerst drei Karten, der Rest über „Alle anzeigen“.</p>
         <!-- discover:start -->
 <section class="discover-list" aria-labelledby="liste-fokus" data-list="fokus">
           <h3 id="liste-fokus">Für den fokussierten Start</h3>
@@ -796,11 +840,13 @@
         <!-- discover:end -->
       </div>
     </section>
+    <!-- /section:entdecken -->
 
-    <section id="mischen" aria-labelledby="mischen-titel">
+    <!-- section:create -->
+    <section id="create" class="area" aria-labelledby="create-titel">
       <div class="wrap">
         <p class="eyebrow">Vorschau</p>
-        <h2 id="mischen-titel">Mischen</h2>
+        <h2 id="create-titel" class="area-title">Create</h2>
         <p class="soon">Bald verfügbar.</p>
         <p class="mixer-lead">Nichts wird bestellt oder gespeichert. Höchstens fünf Zutaten, die Anteile bleiben zusammen bei 100 %.</p>
         <noscript>
@@ -826,11 +872,86 @@
         </div>
       </div>
     </section>
+    <!-- /section:create -->
+
+    <!-- section:zubehoer -->
+    <section id="zubehoer" class="area" aria-labelledby="zubehoer-titel">
+      <div class="wrap">
+        <p class="eyebrow">Für den Aufguss</p>
+        <h2 id="zubehoer-titel" class="area-title">Zubehör</h2>
+        <p class="area-lead">Teile für den Tee im Alltag. Keine eigenen Produkte. Die Links führen zu einer Shop-Suche und sind Werbung.</p>
+        <div class="discover-grid">
+          <article class="tea-card" data-accessory="teesieb" data-type="Zubehör">
+            <div class="tea-body">
+              <p class="tea-kind">Zubehör</p>
+              <h3>Teesieb</h3>
+              <p class="tea-line">Hält lose Blätter beim Ausgießen zurück.</p>
+              <p class="ad-tag">Werbung</p>
+              <p class="tea-buy"><a class="btn btn-primary" href="/go/teesieb" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            </div>
+          </article>
+          <article class="tea-card" data-accessory="teekanne" data-type="Zubehör">
+            <div class="tea-body">
+              <p class="tea-kind">Zubehör</p>
+              <h3>Teekanne</h3>
+              <p class="tea-line">Nimmt den Aufguss auf, wenn mehrere Tassen aus demselben Ziehen kommen.</p>
+              <p class="ad-tag">Werbung</p>
+              <p class="tea-buy"><a class="btn btn-primary" href="/go/teekanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            </div>
+          </article>
+          <article class="tea-card" data-accessory="thermokanne" data-type="Zubehör">
+            <div class="tea-body">
+              <p class="tea-kind">Zubehör</p>
+              <h3>Thermoskanne</h3>
+              <p class="tea-line">Hält den Aufguss heiß für unterwegs. Gemeint ist eine Isolierflasche für Tee.</p>
+              <p class="ad-tag">Werbung</p>
+              <p class="tea-buy"><a class="btn btn-primary" href="/go/thermokanne" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            </div>
+          </article>
+          <article class="tea-card" data-accessory="teebecher" data-type="Zubehör">
+            <div class="tea-body">
+              <p class="tea-kind">Zubehör</p>
+              <h3>Teebecher und Teetasse</h3>
+              <p class="tea-line">Für eine Tasse unterwegs oder am Tisch.</p>
+              <p class="ad-tag">Werbung</p>
+              <p class="tea-buy"><a class="btn btn-primary" href="/go/teebecher" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            </div>
+          </article>
+          <article class="tea-card" data-accessory="teefilter" data-type="Zubehör">
+            <div class="tea-body">
+              <p class="tea-kind">Zubehör</p>
+              <h3>Teefilter</h3>
+              <p class="tea-line">Nimmt feine Blätter auf, wenn kein Sieb zur Hand ist.</p>
+              <p class="ad-tag">Werbung</p>
+              <p class="tea-buy"><a class="btn btn-primary" href="/go/teefilter" target="_blank" rel="sponsored noopener" aria-describedby="werbung-zubehoer">Hier kaufen</a></p>
+            </div>
+          </article>
+        </div>
+        <p class="affiliate-note" id="werbung-zubehoer">Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.</p>
+      </div>
+    </section>
+    <!-- /section:zubehoer -->
+
+    <!-- section:blog -->
+    <section id="blog" class="area" aria-labelledby="blog-titel">
+      <div class="wrap">
+        <p class="eyebrow">Texte</p>
+        <h2 id="blog-titel" class="area-title">Blog</h2>
+        <p class="area-lead">Kurze Texte zu Moment, Geschmack und Zubereitung.</p>
+        <div id="blog-liste">
+          <!-- blog:list -->
+          <p class="hint">Veröffentlichte Beiträge erscheinen hier.</p>
+          <!-- /blog:list -->
+        </div>
+      </div>
+    </section>
+    <!-- /section:blog -->
   </main>
 
+  <!-- chrome:footer -->
   <footer class="footer">
     <div class="wrap footer-inner">
-      <a class="logo" href="index.html" aria-label="Teelotse, zur Startseite">
+      <a class="logo" href="/" aria-label="Teelotse, zur Startseite">
         <!-- teelotse-wortmarke -->
       </a>
       <div class="footer-copy">
@@ -838,11 +959,12 @@
         <p class="care-note" data-care-note>Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.</p>
       </div>
       <nav aria-label="Rechtliches">
-        <a href="impressum.html">Impressum</a>
-        <a href="datenschutz.html">Datenschutz</a>
+        <a href="/impressum">Impressum</a>
+        <a href="/datenschutz">Datenschutz</a>
       </nav>
     </div>
   </footer>
+  <!-- /chrome:footer -->
   <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

@@ -398,7 +398,7 @@ describe('Öffentliche Texte', () => {
     const html = readFileSync('index.html', 'utf8');
     expect(html).toContain('Find your taste.');
     expect(html).toContain('Find your moment.');
-    expect(html).toContain('Find your tea.');
+    expect(html).toContain('Find your <em>tea</em>.');
     expect(html).toContain('Dein Tee für den richtigen Moment.');
     expect(html).toContain('data-group="occasion"');
     expect(html).toContain('Fokussierter Start');
