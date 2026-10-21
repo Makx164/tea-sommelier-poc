@@ -2,6 +2,23 @@ import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { applyBrandHtml, WORTMARKE_SLOT } from './brand-html';
 import { renderGoPage } from './go-page';
+import { renderHead } from './site-html';
+
+const ICON_LINKS = [
+  'href="/favicon.ico" sizes="any"',
+  'href="/favicon.svg" type="image/svg+xml"',
+  'type="image/png" sizes="32x32" href="/favicon-32x32.png"',
+  'type="image/png" sizes="16x16" href="/favicon-16x16.png"',
+  'rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"',
+  'rel="manifest" href="/site.webmanifest"',
+];
+
+function pngSize(file: string): [number, number] {
+  const bytes = readFileSync(file);
+  const ihdr = bytes.indexOf(Buffer.from('IHDR'));
+  if (ihdr < 0) throw new Error(`PNG-Kopf fehlt: ${file}`);
+  return [bytes.readUInt32BE(ihdr + 4), bytes.readUInt32BE(ihdr + 8)];
+}
 
 const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html'];
 
@@ -14,7 +31,7 @@ describe('Teelotse', () => {
       expect(html, file).not.toContain('Vorschau, nicht live');
       expect(html, file).not.toContain('fonts.googleapis.com');
       expect(html, file).not.toContain('fonts.gstatic.com');
-      expect(html, file).toContain('/brand/teelotse-logo-b-icon.svg');
+      for (const link of ICON_LINKS) expect(html, file).toContain(link);
       expect(html.match(new RegExp(WORTMARKE_SLOT, 'g'))?.length, file).toBe(2);
     }
     const home = readFileSync('index.html', 'utf8');
@@ -31,7 +48,34 @@ describe('Teelotse', () => {
     expect(html).toContain('M0,-38 C15,-20 15,0 0,0');
     expect(html).toContain('>Teelotse</text>');
     expect(source).toContain('>Teelotse</text>');
-    expect(readFileSync('public/brand/teelotse-logo-b-icon.svg', 'utf8')).toContain('fill="#2F5D50"');
+    const brandIcon = readFileSync('public/brand/teelotse-logo-b-icon.svg', 'utf8');
+    expect(brandIcon).toContain('fill="#2F5D50"');
+    expect(brandIcon).toContain('x="100" y="100"');
+    const favicon = readFileSync('public/favicon.svg', 'utf8');
+    expect(favicon).toContain('M0,-38 C15,-20 15,0 0,0');
+    expect(favicon).toContain('fill="#D7DDD4"');
+    expect(favicon).toContain('fill="#C8743A"');
+    expect(favicon).not.toContain('x="100"');
+    const head = renderHead({
+      title: 'Teelotse',
+      description: 'Tee',
+      path: '/finden',
+      styleHref: '/src/style.css',
+    });
+    for (const link of ICON_LINKS) expect(head).toContain(link);
+    const manifest = JSON.parse(readFileSync('public/site.webmanifest', 'utf8')) as {
+      icons: { src: string; sizes: string }[];
+    };
+    expect(manifest.icons.map((icon) => icon.src)).toEqual([
+      '/favicon.svg',
+      '/icon-192.png',
+      '/icon-512.png',
+    ]);
+    expect(pngSize('public/favicon-16x16.png')).toEqual([16, 16]);
+    expect(pngSize('public/favicon-32x32.png')).toEqual([32, 32]);
+    expect(pngSize('public/apple-touch-icon.png')).toEqual([180, 180]);
+    expect(pngSize('public/icon-192.png')).toEqual([192, 192]);
+    expect(pngSize('public/icon-512.png')).toEqual([512, 512]);
   });
 
   it('lädt die Schriften von dieser Seite', () => {
