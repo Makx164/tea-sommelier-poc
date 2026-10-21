@@ -6,6 +6,7 @@ import { HINT_EVENING_WITH_CAFFEINE, HINT_WITHOUT_CAFFEINE, teas } from './recom
 import { MIXER_TEXT } from './mixer';
 import { MOMENT_LINE } from './tea-copy';
 import {
+  AFFILIATE_NOTE,
   CARE_NOTE,
   CAFFEINE_CHOICE_LABEL,
   INGREDIENTS_GAP,
@@ -20,7 +21,10 @@ const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html
 function corpus(): { label: string; text: string }[] {
   const parts: { label: string; text: string }[] = [];
   for (const file of PAGES) {
-    parts.push({ label: file, text: visibleTextFromHtml(readFileSync(file, 'utf8')) });
+    parts.push({
+      label: file,
+      text: visibleTextFromHtml(readFileSync(file, 'utf8')).replaceAll(AFFILIATE_NOTE, ''),
+    });
   }
   for (const tea of teas) {
     parts.push({

@@ -112,6 +112,10 @@ describe('Affiliate-Konfiguration', () => {
     for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
       const html = readFileSync(file, 'utf8');
       expect(html.split(AFFILIATE_NOTE).length - 1, file).toBe(1);
+      const footer = html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));
+      expect(footer.match(/<p[\s>]/g)?.length, file).toBe(1);
+      expect(footer, file).not.toContain('Schwangerschaft');
+      expect(footer, file).not.toContain('Geschmacksempfehlung');
       expect(html, file).toContain('id="affiliate-hinweis"');
       expect(html, file).toContain('>Kontakt</a>');
       expect(html, file).not.toContain('class="affiliate-note"');
