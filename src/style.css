@@ -995,13 +995,6 @@ p.tea-buy { margin-bottom: 0; }
   border-color: var(--teeblatt);
 }
 
-.care-note {
-  margin: 1.15rem 0 0;
-  max-width: 40rem;
-  color: var(--tinte);
-  font-size: 0.95rem;
-}
-
 .soon {
   display: inline-block;
   margin: 0.2rem 0 0.8rem;
@@ -1183,7 +1176,6 @@ address.contact {
   line-height: 1.55;
   overflow-wrap: break-word;
 }
-.footer .care-note { margin: 0; color: var(--tinte); }
 .footer-affiliate {
   margin: 0;
   color: var(--tinte);

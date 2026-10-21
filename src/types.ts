@@ -138,9 +138,6 @@ export const CAFFEINE_CHOICE_LABEL: Record<CaffeineChoice, string> = {
   egal: 'Koffein egal',
 };
 
-export const CARE_NOTE =
-  'Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.';
-
 /** Einmal im Footer, statt der früheren drei Absätze. */
 export const AFFILIATE_NOTE =
   'Keine medizinische Beratung. „Hier kaufen“-Links sind Affiliate-Links (Amazon-Partnerprogramm): Bei einem Kauf erhalten wir ggf. eine Provision, der Preis bleibt gleich.';

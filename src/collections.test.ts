@@ -120,11 +120,13 @@ describe('Entdecken', () => {
     }
   });
 
-  it('legt Zurück und Neue Auswahl nur unter den Schwangerschafts-Hinweis', () => {
+  it('legt Zurück und Neue Auswahl unter die Ergebnisliste, ohne Schwangerschafts-Hinweis', () => {
     const html = readFileSync('index.html', 'utf8');
     const ergebnis = html.slice(html.indexOf('id="ergebnis"'), html.indexOf('id="entdecken"'));
     expect(ergebnis.match(/data-action="zurueck"/g)).toHaveLength(1);
     expect(ergebnis.match(/data-action="neu"/g)).toHaveLength(1);
-    expect(ergebnis.indexOf('data-care-note')).toBeLessThan(ergebnis.indexOf('data-action="zurueck"'));
+    expect(ergebnis).not.toContain('data-care-note');
+    expect(ergebnis).not.toContain('Schwangerschaft');
+    expect(ergebnis.indexOf('id="ergebnis-liste"')).toBeLessThan(ergebnis.indexOf('data-action="zurueck"'));
   });
 });

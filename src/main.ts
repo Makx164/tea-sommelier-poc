@@ -7,7 +7,6 @@ import { contradictionHints, recommend } from './recommender';
 import {
   CAFFEINE_CHOICES,
   CAFFEINE_CHOICE_LABEL,
-  CARE_NOTE,
   OCCASIONS,
   OCCASION_LABEL,
   TASTES,
@@ -29,9 +28,6 @@ function required<T extends Element>(selector: string): T {
   if (!node) throw new Error(`Element fehlt: ${selector}`);
   return node;
 }
-
-const careNotes = document.querySelectorAll<HTMLElement>('[data-care-note]');
-for (const note of careNotes) note.textContent = CARE_NOTE;
 
 initHeader();
 initReveal();

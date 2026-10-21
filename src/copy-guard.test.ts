@@ -7,7 +7,6 @@ import { MIXER_TEXT } from './mixer';
 import { MOMENT_LINE } from './tea-copy';
 import {
   AFFILIATE_NOTE,
-  CARE_NOTE,
   CAFFEINE_CHOICE_LABEL,
   INGREDIENTS_GAP,
   OCCASION_LABEL,
@@ -45,7 +44,6 @@ function corpus(): { label: string; text: string }[] {
       ...DISCOVER_LISTS.map((list) => list.title),
       HINT_WITHOUT_CAFFEINE,
       HINT_EVENING_WITH_CAFFEINE,
-      CARE_NOTE,
       INGREDIENTS_GAP,
       'Enthält Koffein',
       'Koffeinfrei',

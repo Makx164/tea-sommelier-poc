@@ -433,7 +433,8 @@ describe('Öffentliche Texte', () => {
     expect(html).toContain('data-action="zurueck"');
     expect(html).toContain('data-action="neu"');
     expect(html).toContain('id="ergebnis-hinweis"');
-    expect(html).toContain('Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.');
+    expect(html).not.toContain('Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.');
+    expect(html).not.toContain('data-care-note');
     expect(readFileSync('src/main.ts', 'utf8')).toContain('dataset.count');
     expect(readFileSync('src/style.css', 'utf8')).toContain('data-count="1"');
     expect(readFileSync('src/style.css', 'utf8')).toContain('data-count="2"');
