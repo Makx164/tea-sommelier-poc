@@ -1,5 +1,9 @@
 # Änderungsprotokoll
 
+## 2026-10-21 – Favicon
+
+- Tab-Icon ohne hellen Rand: die Fläche ist `--matcha` bis zum Rand. Das Kompass-Motiv bleibt, in 16 und 32 px lesbar. SVG, ICO, PNG, Apple-Touch und Manifest zeigen dasselbe Zeichen
+
 ## 2026-10-20 – Auftritt, Bereiche, Sichtbarkeit
 
 - Hero nach der freigegebenen Vorlage: Leuchtturm-Zeichnung, Schriftzug TEELOTSE und die Zeile „Find your taste. Find your moment. Find your tea.“ Die vier Ecken-Labels sind nicht übernommen. Farben Creme, Dunkelgrün und Grau. Display-Schrift Bodoni Moda, selbst gehostet
