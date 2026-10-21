@@ -25,7 +25,7 @@ function h1Count(html: string): number {
 
 describe('Navigation und Kopf', () => {
   it('nennt Finden, Entdecken, Create, Zubehör und Blog', () => {
-    for (const file of ['index.html', 'impressum.html', 'datenschutz.html']) {
+    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
       const html = readFileSync(file, 'utf8');
       const nav = html.slice(html.indexOf('<nav class="topnav"'), html.indexOf('</nav>'));
       for (const item of NAV) {
@@ -76,7 +76,11 @@ describe('Hero', () => {
 describe('Zubehör', () => {
   it('steht als typografische Karten mit /go/-Links im HTML', () => {
     expect(indexHtml).toContain(accessoryCardsHtml());
-    expect(indexHtml).toContain('id="werbung-zubehoer"');
+    expect(indexHtml).toContain('<h2 id="zubehoer-titel" class="area-title">Zubehör</h2>');
+    expect(indexHtml).not.toContain('id="werbung-zubehoer"');
+    expect(indexHtml).not.toContain('Für den Aufguss');
+    expect(indexHtml).not.toContain('Die Links führen zu einer Shop-Suche und sind Werbung.');
+    expect(indexHtml).not.toContain('Kurze Texte zu Moment, Geschmack und Zubereitung.');
     expect(indexHtml).toContain('id="zubehoer"');
     expect(indexHtml).not.toContain('tea-visual');
   });
@@ -89,6 +93,7 @@ describe('Blog und Sitemap', () => {
     const sitemap = renderSitemap(sitemapPaths(posts));
     expect(sitemap).toContain('https://teelotse.de/blog');
     expect(sitemap).toContain('https://teelotse.de/finden');
+    expect(sitemap).toContain('https://teelotse.de/kontakt');
     expect(sitemap).not.toContain('/blog/tee-zubereiten');
     expect(sitemap).not.toContain('/blog/welche-teesorte-moment');
     expect(sitemap).not.toContain('/go/');

@@ -1,6 +1,6 @@
 import { DISCOVER_LISTS, teasForList } from './collections';
 import { MOMENT_LINE } from './tea-copy';
-import { AFFILIATE_NOTE, caffeineFact, preparationFact } from './types';
+import { caffeineFact, preparationFact } from './types';
 
 /** Ohne JavaScript sichtbar. Mit JavaScript klappt der Rest zu. */
 const VISIBLE_COUNT = 3;
@@ -45,8 +45,7 @@ function teaCardHtml(
               <div class="tea-more-inner">
                 <p class="tea-prep"><span>Zubereitung</span> ${escapeHtml(preparation)}</p>
                 <p class="tea-caffeine">${escapeHtml(caffeine)}</p>${ingredientBlock}
-                <p class="ad-tag">Werbung</p>
-                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(teaId)}" target="_blank" rel="sponsored noopener" aria-describedby="${escapeHtml(noteId)}">Hier kaufen</a></p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(teaId)}" target="_blank" rel="sponsored noopener" aria-describedby="affiliate-hinweis">Hier kaufen</a></p>
               </div>
             </div>
           </article>`;
@@ -88,7 +87,6 @@ export function discoverListsHtml(): string {
             ${visible}
           </div>
           ${rest}
-          <p class="affiliate-note" id="${noteId}">${escapeHtml(AFFILIATE_NOTE)}</p>
         </section>`;
   }).join('\n');
 }

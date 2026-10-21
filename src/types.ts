@@ -141,8 +141,9 @@ export const CAFFEINE_CHOICE_LABEL: Record<CaffeineChoice, string> = {
 export const CARE_NOTE =
   'Bei Schwangerschaft, Stillzeit oder Medikamenteneinnahme klär die Zutaten bitte mit Arzt, Ärztin oder Hebamme.';
 
+/** Einmal im Footer. Inhalt des bisherigen Hinweises, inkl. Amazon-Partnerprogramm. */
 export const AFFILIATE_NOTE =
-  'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
+  'Die Links „Hier kaufen“ sind Affiliate-Links im Amazon-Partnerprogramm. Bei Kauf erhalten wir ggf. eine Provision, für Käufer ändert sich der Preis nicht.';
 
 /** Nicht auf der Karte. Die Zutatenzeile erscheint nur bei befülltem `ingredients`. */
 export const INGREDIENTS_GAP = 'liegt nicht vor';

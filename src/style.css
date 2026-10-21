@@ -974,16 +974,7 @@ legend {
   overflow: hidden;
 }
 
-.ad-tag {
-  margin: 0.9rem 0 0.3rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--teeblatt);
-}
-
-.tea-buy { margin-top: 0; }
+.tea-buy { margin-top: 0.9rem; }
 p.tea-buy { margin-bottom: 0; }
 
 .tea-card .btn-primary {
@@ -1002,12 +993,6 @@ p.tea-buy { margin-bottom: 0; }
   background: var(--teeblatt);
   color: var(--creme);
   border-color: var(--teeblatt);
-}
-
-.affiliate-note {
-  margin: 0.75rem 0 0;
-  color: var(--muted);
-  font-size: 0.85rem;
 }
 
 .care-note {
@@ -1160,7 +1145,7 @@ p.tea-buy { margin-bottom: 0; }
 .prose { max-width: 42rem; }
 .prose h1 { margin-top: 0.2rem; font-size: clamp(2.4rem, 6vw, 4rem); }
 .prose h2 { font-size: clamp(1.7rem, 3vw, 2.2rem); margin-top: 1.9rem; }
-.prose a { text-underline-offset: 0.16em; }
+.prose a { text-underline-offset: 0.16em; overflow-wrap: anywhere; }
 .prose ul { padding-left: 1.2rem; }
 .prose li { margin: 0.35rem 0; }
 
@@ -1173,20 +1158,47 @@ address.contact {
   border-top: 1px solid var(--linie);
   padding: 1.6rem 0 2rem;
   color: var(--muted);
-  font-size: 0.95rem;
+  font-size: 1rem;
+  line-height: 1.55;
   margin-top: auto;
 }
 
-.footer-inner { display: grid; gap: 0.85rem; align-items: start; }
-.footer p { margin: 0; max-width: 36rem; }
-.footer .care-note { margin: 0.55rem 0 0; color: var(--tinte); }
-.footer nav { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; }
+.footer-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+  min-width: 0;
+}
+.footer-inner > * { min-width: 0; max-width: 100%; }
+.footer-copy {
+  display: grid;
+  gap: 0.55rem;
+  min-width: 0;
+  max-width: 42rem;
+}
+.footer p {
+  margin: 0;
+  max-width: 42rem;
+  line-height: 1.55;
+  overflow-wrap: break-word;
+}
+.footer .care-note { margin: 0; color: var(--tinte); }
+.footer-affiliate {
+  margin: 0;
+  color: var(--tinte);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+.footer nav { display: flex; flex-wrap: wrap; gap: 0.75rem 1.25rem; max-width: 100%; }
 .footer a:not(.logo) {
   color: var(--teeblatt);
   font-weight: 650;
+  line-height: 1.45;
   text-underline-offset: 0.16em;
 }
-.footer .logo-mark { height: 2.4rem; }
+.footer .logo { max-width: 100%; }
+.footer .logo-mark { height: 2.4rem; width: 9.4rem; max-width: 100%; }
 
 .results-list[data-count="1"],
 .results-list[data-count="2"] {
@@ -1257,12 +1269,16 @@ address.contact {
   }
   .blog-list { grid-template-columns: 1fr 1fr; }
   .panel { padding: 1.4rem 1.4rem 1.3rem; }
+  .mixer-layout { grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr); align-items: start; }
+}
+
+@media (min-width: 960px) {
   .footer-inner {
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 2rem;
+    column-gap: 2rem;
+    row-gap: 1rem;
   }
-  .mixer-layout { grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr); align-items: start; }
 }
 
 @media (min-width: 1100px) {

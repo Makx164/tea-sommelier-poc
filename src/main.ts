@@ -22,9 +22,6 @@ import {
   type Tea,
 } from './types';
 
-const AFFILIATE_NOTE =
-  'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.';
-
 const COUNT_TEXT = ['', 'Ein Tee liegt vorn.', 'Zwei Tees passen gut.', 'Drei Tees zur Auswahl.'];
 
 function required<T extends Element>(selector: string): T {
@@ -335,9 +332,7 @@ function initDiscover(): void {
   }
 }
 
-let purchaseSeq = 0;
-
-function renderBuyLink(tea: Tea, describedBy?: string): HTMLAnchorElement {
+function renderBuyLink(tea: Tea): HTMLAnchorElement {
   const link = document.createElement('a');
   link.className = 'btn btn-primary';
   link.href = `/go/${tea.id}`;
@@ -345,27 +340,14 @@ function renderBuyLink(tea: Tea, describedBy?: string): HTMLAnchorElement {
   link.setAttribute('target', '_blank');
   link.setAttribute('rel', 'sponsored noopener');
   link.setAttribute('aria-label', `Hier kaufen: ${tea.name}`);
-  if (describedBy) link.setAttribute('aria-describedby', describedBy);
+  link.setAttribute('aria-describedby', 'affiliate-hinweis');
   return link;
 }
 
 function renderPurchase(tea: Tea): HTMLElement {
-  const block = document.createElement('div');
+  const block = document.createElement('p');
   block.className = 'tea-buy';
-  purchaseSeq += 1;
-  const hintId = `affiliate-${tea.id}-${purchaseSeq}`;
-
-  const tag = document.createElement('p');
-  tag.className = 'ad-tag';
-  tag.textContent = 'Werbung';
-
-  const link = renderBuyLink(tea, hintId);
-  const hint = document.createElement('p');
-  hint.className = 'affiliate-note';
-  hint.id = hintId;
-  hint.textContent = AFFILIATE_NOTE;
-
-  block.append(tag, link, hint);
+  block.append(renderBuyLink(tea));
   return block;
 }
 

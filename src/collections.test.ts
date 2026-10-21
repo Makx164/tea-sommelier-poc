@@ -61,7 +61,7 @@ describe('Entdecken', () => {
     }
   });
 
-  it('steht fertig im HTML, mit Werbung und /go/-Link', () => {
+  it('steht fertig im HTML, mit /go/-Link und ohne Werbehinweis in der Liste', () => {
     const html = readFileSync('index.html', 'utf8');
     expect(html).toContain(discoverListsHtml());
     for (const list of DISCOVER_LISTS) {
@@ -74,7 +74,10 @@ describe('Entdecken', () => {
     }
     expect(html).toContain('rel="sponsored noopener"');
     expect(html).toContain('target="_blank"');
-    expect(html).toContain('>Werbung</p>');
+    expect(html).toContain('aria-describedby="affiliate-hinweis"');
+    expect(html).not.toContain('>Werbung</p>');
+    expect(html).not.toContain('class="affiliate-note"');
+    expect(html).not.toContain('class="ad-tag"');
     expect(html).toContain('>Hier kaufen</a>');
     expect(html).not.toContain('tea-visual');
     expect(html).not.toContain('liegt nicht vor');
@@ -92,7 +95,9 @@ describe('Entdecken', () => {
     const html = discoverListsHtml();
     for (const list of DISCOVER_LISTS) {
       const entries = teasForList(list);
-      const block = html.slice(html.indexOf(`data-list="${list.id}"`), html.indexOf(`id="werbung-${list.id}"`));
+      const start = html.indexOf(`data-list="${list.id}"`);
+      const next = html.indexOf('data-list="', start + 1);
+      const block = html.slice(start, next === -1 ? html.length : next);
       expect(block).toContain('class="tea-kind"');
       if (entries.length <= 3) {
         expect(block).not.toContain('discover-rest');

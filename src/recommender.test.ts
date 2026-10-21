@@ -360,6 +360,7 @@ describe('Öffentliche Texte', () => {
       'index.html',
       'impressum.html',
       'datenschutz.html',
+      'kontakt.html',
       'src/main.ts',
       'src/style.css',
       'src/collections.ts',

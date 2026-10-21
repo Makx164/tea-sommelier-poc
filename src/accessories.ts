@@ -22,7 +22,6 @@ function escapeHtml(value: string): string {
 
 /** Typografische Karten, dieselbe Form wie die Tees: Label, Streifen, kein Bild. */
 export function accessoryCardsHtml(): string {
-  const noteId = 'werbung-zubehoer';
   const cards = ACCESSORIES.map((item) => {
     if (!SLUG.test(item.slug)) throw new Error(`Ungültiger Zubehör-Slug: ${item.slug}`);
     const moreId = `mehr-zubehoer-${item.slug}`;
@@ -36,8 +35,7 @@ export function accessoryCardsHtml(): string {
             </h3>
             <div class="tea-more" id="${escapeHtml(moreId)}">
               <div class="tea-more-inner">
-                <p class="ad-tag">Werbung</p>
-                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(item.slug)}" target="_blank" rel="sponsored noopener" aria-describedby="${noteId}">Hier kaufen</a></p>
+                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(item.slug)}" target="_blank" rel="sponsored noopener" aria-describedby="affiliate-hinweis">Hier kaufen</a></p>
               </div>
             </div>
           </article>`;

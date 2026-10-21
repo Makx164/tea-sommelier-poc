@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { ACCESSORIES } from './accessories';
 import affiliateLinks from './affiliate.json';
 import { isSensibleTeaSearch, withAmazonPartnerTag } from './affiliate-url';
+import { AFFILIATE_NOTE } from './types';
 import { renderGoPage } from './go-page';
 import { teas } from './recommender';
 
@@ -72,15 +73,16 @@ describe('Affiliate-Konfiguration', () => {
     expect(withAmazonPartnerTag('https://example.com/tee?k=1')).toBe('https://example.com/tee?k=1');
   });
 
-  it('zeigt den Kauf-Button mit Hinweis und interner Weiterleitung', () => {
+  it('zeigt den Kauf-Button mit Hinweis im Footer und interner Weiterleitung', () => {
     const main = readFileSync('src/main.ts', 'utf8');
     expect(main).toContain('Hier kaufen');
-    expect(main).toContain(
-      'Werbung/Affiliate-Link: Bei Kauf erhalten wir ggf. eine Provision, für dich ändert sich der Preis nicht.',
-    );
+    expect(main).not.toContain('affiliate-note');
+    expect(main).not.toContain('ad-tag');
+    expect(main).not.toContain('Werbung/Affiliate-Link');
     expect(main).toContain('link.href = `/go/${tea.id}`');
     expect(main).toContain("setAttribute('target', '_blank')");
     expect(main).toContain("setAttribute('rel', 'sponsored noopener')");
+    expect(main).toContain("setAttribute('aria-describedby', 'affiliate-hinweis')");
     expect(main).not.toContain('kauf_klick');
     expect(main).not.toContain('track(');
   });
@@ -104,6 +106,20 @@ describe('Affiliate-Konfiguration', () => {
       expect(html, tea.id).toContain('>Hier kaufen</a>');
       expect(html, tea.id).not.toContain('kauf_klick');
     }
+  });
+
+  it('setzt den Affiliate-Hinweis genau einmal in den Footer jeder Seite', () => {
+    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
+      const html = readFileSync(file, 'utf8');
+      expect(html.split(AFFILIATE_NOTE).length - 1, file).toBe(1);
+      expect(html, file).toContain('id="affiliate-hinweis"');
+      expect(html, file).toContain('>Kontakt</a>');
+      expect(html, file).not.toContain('class="affiliate-note"');
+      expect(html, file).not.toContain('>Werbung</p>');
+    }
+    const kontakt = readFileSync('kontakt.html', 'utf8');
+    expect(kontakt).toContain('href="mailto:maximilianhillert@mail.grokbot.com"');
+    expect(kontakt).toContain('Fragen zur Website erreichst du über diese Adresse.');
   });
 
   it('erklärt Affiliate-Links und Vercel Web Analytics im Datenschutz', () => {
