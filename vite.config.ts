@@ -76,6 +76,7 @@ export default defineConfig({
         main: resolve(root, 'index.html'),
         impressum: resolve(root, 'impressum.html'),
         datenschutz: resolve(root, 'datenschutz.html'),
+        kontakt: resolve(root, 'kontakt.html'),
         'go-redirect': resolve(root, 'src/go-redirect.ts'),
       },
     },

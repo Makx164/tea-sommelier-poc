@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { applyBrandHtml, WORTMARKE_SLOT } from './brand-html';
 import { renderGoPage } from './go-page';
 
-const PAGES = ['index.html', 'impressum.html', 'datenschutz.html'];
+const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html'];
 
 describe('Teelotse', () => {
   it('benennt die Seiten um und nimmt den Vorschau-Hinweis weg', () => {

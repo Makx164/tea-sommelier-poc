@@ -381,7 +381,7 @@ export function renderArticleDocument(options: {
 }
 
 export function sitemapPaths(posts: readonly Post[]): string[] {
-  const paths = ['/', ...NAV.map((item) => item.href), '/impressum', '/datenschutz'];
+  const paths = ['/', ...NAV.map((item) => item.href), '/impressum', '/datenschutz', '/kontakt'];
   for (const post of visiblePosts(posts, false)) paths.push(`/blog/${post.slug}`);
   return paths;
 }
@@ -458,5 +458,6 @@ Teelotse ist eine Website f√ºr Tee nach Moment, Geschmack und Koffein. Sie schl√
 - Blog: ${SITE}/blog
 - Impressum: ${SITE}/impressum
 - Datenschutz: ${SITE}/datenschutz
+- Kontakt: ${SITE}/kontakt
 `;
 }

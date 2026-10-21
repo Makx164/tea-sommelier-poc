@@ -6,7 +6,7 @@ import { HINT_EVENING_WITH_CAFFEINE, HINT_WITHOUT_CAFFEINE, teas } from './recom
 import { MIXER_TEXT } from './mixer';
 import { MOMENT_LINE } from './tea-copy';
 import {
-  CARE_NOTE,
+  AFFILIATE_NOTE,
   CAFFEINE_CHOICE_LABEL,
   INGREDIENTS_GAP,
   OCCASION_LABEL,
@@ -15,12 +15,15 @@ import {
   TIME_LABEL,
 } from './types';
 
-const PAGES = ['index.html', 'impressum.html', 'datenschutz.html'];
+const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html'];
 
 function corpus(): { label: string; text: string }[] {
   const parts: { label: string; text: string }[] = [];
   for (const file of PAGES) {
-    parts.push({ label: file, text: visibleTextFromHtml(readFileSync(file, 'utf8')) });
+    parts.push({
+      label: file,
+      text: visibleTextFromHtml(readFileSync(file, 'utf8')).replaceAll(AFFILIATE_NOTE, ''),
+    });
   }
   for (const tea of teas) {
     parts.push({
@@ -41,7 +44,6 @@ function corpus(): { label: string; text: string }[] {
       ...DISCOVER_LISTS.map((list) => list.title),
       HINT_WITHOUT_CAFFEINE,
       HINT_EVENING_WITH_CAFFEINE,
-      CARE_NOTE,
       INGREDIENTS_GAP,
       'Enthält Koffein',
       'Koffeinfrei',
