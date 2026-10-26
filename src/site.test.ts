@@ -87,35 +87,58 @@ describe('Zubehör', () => {
 });
 
 describe('Blog und Sitemap', () => {
-  it('führt die Beispielartikel als Entwürfe und lässt sie aus der Sitemap', () => {
+  it('führt die veröffentlichten Artikel in Blog, Sitemap und llms.txt', () => {
     expect(posts.map((post) => post.slug).sort()).toEqual(['tee-zubereiten', 'welche-teesorte-moment']);
-    expect(posts.every((post) => post.draft)).toBe(true);
+    expect(posts.every((post) => post.draft)).toBe(false);
     const sitemap = renderSitemap(sitemapPaths(posts));
     expect(sitemap).toContain('https://teelotse.de/blog');
     expect(sitemap).toContain('https://teelotse.de/finden');
     expect(sitemap).toContain('https://teelotse.de/kontakt');
-    expect(sitemap).not.toContain('/blog/tee-zubereiten');
-    expect(sitemap).not.toContain('/blog/welche-teesorte-moment');
+    expect(sitemap).toContain('https://teelotse.de/blog/tee-zubereiten');
+    expect(sitemap).toContain('https://teelotse.de/blog/welche-teesorte-moment');
     expect(sitemap).not.toContain('/go/');
+    const llms = renderLlms(posts);
+    expect(llms).toContain('https://teelotse.de/blog/tee-zubereiten');
+    expect(llms).toContain('https://teelotse.de/blog/welche-teesorte-moment');
+    expect(llms).toContain('Tee zubereiten: Wasser, Menge, Ziehzeit im Überblick');
+    expect(llms).toContain('Welche Teesorte passt zu welchem Moment');
+    expect(llms).not.toContain('/go/');
+    const blog = renderSectionDocument({
+      sourceHtml: indexHtml,
+      section: 'blog',
+      posts,
+      includeDrafts: false,
+      styleHref: '/src/style.css',
+      scriptHref: '/src/main.ts',
+    });
+    expect(blog).toContain('/blog/tee-zubereiten');
+    expect(blog).toContain('/blog/welche-teesorte-moment');
+    expect(blog).not.toContain('Entwurf');
+    expect(blog).not.toContain('Veröffentlichte Beiträge erscheinen hier.');
   });
 
-  it('zeigt Entwürfe nur, wenn die Vorschau sie ausdrücklich einblendet', () => {
-    const hidden = renderBlogList(posts, false);
-    const shown = renderBlogList(posts, true);
-    expect(hidden).not.toContain('welche-teesorte-moment');
-    expect(hidden).not.toContain('Entwurf');
-    expect(shown).toContain('welche-teesorte-moment');
-    expect(shown).toContain('Entwurf');
+  it('zeigt veröffentlichte Beiträge ohne Entwurf-Hinweis und blendet Entwürfe nur in der Vorschau ein', () => {
+    const list = renderBlogList(posts, false);
+    expect(list).toContain('welche-teesorte-moment');
+    expect(list).toContain('tee-zubereiten');
+    expect(list).not.toContain('Entwurf');
+    const draft = parsePost(
+      'entwurf.md',
+      '---\ntitle: "Noch nicht soweit"\ndate: 2026-10-01\ndescription: Ein Satz.\ndraft: true\n---\n\nAbsatz.\n',
+    );
+    const withDraft = [draft, ...posts];
+    expect(renderBlogList(withDraft, false)).not.toContain('/blog/entwurf');
+    expect(renderBlogList(withDraft, true)).toContain('Entwurf');
     const home = injectHome(indexHtml, posts, false);
-    expect(home).not.toContain('welche-teesorte-moment');
+    expect(home).toContain('welche-teesorte-moment');
     expect(home).toContain('application/ld+json');
     expect(home).not.toContain('AggregateRating');
     expect(home).not.toContain('FAQPage');
   });
 
-  it('setzt auf Entwurfsseiten noindex und genau eine h1', () => {
-    const post = posts[0];
-    expect(post).toBeTruthy();
+  it('setzt auf veröffentlichten Seiten index und genau eine h1', () => {
+    const post = posts.find((item) => item.slug === 'tee-zubereiten');
+    expect(post?.draft).toBe(false);
     const html = renderArticleDocument({
       sourceHtml: indexHtml,
       post: post!,
@@ -124,10 +147,29 @@ describe('Blog und Sitemap', () => {
     });
     expect(h1Count(html)).toBe(1);
     expect(html).toContain('lang="de"');
+    expect(html).toContain('index, follow');
+    expect(html).not.toContain('noindex');
+    expect(html).not.toContain('Entwurf');
+    expect(html).toContain('BlogPosting');
+    expect(html).toContain('https://teelotse.de/blog/tee-zubereiten');
+  });
+
+  it('setzt auf Entwurfsseiten noindex und genau eine h1', () => {
+    const post = parsePost(
+      'entwurf.md',
+      '---\ntitle: "Noch nicht soweit"\ndate: 2026-10-01\ndescription: Ein Satz.\ndraft: true\n---\n\nAbsatz.\n',
+    );
+    const html = renderArticleDocument({
+      sourceHtml: indexHtml,
+      post,
+      styleHref: '/src/style.css',
+      scriptHref: '/src/main.ts',
+    });
+    expect(h1Count(html)).toBe(1);
     expect(html).toContain('noindex');
     expect(html).toContain('Entwurf');
     expect(html).toContain('BlogPosting');
-    expect(html).toContain(`https://teelotse.de/blog/${post!.slug}`);
+    expect(html).toContain('https://teelotse.de/blog/entwurf');
   });
 });
 
@@ -181,12 +223,13 @@ describe('Eigene Adressen', () => {
 describe('Öffentliche Texte ohne KI', () => {
   it('meidet verbotene Formulierungen in Blog, llms.txt und robots.txt', () => {
     const chunks = [
-      { label: 'llms', text: renderLlms() },
+      { label: 'llms', text: renderLlms(posts) },
       { label: 'robots', text: renderRobots() },
       ...posts.map((post) => ({
         label: post.slug,
         text: `${post.title} ${post.description} ${visibleTextFromHtml(post.bodyHtml)}`,
       })),
+      { label: 'blog-ideen', text: readFileSync('docs/blog-ideen.md', 'utf8') },
     ];
     for (const entry of chunks) {
       for (const rule of FORBIDDEN_COPY) {
@@ -197,7 +240,7 @@ describe('Öffentliche Texte ohne KI', () => {
     }
     expect(renderRobots()).toContain('Sitemap: https://teelotse.de/sitemap.xml');
     expect(renderRobots()).toContain('Allow: /');
-    expect(renderLlms()).toContain('https://teelotse.de/zubehoer');
+    expect(renderLlms(posts)).toContain('https://teelotse.de/zubehoer');
   });
 });
 

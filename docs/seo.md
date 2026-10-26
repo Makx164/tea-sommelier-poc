@@ -10,7 +10,7 @@ Stand der technischen Umsetzung im Code. Konten und Webmaster-Tools sind hier ni
 - Jede Seite hat genau eine Hauptüberschrift, `lang="de"`, eigenen Titel, eigene Beschreibung, Canonical-URL, Open-Graph- und Twitter-Angaben. Das Bild fürs Teilen ist die Leuchtturm-Zeichnung, ausgeliefert als AVIF und WebP.
 - Strukturierte Daten: WebSite und Organization auf der Startseite, BreadcrumbList auf den Unterseiten, ItemList für die Tee-Listen und das Zubehör, BlogPosting für veröffentlichte Artikel. Es gibt keine Sterne und keine erfundenen Bewertungen.
 - `sitemap.xml`, `robots.txt` und `llms.txt` werden beim Bau erzeugt. `/go/` ist in der Sitemap ausgelassen und für Crawler gesperrt, weil das nur Weiterleitungen sind. Suchmaschinen und gängige Assistenten-Crawler sind erlaubt.
-- Entwürfe (`draft: true`) stehen nicht in der Sitemap. Auf der Vorschau-Umgebung von Vercel sind sie mit dem Hinweis „Entwurf“ sichtbar und auf `noindex` gesetzt. Im normalen Bau, auch für die Live-Seite, fehlen sie.
+- Veröffentlichte Beiträge (`draft: false`) stehen in der Sitemap und in `llms.txt`. Entwürfe (`draft: true`) fehlen dort. Auf der Vorschau-Umgebung von Vercel sind Entwürfe mit dem Hinweis „Entwurf“ sichtbar und auf `noindex` gesetzt. Im normalen Bau, auch für die Live-Seite, fehlen sie.
 
 ## Was der Inhaber außerhalb des Codes tun müsste
 

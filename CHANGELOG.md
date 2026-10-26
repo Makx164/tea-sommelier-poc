@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 2026-10-26 – Blog
+
+- Zwei Beiträge veröffentlicht: „Tee zubereiten: Wasser, Menge, Ziehzeit im Überblick“ unter `/blog/tee-zubereiten` und „Welche Teesorte passt zu welchem Moment“ unter `/blog/welche-teesorte-moment`. Beide stehen in der Übersicht, im Bau, in der Sitemap und in `llms.txt`
+- Temperaturvergleich nur noch an den gezeigten Beispielen. Die Menge steht als Datensatz, nicht als Kartenzeile. Moment-Namen und Listen-Überschriften wie auf der Seite
+- Ideen für weitere Beiträge in `docs/blog-ideen.md`
+
 ## 2026-10-21 – Favicon
 
 - Tab-Icon ohne hellen Rand: die Fläche ist `--matcha` bis zum Rand. Das Kompass-Motiv bleibt, in 16 und 32 px lesbar. SVG, ICO, PNG, Apple-Touch und Manifest zeigen dasselbe Zeichen

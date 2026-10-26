@@ -2,18 +2,18 @@
 title: Welche Teesorte passt zu welchem Moment
 date: 2026-10-20
 description: Sechs Momente auf Teelotse und Beispiele, welche Teesorten in den Listen dazu stehen.
-draft: true
+draft: false
 ---
 
-Teelotse ordnet Tee nach Geschmack und Moment. Es gibt sechs Momente: fokussierter Start, Abendritual, nach dem Essen, Aufwärmen, Erfrischen und etwas Süßes.
+Teelotse ordnet Tee nach Geschmack und Moment. Es gibt sechs Momente: Fokussierter Start, Abendritual, Nach dem Essen, Aufwärmen, Erfrischen & Aktiv und Etwas Süßes.
 
 Unter [Entdecken](/entdecken) stehen daraus sechs Listen. Ein Tee erscheint dort, wenn er im Datensatz zu diesem Moment passt. Dieselbe Sorte kann in mehr als einer Liste stehen.
 
-## Fokussierter Start
+## Für den fokussierten Start
 
 Dazu gehören unter anderem Assam und Ceylon. Assam ist im Datensatz malzig und kräftig, Ceylon zitronig und klar.
 
-## Feierabend
+## Für den Feierabend
 
 Bai Hao Yinzhen, Jasmintee und Kamillentee stehen in dieser Liste. Kamillentee ist dort als blumig und honigartig beschrieben, für den Abend.
 
@@ -21,13 +21,13 @@ Bai Hao Yinzhen, Jasmintee und Kamillentee stehen in dieser Liste. Kamillentee i
 
 Fencheltee, Pfefferminztee und reifer Pu-Erh stehen vorn. Fencheltee ist mild und süßlich, Pfefferminztee klar minzig.
 
-## Kalte Tage
+## Für kalte Tage
 
 Apfel-Zimt-Tee, Lapsang Souchong und Masala Chai sind Beispiele. Masala Chai ist würzig, Lapsang Souchong rauchig.
 
-## Frisch und unterwegs
+## Beliebt nach dem Training
 
-Hibiskustee, Pfefferminztee und Zitronenverbene stehen bei „Beliebt nach dem Training“. Die Texte nennen sie spritzig und frisch.
+Hibiskustee, Pfefferminztee und Zitronenverbene stehen in dieser Liste. Die Texte nennen sie spritzig und frisch.
 
 ## Etwas Süßes
 
