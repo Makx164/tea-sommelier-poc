@@ -126,7 +126,7 @@ export function sitePages(): Plugin {
         source: renderSitemap(sitemapPaths(allPosts)),
       });
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: renderRobots() });
-      this.emitFile({ type: 'asset', fileName: 'llms.txt', source: renderLlms() });
+      this.emitFile({ type: 'asset', fileName: 'llms.txt', source: renderLlms(allPosts) });
     },
   };
 }
@@ -148,7 +148,7 @@ function routeBody(
     return { type: 'application/xml; charset=utf-8', text: renderSitemap(sitemapPaths(allPosts)) };
   }
   if (path === '/robots.txt') return { type: 'text/plain; charset=utf-8', text: renderRobots() };
-  if (path === '/llms.txt') return { type: 'text/plain; charset=utf-8', text: renderLlms() };
+  if (path === '/llms.txt') return { type: 'text/plain; charset=utf-8', text: renderLlms(allPosts) };
   const section = SECTIONS.find((item) => `/${item}` === path);
   if (section) {
     return {

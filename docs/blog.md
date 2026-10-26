@@ -13,8 +13,8 @@ draft: true
 ---
 ```
 
-- `draft: true` heißt Entwurf. Der Text erscheint nicht in der Sitemap und nicht auf der Live-Seite. Auf der Vorschau steht er mit dem Hinweis „Entwurf“.
-- `draft: false` veröffentlicht ihn: Übersicht, eigene Seite, Sitemap.
+- `draft: true` heißt Entwurf. Der Text erscheint nicht in der Sitemap, nicht in `llms.txt` und nicht auf der Live-Seite. Auf der Vorschau steht er mit dem Hinweis „Entwurf“.
+- `draft: false` veröffentlicht ihn: Übersicht, eigene Seite, Sitemap und `llms.txt`.
 - Datum im Format Jahr-Monat-Tag. Beschreibung und Titel sind Pflicht.
 - Im Text gehen Absätze, `##` und `###` als Überschriften, Listen mit `- ` und **fett**. Links nur auf diese Website, zum Beispiel `[Entdecken](/entdecken)`.
 
@@ -29,4 +29,4 @@ Geschmack, Aroma, Temperatur, Stimmung, Moment, Herkunft, Zubereitung. Was eine 
 - Erfundene Zahlen, Preise, Bewertungen, Marken, Quellen oder Studien. Ziehzeit, Temperatur, Menge und Koffein nur so, wie sie in `src/data/teas.json` stehen. Keine Milligramm-Angaben, die der Datensatz nicht hat.
 - Emojis, Icons und generierte Bilder. Der Blog ist Text.
 
-Zwei Beispielartikel liegen schon im Ordner und sind Entwürfe.
+Zwei Beiträge liegen schon im Ordner und sind veröffentlicht. Weitere Ideen stehen in `docs/blog-ideen.md`.

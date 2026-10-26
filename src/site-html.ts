@@ -448,7 +448,11 @@ Sitemap: ${SITE}/sitemap.xml
 `;
 }
 
-export function renderLlms(): string {
+export function renderLlms(posts: readonly Post[] = []): string {
+  const articles = visiblePosts(posts, false)
+    .map((post) => `- ${SITE}/blog/${post.slug} — ${post.title}`)
+    .join('\n');
+  const articleBlock = articles.length > 0 ? `\n## Beiträge\n\n${articles}\n` : '';
   return `# Teelotse
 
 Teelotse ist eine Website für Tee nach Moment, Geschmack und Koffein. Sie schlägt aus einem festen Satz gängiger Tees ein bis drei Sorten vor und listet Tees nach Anlass. Create ist eine Vorschau zum Zusammenstellen, noch ohne Bestellung. Zubehör verlinkt auf Shop-Suchen und ist als Werbung gekennzeichnet. Es gibt keine eigenen Produkte. Die Texte bleiben bei Geschmack, Aroma, Temperatur, Moment, Herkunft und Zubereitung.
@@ -464,5 +468,5 @@ Teelotse ist eine Website für Tee nach Moment, Geschmack und Koffein. Sie schl�
 - Impressum: ${SITE}/impressum
 - Datenschutz: ${SITE}/datenschutz
 - Kontakt: ${SITE}/kontakt
-`;
+${articleBlock}`;
 }
