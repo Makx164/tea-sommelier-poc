@@ -147,6 +147,9 @@ export function sectionJsonLd(section: SectionId): unknown {
         'Thermoskanne',
         'Teebecher und Teetasse',
         'Teefilter',
+        'Wasserkocher',
+        'Waage',
+        'Bambusbesen',
       ].map((name, index) => ({ '@type': 'ListItem', position: index + 1, name })),
     });
   }

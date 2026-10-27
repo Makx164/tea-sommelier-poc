@@ -23,5 +23,20 @@
     "slug": "teefilter",
     "name": "Teefilter",
     "line": "Nimmt feine Blätter auf, wenn kein Sieb zur Hand ist."
+  },
+  {
+    "slug": "wasserkocher",
+    "name": "Wasserkocher",
+    "line": "Stellt das Wasser auf eine gewählte Temperatur."
+  },
+  {
+    "slug": "waage",
+    "name": "Waage",
+    "line": "Wiegt lose Blätter in Schritten von 0,1 g."
+  },
+  {
+    "slug": "bambusbesen",
+    "name": "Bambusbesen",
+    "line": "Rührt Matcha in der Schale an."
   }
 ]

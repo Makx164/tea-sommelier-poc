@@ -14,7 +14,7 @@ Eine Tasse steht und fällt mit drei Zahlen, und die gelten nicht für jede Sort
 
 Loser Tee braucht ein Gefäß, etwas, das die Blätter zurückhält, und heißes Wasser. Die Mengen im Datensatz sind in Gramm je Milliliter geschrieben, also für losen Tee, nicht für einen Beutel, dessen Füllmenge auf der Packung steht.
 
-Stell eine [Teekanne](/go/teekanne) hin, wenn mehrere Tassen aus demselben Ziehen kommen sollen, oder einen [Teebecher](/go/teebecher), wenn es bei einer Tasse bleibt. Die Blätter kommen in ein [Teesieb](/go/teesieb). Sind sie sehr fein, hält ein [Teefilter](/go/teefilter) den Staub zurück, den ein grobes Sieb durchlässt. Daneben der Wasserkocher, eine Waage und eine Uhr. Für Waage und Wasserkocher gibt es hier keinen Kauf-Link.
+Stell eine [Teekanne](/go/teekanne) hin, wenn mehrere Tassen aus demselben Ziehen kommen sollen, oder einen [Teebecher](/go/teebecher), wenn es bei einer Tasse bleibt. Die Blätter kommen in ein [Teesieb](/go/teesieb). Sind sie sehr fein, hält ein [Teefilter](/go/teefilter) den Staub zurück, den ein grobes Sieb durchlässt. Daneben der [Wasserkocher](/go/wasserkocher), eine [Waage](/go/waage) und eine Uhr.
 
 Spül Kanne oder Becher mit heißem Wasser aus und gieß es weg. Das Gefäß ist dann nicht mehr eiskalt, und der erste Aufguss fällt nicht sofort unter die Temperatur, die du gerade getroffen hast.
 
@@ -24,7 +24,7 @@ Das Wasser kommt auf die Temperatur, die im Datensatz zur Sorte steht. Kochend i
 
 ![Hände gießen Tee aus einer Glaskanne in eine Glastasse auf einem Holztisch.](/bilder/blog/tee-zubereiten/wasser.webp "Thirdman | https://www.pexels.com/photo/a-person-pouring-tea-in-glass-cup-6957754/")
 
-Ein Wasserkocher mit Temperaturstufen trifft die Zahl. Steht am Gerät nur „kochend“, gilt: Sorten mit 100 °C oder 95–100 °C bekommen das Wasser, sobald es sprudelt. Sorten mit einer kühleren Angabe, Sencha mit 70–80 °C oder Matcha mit 75 °C, bekommen kein Wasser, das noch wallt. Für Sencha steht im Datensatz: „Nicht mit kochendem Wasser aufgießen, sonst wird der Aufguss bitter.“ Wie viele Minuten ein offener Kessel braucht, bis er von selbst auf eine kühlere Stufe fällt, steht dort nicht. Dafür ist die Stufe am Kocher da.
+Ein [Wasserkocher](/go/wasserkocher) mit Temperaturstufen trifft die Zahl. Steht am Gerät nur „kochend“, gilt: Sorten mit 100 °C oder 95–100 °C bekommen das Wasser, sobald es sprudelt. Sorten mit einer kühleren Angabe, Sencha mit 70–80 °C oder Matcha mit 75 °C, bekommen kein Wasser, das noch wallt. Für Sencha steht im Datensatz: „Nicht mit kochendem Wasser aufgießen, sonst wird der Aufguss bitter.“ Wie viele Minuten ein offener Kessel braucht, bis er von selbst auf eine kühlere Stufe fällt, steht dort nicht. Dafür ist die Stufe am Kocher da.
 
 Sechs Beispiele, jeweils so, wie sie im Datensatz stehen:
 
@@ -39,11 +39,11 @@ Sencha und Matcha liegen in diesen Beispielen kühler als Assam, Darjeeling, Kam
 
 ## Die Menge in Gramm abwiegen {step}
 
-Die Menge steht in Gramm auf eine Wassermenge, meist 200 ml. Eine Waage trifft das. Ein Löffel nicht, weil eine feine Knospe und ein gerolltes Blatt nicht dasselbe Volumen haben. Eine Umrechnung von Gramm in Löffel steht im Datensatz nicht.
+Die Menge steht in Gramm auf eine Wassermenge, meist 200 ml. Eine [Waage](/go/waage) trifft das. Ein Löffel nicht, weil eine feine Knospe und ein gerolltes Blatt nicht dasselbe Volumen haben. Eine Umrechnung von Gramm in Löffel steht im Datensatz nicht.
 
 ![Getrocknete Teeblätter in einer Schale, daneben ein Teesieb auf einem Tuch.](/bilder/blog/tee-zubereiten/blaetter.webp "Kseniya Budko | https://www.pexels.com/photo/dry-tea-leaves-in-the-bowl-beside-the-tea-strainer-9025660/")
 
-Leg das [Teesieb](/go/teesieb) oder den [Teefilter](/go/teefilter) auf die Waage, tariere, und füll die Grammzahl der Sorte ein. Die Blätter kommen ins Sieb, nicht lose in die Kanne, sonst kippst du sie mit in die Tasse. Für eine größere Kanne rechnest du die Milliliter um und lässt das Verhältnis stehen: die Angabe gilt je 200 ml, nicht als feste Menge für jedes Gefäß.
+Leg das [Teesieb](/go/teesieb) oder den [Teefilter](/go/teefilter) auf die [Waage](/go/waage), tariere, und füll die Grammzahl der Sorte ein. Die Blätter kommen ins Sieb, nicht lose in die Kanne, sonst kippst du sie mit in die Tasse. Für eine größere Kanne rechnest du die Milliliter um und lässt das Verhältnis stehen: die Angabe gilt je 200 ml, nicht als feste Menge für jedes Gefäß.
 
 Mengen aus dem Datensatz, neben der späteren Ziehzeit:
 
@@ -100,7 +100,7 @@ Matcha wird nicht gezogen. Im Datensatz steht die Ziehzeit als „nicht ziehen l
 
 ![Bambusbesen neben einer Schale mit grünem Pulver auf einem Tuch.](/bilder/blog/tee-zubereiten/matcha.webp "Roman Odintsov | https://www.pexels.com/photo/bamboo-whisk-in-ceramic-bowl-5976078/")
 
-Sieb das Pulver durch ein feines [Teesieb](/go/teesieb) in eine Schale. Ein grobes Küchensieb lässt die Klümpchen liegen, die sich beim Anrühren nicht mehr lösen. Gieß das Wasser mit 75 °C dazu, wenig, etwa 70 ml, und rühr mit einem Bambusbesen, bis keine trockenen Punkte mehr auf der Oberfläche schwimmen. Eine Gabel geht zur Not, der Besen trifft das Pulver feiner. Für den Besen gibt es hier keinen Kauf-Link. Den [Matcha](/go/matcha) selbst schon.
+Sieb das Pulver durch ein feines [Teesieb](/go/teesieb) in eine Schale. Ein grobes Küchensieb lässt die Klümpchen liegen, die sich beim Anrühren nicht mehr lösen. Gieß das Wasser mit 75 °C dazu, wenig, etwa 70 ml, und rühr mit einem [Bambusbesen](/go/bambusbesen), bis keine trockenen Punkte mehr auf der Oberfläche schwimmen. Eine Gabel geht zur Not, der Besen trifft das Pulver feiner. Den [Matcha](/go/matcha) selbst schon.
 
 Weil das Blatt mitgetrunken wird, bleibt am Boden kein Satz, den du abgießen müsstest. Du trinkst die Schale aus.
 
