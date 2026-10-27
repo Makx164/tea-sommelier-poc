@@ -23,8 +23,8 @@ export const ACCESSORY_PHOTOS: readonly AccessoryPhoto[] = [
   {
     slug: 'teekanne',
     label: 'Teekanne',
-    creditName: 'Cup of Couple',
-    creditUrl: 'https://www.pexels.com/photo/tea-in-a-clear-glass-pot-7303162/',
+    creditName: 'Misa S.',
+    creditUrl: 'https://www.pexels.com/photo/close-up-of-kettle-8640382/',
     licenseName: 'Pexels',
     licenseUrl: PEXELS_LICENSE,
   },
