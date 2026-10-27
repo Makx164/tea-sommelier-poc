@@ -113,7 +113,7 @@ function figureHtml(options: {
   eager: boolean;
 }): string {
   const base = options.src.replace(/-1280\.webp$/, '');
-  const sizes = '(min-width: 800px) 42rem, calc(100vw - 1.5rem)';
+  const sizes = '(min-width: 640px) 34rem, calc(100vw - 2.5rem)';
   const loading = options.eager ? 'eager' : 'lazy';
   return `<figure class="post-figure">
   <picture>
@@ -219,7 +219,9 @@ export function renderMarkdown(markdown: string): Rendered {
       if (!visible) throw new Error('Leere Überschrift.');
       if (level === 2 || marker === 'faq') flush();
       const anchor = uniqueId(slugify(visible));
-      html.push(`<h${level} id="${anchor}">${inline(escapeHtml(visible))}</h${level}>`);
+      const headingClass =
+        marker === 'step' ? ' class="post-step"' : marker === 'faq' ? ' class="post-faq"' : visible === 'Häufige Fragen' ? ' class="post-notes"' : '';
+      html.push(`<h${level} id="${anchor}"${headingClass}>${inline(escapeHtml(visible))}</h${level}>`);
       if (marker === 'step') {
         if (level !== 2) throw new Error('Schritte stehen auf einer ##-Überschrift.');
         step = { name: visible, anchor };

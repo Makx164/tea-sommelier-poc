@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { accessoryCardsHtml } from './accessories';
+import { accessoryCreditsHtml } from './accessory-photos';
 import affiliateLinks from './affiliate.json';
 import { loadPosts, parsePost } from './blog';
 import { FORBIDDEN_COPY, visibleTextFromHtml } from './copy-guard';
@@ -79,6 +80,7 @@ describe('Hero', () => {
 describe('Zubehör', () => {
   it('steht als typografische Karten mit /go/-Links im HTML', () => {
     expect(indexHtml).toContain(accessoryCardsHtml());
+    expect(indexHtml).toContain(accessoryCreditsHtml());
     expect(indexHtml).toContain('<h2 id="zubehoer-titel" class="area-title">Zubehör</h2>');
     expect(indexHtml).not.toContain('id="werbung-zubehoer"');
     expect(indexHtml).not.toContain('Für den Aufguss');

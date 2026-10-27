@@ -1,3 +1,4 @@
+import { accessoryPhotoMarkup } from './accessory-photos';
 import accessoryData from './accessories.json';
 
 export type Accessory = {
@@ -20,7 +21,7 @@ function escapeHtml(value: string): string {
     .replaceAll('"', '&quot;');
 }
 
-/** Typografische Karten, dieselbe Form wie die Tees: Label, Streifen, kein Bild. */
+/** Dieselbe Kartenform wie die Tees: Foto, zwei Zeilen, Kaufzeile erst aufgeklappt. */
 export function accessoryCardsHtml(): string {
   const cards = ACCESSORIES.map((item) => {
     if (!SLUG.test(item.slug)) throw new Error(`Ungültiger Zubehör-Slug: ${item.slug}`);
@@ -28,14 +29,17 @@ export function accessoryCardsHtml(): string {
     return `          <article class="tea-card" data-accessory="${escapeHtml(item.slug)}" data-type="Zubehör">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="${escapeHtml(moreId)}">
-                <span class="tea-name">${escapeHtml(item.name)}</span>
-                <span class="tea-kind">Zubehör</span>
-                <span class="tea-line">${escapeHtml(item.line)}</span>
+                ${accessoryPhotoMarkup(item.slug)}
+                <span class="tea-copy">
+                  <span class="tea-name">${escapeHtml(item.name)}</span>
+                  <span class="tea-kind">Zubehör</span>
+                  <span class="tea-line">${escapeHtml(item.line)}</span>
+                </span>
               </button>
             </h3>
             <div class="tea-more" id="${escapeHtml(moreId)}">
               <div class="tea-more-inner">
-                <p class="tea-buy"><a class="btn btn-primary" href="/go/${escapeHtml(item.slug)}" target="_blank" rel="sponsored noopener" aria-describedby="affiliate-hinweis">Hier kaufen</a></p>
+                <p class="tea-buy"><a class="tea-shop" href="/go/${escapeHtml(item.slug)}" target="_blank" rel="sponsored noopener" aria-describedby="affiliate-hinweis">Hier kaufen</a></p>
               </div>
             </div>
           </article>`;
