@@ -2,10 +2,12 @@ import { existsSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { accessoryCardsHtml } from './accessories';
+import affiliateLinks from './affiliate.json';
 import { loadPosts, parsePost } from './blog';
 import { FORBIDDEN_COPY, visibleTextFromHtml } from './copy-guard';
 import {
   NAV,
+  articleJsonLd,
   injectHome,
   renderArticleDocument,
   renderBlogList,
@@ -15,6 +17,7 @@ import {
   renderSitemap,
   sitemapPaths,
 } from './site-html';
+import { AFFILIATE_NOTE } from './types';
 
 const indexHtml = readFileSync('index.html', 'utf8');
 const posts = loadPosts(resolve('content/blog'));
@@ -252,7 +255,120 @@ describe('Markdown', () => {
     );
     expect(post.draft).toBe(true);
     expect(post.date).toBe('2026-10-20');
-    expect(post.bodyHtml).toContain('<h2>Wasser</h2>');
+    expect(post.bodyHtml).toContain('<h2 id="wasser">Wasser</h2>');
     expect(post.bodyHtml).toContain('<p>Ein Absatz.</p>');
+    expect(post.steps).toEqual([]);
+    expect(post.faqs).toEqual([]);
+  });
+});
+
+describe('Beiträge mit Anleitung und Fragen', () => {
+  const teaFigures = readFileSync('src/data/teas.json', 'utf8');
+  const goSlugs = new Set(Object.keys(affiliateLinks as Record<string, string>));
+
+  function article(slug: string): string {
+    const post = posts.find((item) => item.slug === slug);
+    expect(post, slug).toBeTruthy();
+    return renderArticleDocument({
+      sourceHtml: indexHtml,
+      post: post!,
+      styleHref: '/src/style.css',
+      scriptHref: '/src/main.ts',
+    });
+  }
+
+  function jsonLd(html: string): { '@graph': Record<string, unknown>[] } {
+    const raw = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)?.[1];
+    expect(raw).toBeTruthy();
+    return JSON.parse(raw!) as { '@graph': Record<string, unknown>[] };
+  }
+
+  it('setzt HowTo und FAQPage nur auf die beiden Beiträge, mit Bildern und /go/-Links', () => {
+    for (const slug of ['tee-zubereiten', 'welche-teesorte-moment'] as const) {
+      const post = posts.find((item) => item.slug === slug)!;
+      const html = article(slug);
+      const visible = visibleTextFromHtml(html);
+      expect(html).toContain('FAQPage');
+      expect(html).toContain('HowTo');
+      expect(html).toContain('BlogPosting');
+      expect(html).toContain('dateModified');
+      expect(html).toContain('Aktualisiert am');
+      expect(html.split(AFFILIATE_NOTE).length - 1).toBe(1);
+      expect(post.bodyHtml).not.toContain('{step}');
+      expect(post.bodyHtml).not.toContain('{faq}');
+      expect(post.steps.length).toBeGreaterThanOrEqual(2);
+      expect(post.faqs.length).toBeGreaterThanOrEqual(2);
+      expect(post.images.length).toBeGreaterThanOrEqual(3);
+
+      const data = jsonLd(html);
+      const types = data['@graph'].map((node) => node['@type']);
+      expect(types).toContain('HowTo');
+      expect(types).toContain('FAQPage');
+      const howTo = data['@graph'].find((node) => node['@type'] === 'HowTo')!;
+      const steps = howTo.step as { '@type': string; name: string; text: string; url: string }[];
+      expect(steps).toHaveLength(post.steps.length);
+      for (const step of steps) {
+        expect(step['@type']).toBe('HowToStep');
+        expect(step.text.length).toBeGreaterThan(40);
+        expect(visible).toContain(step.name);
+        const anchor = step.url.split('#')[1] ?? '';
+        expect(html).toContain(`id="${anchor}"`);
+      }
+      const faq = data['@graph'].find((node) => node['@type'] === 'FAQPage')!;
+      const questions = faq.mainEntity as { name: string; acceptedAnswer: { text: string } }[];
+      expect(questions).toHaveLength(post.faqs.length);
+      for (const question of questions) {
+        expect(visible).toContain(question.name);
+        expect(visible).toContain(question.acceptedAnswer.text.slice(0, 48));
+      }
+      const images = howTo.image as string[];
+      expect(images.length).toBe(post.images.length);
+      for (const image of images) {
+        expect(image).toMatch(/^https:\/\/teelotse\.de\/bilder\/blog\/.+\.webp$/);
+      }
+
+      expect(html).toContain('type="image/avif"');
+      expect(html).toContain('type="image/webp"');
+      expect(html).toContain('loading="eager"');
+      expect(html).toContain('loading="lazy"');
+      for (const image of post.images) {
+        expect(html).toContain(`alt="${image.alt}"`);
+        expect(html).toContain(`width="${image.width}"`);
+        expect(html).toContain(`height="${image.height}"`);
+        expect(existsSync(`public${image.src}`)).toBe(true);
+        expect(existsSync(`public${image.src.replace('-1280.webp', '-640.webp')}`)).toBe(true);
+        expect(existsSync(`public${image.src.replace('-1280.webp', '-1280.avif')}`)).toBe(true);
+        expect(existsSync(`public${image.src.replace('-1280.webp', '-640.avif')}`)).toBe(true);
+      }
+      expect(html).toContain('Foto:');
+      expect(html).toContain('https://www.pexels.com/license/');
+      expect(html).not.toMatch(/https?:\/\/images\.(?:unsplash|pexels)\.com/);
+
+      for (const href of post.bodyHtml.match(/href="(\/go\/[^"]+)"/g) ?? []) {
+        const slugOfLink = href.slice('href="/go/'.length, -1);
+        expect(goSlugs.has(slugOfLink), slugOfLink).toBe(true);
+      }
+      expect(post.bodyHtml).toContain('rel="sponsored noopener"');
+      expect(post.bodyHtml).not.toContain('Affiliate');
+      expect(post.bodyHtml).not.toContain('>Werbung');
+
+      const figures = [
+        ...visible.matchAll(/\d+(?:[–-]\d+)?\s*°C/g),
+        ...visible.matchAll(/\d+(?:[–-]\d+)?\s*(?:Min\.|Sek\.)/g),
+        ...visible.matchAll(/\d+(?:,\d+)?(?:[–-]\d+(?:,\d+)?)?\s*g auf(?: etwa)? \d+\s*ml/g),
+      ].map((match) => match[0]);
+      for (const figure of figures) expect(teaFigures, figure).toContain(figure);
+      if (visible.includes('nicht ziehen lassen')) expect(teaFigures).toContain('nicht ziehen lassen');
+
+      for (const name of [...post.tools, ...post.supplies]) {
+        expect(visible, name).toContain(name);
+      }
+    }
+
+    const home = injectHome(indexHtml, posts, false);
+    expect(home).not.toContain('FAQPage');
+    expect(home).not.toContain('HowTo');
+    const brewed = articleJsonLd(posts.find((post) => post.slug === 'tee-zubereiten')!);
+    expect(JSON.stringify(brewed)).toContain('HowToTool');
   });
 });

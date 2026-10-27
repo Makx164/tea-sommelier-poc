@@ -165,27 +165,74 @@ function breadcrumbData(items: { name: string; path: string }[]): Record<string,
   };
 }
 
-export function articleJsonLd(post: Post): unknown {
-  return {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'BlogPosting',
-        headline: post.title,
-        description: post.description,
-        datePublished: post.date,
-        inLanguage: 'de',
-        mainEntityOfPage: pageUrl(`/blog/${post.slug}`),
-        author: { '@type': 'Organization', name: 'Teelotse', url: `${SITE}/` },
-        publisher: organization(),
-      },
-      breadcrumbData([
-        { name: 'Teelotse', path: '/' },
-        { name: 'Blog', path: '/blog' },
-        { name: post.title, path: `/blog/${post.slug}` },
-      ]),
-    ],
+function absolute(path: string): string {
+  return `${SITE}${path}`;
+}
+
+function howToNode(post: Post): Record<string, unknown> | null {
+  if (post.steps.length < 2) return null;
+  const node: Record<string, unknown> = {
+    '@type': 'HowTo',
+    name: post.title,
+    description: post.description,
+    inLanguage: 'de',
+    step: post.steps.map((step, index) => {
+      const item: Record<string, unknown> = {
+        '@type': 'HowToStep',
+        position: index + 1,
+        name: step.name,
+        text: step.text,
+        url: `${pageUrl(`/blog/${post.slug}`)}#${step.anchor}`,
+      };
+      if (step.image) item.image = absolute(step.image);
+      return item;
+    }),
   };
+  if (post.images.length > 0) node.image = post.images.map((image) => absolute(image.src));
+  if (post.tools.length > 0) node.tool = post.tools.map((name) => ({ '@type': 'HowToTool', name }));
+  if (post.supplies.length > 0) node.supply = post.supplies.map((name) => ({ '@type': 'HowToSupply', name }));
+  return node;
+}
+
+function faqNode(post: Post): Record<string, unknown> | null {
+  if (post.faqs.length === 0) return null;
+  return {
+    '@type': 'FAQPage',
+    inLanguage: 'de',
+    mainEntity: post.faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  };
+}
+
+export function articleJsonLd(post: Post): unknown {
+  const posting: Record<string, unknown> = {
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    datePublished: post.date,
+    inLanguage: 'de',
+    mainEntityOfPage: pageUrl(`/blog/${post.slug}`),
+    author: { '@type': 'Organization', name: 'Teelotse', url: `${SITE}/` },
+    publisher: organization(),
+  };
+  if (post.updated) posting.dateModified = post.updated;
+  if (post.images[0]) posting.image = absolute(post.images[0].src);
+  const graph: Record<string, unknown>[] = [
+    posting,
+    breadcrumbData([
+      { name: 'Teelotse', path: '/' },
+      { name: 'Blog', path: '/blog' },
+      { name: post.title, path: `/blog/${post.slug}` },
+    ]),
+  ];
+  const howTo = howToNode(post);
+  const faq = faqNode(post);
+  if (howTo) graph.push(howTo);
+  if (faq) graph.push(faq);
+  return { '@context': 'https://schema.org', '@graph': graph };
 }
 
 export function renderHead(options: {
@@ -356,6 +403,9 @@ export function renderArticleDocument(options: {
   const header = markCurrent(sliceMarked(options.sourceHtml, 'chrome:header'), '/blog');
   const footer = sliceMarked(options.sourceHtml, 'chrome:footer');
   const flag = options.post.draft ? '\n      <p class="draft-flag">Entwurf</p>' : '';
+  const updated = options.post.updated
+    ? `\n      <p class="blog-date">Aktualisiert am <time datetime="${escapeHtml(options.post.updated)}">${escapeHtml(formatDate(options.post.updated))}</time></p>`
+    : '';
   const main = `${crumbs([
     { name: 'Teelotse', path: '/' },
     { name: 'Blog', path: '/blog' },
@@ -364,7 +414,7 @@ export function renderArticleDocument(options: {
     <article class="wrap prose article">
       <p class="eyebrow">Blog</p>${flag}
       <h1>${escapeHtml(options.post.title)}</h1>
-      <p class="blog-date"><time datetime="${escapeHtml(options.post.date)}">${escapeHtml(formatDate(options.post.date))}</time></p>
+      <p class="blog-date"><time datetime="${escapeHtml(options.post.date)}">${escapeHtml(formatDate(options.post.date))}</time></p>${updated}
       <p class="area-lead">${escapeHtml(options.post.description)}</p>
       ${options.post.bodyHtml}
     </article>`;
