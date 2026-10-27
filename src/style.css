@@ -789,7 +789,26 @@ legend {
   display: grid;
   align-items: start;
   gap: 0.75rem;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
+  grid-template-columns: minmax(0, 1fr);
+}
+
+@media (min-width: 740px) {
+  .results-list,
+  .discover-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1060px) {
+  .results-list,
+  .discover-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.results-list[data-count="1"],
+.results-list[data-count="2"] {
+  align-items: start;
 }
 
 .discover-list { margin-top: 2.8rem; }
@@ -908,8 +927,7 @@ legend {
 
 .tea-card:hover,
 .tea-card:focus-within {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  box-shadow: 0 1px 3px rgba(31, 42, 46, 0.06);
 }
 
 .tea-heading { margin: 0; font-size: inherit; line-height: inherit; }
@@ -920,8 +938,8 @@ legend {
   display: grid;
   grid-template-columns: 5rem minmax(0, 1fr);
   column-gap: 0.75rem;
-  align-items: center;
-  padding: 0.7rem 1.9rem 0.7rem 0.7rem;
+  align-items: start;
+  padding: 0.75rem 1.85rem 0.75rem 0.75rem;
 }
 
 .tea-card[data-tea] .tea-toggle::after {
@@ -993,6 +1011,17 @@ legend {
   color: var(--tinte);
 }
 
+.tea-card[data-tea] .tea-name {
+  font-size: 1.22rem;
+  line-height: 1.15;
+  min-height: calc(1.15em * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
 .tea-kind {
   margin: 0.15rem 0 0;
   font-family: var(--sans);
@@ -1011,6 +1040,25 @@ legend {
   font-size: clamp(0.8rem, 1.3vw, 0.9rem);
   font-weight: 450;
   line-height: 1.35;
+}
+
+.tea-card[data-tea] .tea-line {
+  max-width: none;
+  font-size: 0.84rem;
+  line-height: 1.35;
+  min-height: calc(1.35em * 2);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.tea-card.is-open[data-tea] .tea-line {
+  display: block;
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
 }
 
 .tea-more {
@@ -1311,22 +1359,9 @@ address.contact {
 .footer .logo { max-width: 100%; }
 .footer .logo-mark { height: 2.4rem; width: 9.4rem; max-width: 100%; }
 
-.results-list[data-count="1"],
-.results-list[data-count="2"] {
-  justify-content: center;
-}
-
-.results-list[data-count="1"] {
-  grid-template-columns: minmax(0, 36rem);
-}
-
 @media (min-width: 560px) {
   .bar, .wrap { width: min(1120px, calc(100% - 2.5rem)); }
   .chip-grid { grid-template-columns: 1fr 1fr; }
-  .results-list[data-count="2"] {
-    grid-template-columns: repeat(2, minmax(0, 28rem));
-    justify-content: center;
-  }
 }
 
 @media (max-width: 699px) {
@@ -1371,7 +1406,7 @@ address.contact {
     padding-right: 1.55rem;
   }
   .tea-photo { width: 4.15rem; height: 4.15rem; border-radius: 10px; }
-  .tea-name { font-size: 1.32rem; }
+  .tea-card[data-tea] .tea-name { font-size: 1.12rem; }
 }
 
 @media (min-width: 800px) {

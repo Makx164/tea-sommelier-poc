@@ -37,7 +37,7 @@ function teaCardHtml(
   return `<article class="tea-card" data-tea="${escapeHtml(teaId)}" data-type="${escapeHtml(type)}">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="${escapeHtml(moreId)}">
-                ${teaPhotoMarkup({ id: teaId, type })}
+                ${teaPhotoMarkup({ id: teaId })}
                 <span class="tea-copy">
                   <span class="tea-name">${escapeHtml(name)}</span>
                   <span class="tea-kind">${escapeHtml(type)}</span>

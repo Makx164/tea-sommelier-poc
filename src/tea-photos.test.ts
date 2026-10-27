@@ -5,32 +5,27 @@ import { teas } from './recommender';
 import { photoCreditsHtml, photoFor, TEA_PHOTOS, teaPhotoMarkup } from './tea-photos';
 
 describe('Teebilder', () => {
-  it('hat je Teeart ein Foto und eigene Bilder für Matcha und Pfefferminze', () => {
-    const types = new Set(teas.map((tea) => tea.type));
-    expect([...types].sort()).toEqual([
-      'Früchtetee',
-      'Grüntee',
-      'Kräutertee',
-      'Mate',
-      'Oolong',
-      'Pu-Erh',
-      'Rooibos',
-      'Schwarztee',
-      'Weißtee',
-    ]);
+  it('gibt jedem Tee ein eigenes Foto', () => {
+    expect(TEA_PHOTOS).toHaveLength(teas.length);
+    const keys = TEA_PHOTOS.map((photo) => photo.key);
+    expect(new Set(keys).size).toBe(teas.length);
+    expect(keys).toEqual(teas.map((tea) => tea.id));
+    const sources = new Set(TEA_PHOTOS.map((photo) => photo.creditUrl));
+    expect(sources.size).toBe(teas.length);
+
     for (const tea of teas) {
       const photo = photoFor(tea);
-      expect(photo.key.length).toBeGreaterThan(0);
+      expect(photo.key).toBe(tea.id);
       const markup = teaPhotoMarkup(tea);
-      expect(markup).toContain(`src="/bilder/tees/${photo.key}-320.webp"`);
+      expect(markup).toContain(`src="/bilder/tees/${tea.id}-320.webp"`);
       expect(markup).toContain('loading="lazy"');
       expect(markup).toContain('type="image/avif"');
       expect(markup).toContain('alt=""');
     }
-    expect(photoFor({ id: 'sencha', type: 'Grüntee' }).key).toBe('gruentee');
-    expect(photoFor({ id: 'matcha', type: 'Grüntee' }).key).toBe('matcha');
-    expect(photoFor({ id: 'kamille', type: 'Kräutertee' }).key).toBe('kraeutertee');
-    expect(photoFor({ id: 'pfefferminze', type: 'Kräutertee' }).key).toBe('pfefferminze');
+
+    const blackTeas = ['assam', 'ceylon', 'darjeeling', 'lapsang-souchong', 'masala-chai'];
+    const pictures = blackTeas.map((id) => photoFor({ id }).creditUrl);
+    expect(new Set(pictures).size).toBe(blackTeas.length);
   });
 
   it('legt kleine WebP- und AVIF-Dateien ab', () => {
@@ -50,6 +45,7 @@ describe('Teebilder', () => {
     for (const photo of TEA_PHOTOS) {
       expect(html).toContain(photo.creditName);
       expect(html).toContain(photo.creditUrl);
+      expect(photo.creditUrl.startsWith('https://www.pexels.com/') || photo.creditUrl.startsWith('https://unsplash.com/')).toBe(true);
     }
     for (const rule of FORBIDDEN_COPY) {
       expect(html, rule.id).not.toMatch(rule.pattern);
