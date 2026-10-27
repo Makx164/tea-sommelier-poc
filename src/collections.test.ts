@@ -109,7 +109,7 @@ describe('Entdecken', () => {
       expect(block).toContain(`aria-controls="rest-${list.id}"`);
       expect(block).toContain('aria-expanded="true"');
       expect(block).toContain('hidden');
-      expect(block).toContain(`Alle anzeigen (${extra})`);
+      expect(block).toContain(`Mehr anzeigen · ${extra}`);
       const restAt = block.indexOf(`id="rest-${list.id}"`);
       for (const entry of entries.slice(3)) {
         expect(block.indexOf(`data-tea="${entry.tea.id}"`)).toBeGreaterThan(restAt);
