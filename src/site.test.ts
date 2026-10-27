@@ -218,7 +218,7 @@ describe('Eigene Adressen', () => {
       styleHref: '/src/style.css',
       scriptHref: '/src/main.ts',
     });
-    expect(entdecken).toContain('Alle anzeigen (7)');
+    expect(entdecken).toContain('Mehr anzeigen · 7');
     expect(entdecken).toContain('id="rest-fokus"');
   });
 });

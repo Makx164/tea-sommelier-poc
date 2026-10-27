@@ -3,6 +3,7 @@ import { initHeader } from './header';
 import { initMixer } from './mixer-ui';
 import { initReveal } from './reveal';
 import { MOMENT_LINE } from './tea-copy';
+import { teaPhotoMarkup } from './tea-photos';
 import { contradictionHints, recommend } from './recommender';
 import {
   CAFFEINE_CHOICES,
@@ -212,6 +213,8 @@ function renderCard(item: Recommendation): HTMLElement {
   const moreId = `mehr-ergebnis-${tea.id}`;
   button.setAttribute('aria-controls', moreId);
 
+  const copy = document.createElement('span');
+  copy.className = 'tea-copy';
   const name = document.createElement('span');
   name.className = 'tea-name';
   name.textContent = tea.name;
@@ -221,7 +224,8 @@ function renderCard(item: Recommendation): HTMLElement {
   const line = document.createElement('span');
   line.className = 'tea-line';
   line.textContent = MOMENT_LINE[tea.id] ?? tea.summary;
-  button.append(name, kind, line);
+  copy.append(name, kind, line);
+  button.append(teaPhotoElement(tea), copy);
   heading.append(button);
 
   const more = document.createElement('div');
@@ -267,12 +271,22 @@ function initTeaCards(): void {
   bindTeaCards(document);
 }
 
+function teaPhotoElement(tea: Tea): HTMLElement {
+  const holder = document.createElement('div');
+  holder.innerHTML = teaPhotoMarkup(tea);
+  const node = holder.firstElementChild;
+  if (!(node instanceof HTMLElement)) throw new Error('Foto fehlt');
+  return node;
+}
+
 function bindTeaCards(root: ParentNode): void {
   for (const card of root.querySelectorAll<HTMLElement>('.tea-card')) {
     const button = card.querySelector<HTMLButtonElement>('.tea-toggle');
-    if (!button || button.dataset.bound === '1') continue;
-    button.dataset.bound = '1';
-    button.addEventListener('click', () => {
+    if (!button || card.dataset.bound === '1') continue;
+    card.dataset.bound = '1';
+    card.addEventListener('click', (event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest('a')) return;
       const open = card.classList.contains('is-open');
       if (open) {
         closeTeaCard(card);
@@ -310,7 +324,7 @@ function initDiscover(): void {
       rest.setAttribute('aria-hidden', 'true');
       rest.inert = true;
       button.setAttribute('aria-expanded', 'false');
-      button.textContent = `Alle anzeigen (${extra})`;
+      button.textContent = `Mehr anzeigen · ${extra}`;
     };
     const expand = (): void => {
       rest.classList.remove('is-collapsed');

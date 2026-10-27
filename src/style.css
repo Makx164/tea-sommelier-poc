@@ -825,7 +825,56 @@ legend {
   margin-top: 0.85rem;
 }
 
-.discover-toggle { margin-top: 0.85rem; }
+.discover-toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin-top: 0.35rem;
+  padding: 0.15rem 0.05rem;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 550;
+  letter-spacing: 0.01em;
+  text-decoration: underline;
+  text-decoration-color: rgba(90, 96, 92, 0.35);
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+.discover-toggle:hover {
+  color: var(--teeblatt);
+  text-decoration-color: var(--teeblatt);
+}
+
+.photo-credits {
+  margin-top: 2.4rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.photo-credits summary {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.photo-credits ul {
+  margin: 0.55rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.photo-credits a { color: var(--muted); }
+
+.photo-credit-link {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.photo-credit-link a { color: var(--muted); }
 
 .tea-card {
   background: var(--paper);
@@ -855,6 +904,7 @@ legend {
 .tea-card[data-type="Früchtetee"]::before { background: #a36b62; }
 .tea-card[data-type="Mate"]::before { background: #6d7a4e; }
 .tea-card[data-type="Zubehör"]::before { background: var(--teeblatt); }
+.tea-card[data-tea]::before { content: none; }
 
 .tea-card:hover,
 .tea-card:focus-within {
@@ -864,7 +914,60 @@ legend {
 
 .tea-heading { margin: 0; font-size: inherit; line-height: inherit; }
 
+.tea-card[data-tea] { cursor: pointer; }
+
+.tea-card[data-tea] .tea-toggle {
+  display: grid;
+  grid-template-columns: 5rem minmax(0, 1fr);
+  column-gap: 0.75rem;
+  align-items: center;
+  padding: 0.7rem 1.9rem 0.7rem 0.7rem;
+}
+
+.tea-card[data-tea] .tea-toggle::after {
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  right: 0.8rem;
+  width: 0.38rem;
+  height: 0.38rem;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  opacity: 0.55;
+  transform: rotate(45deg);
+  transition: transform 200ms ease;
+}
+
+.tea-card.is-open[data-tea] .tea-toggle::after {
+  top: 1.22rem;
+  transform: rotate(225deg);
+}
+
+.tea-photo {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--sage);
+}
+
+.tea-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tea-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
 .tea-toggle {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -1262,6 +1365,13 @@ address.contact {
   .hero { padding-bottom: 1.8rem; }
   .hero-tagline { font-size: 1.28rem; }
   .btn.btn-hero { min-height: 3.4rem; padding-inline: 1.6rem; font-size: 1.12rem; }
+  .tea-card[data-tea] .tea-toggle {
+    grid-template-columns: 4.15rem minmax(0, 1fr);
+    column-gap: 0.6rem;
+    padding-right: 1.55rem;
+  }
+  .tea-photo { width: 4.15rem; height: 4.15rem; border-radius: 10px; }
+  .tea-name { font-size: 1.32rem; }
 }
 
 @media (min-width: 800px) {

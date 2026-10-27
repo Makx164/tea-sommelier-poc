@@ -1,5 +1,6 @@
 import { DISCOVER_LISTS, teasForList } from './collections';
 import { MOMENT_LINE } from './tea-copy';
+import { teaPhotoMarkup } from './tea-photos';
 import { caffeineFact, preparationFact } from './types';
 
 /** Ohne JavaScript sichtbar. Mit JavaScript klappt der Rest zu. */
@@ -36,9 +37,12 @@ function teaCardHtml(
   return `<article class="tea-card" data-tea="${escapeHtml(teaId)}" data-type="${escapeHtml(type)}">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="${escapeHtml(moreId)}">
-                <span class="tea-name">${escapeHtml(name)}</span>
-                <span class="tea-kind">${escapeHtml(type)}</span>
-                <span class="tea-line">${escapeHtml(line)}</span>
+                ${teaPhotoMarkup({ id: teaId, type })}
+                <span class="tea-copy">
+                  <span class="tea-name">${escapeHtml(name)}</span>
+                  <span class="tea-kind">${escapeHtml(type)}</span>
+                  <span class="tea-line">${escapeHtml(line)}</span>
+                </span>
               </button>
             </h3>
             <div class="tea-more" id="${escapeHtml(moreId)}">
@@ -80,7 +84,7 @@ export function discoverListsHtml(): string {
             ${extra.join('\n')}
           </div>
         </div>
-        <button type="button" class="btn btn-ghost discover-toggle" aria-expanded="true" aria-controls="${restId}" hidden>Alle anzeigen (${extra.length})</button>`;
+        <button type="button" class="discover-toggle" aria-expanded="true" aria-controls="${restId}" hidden>Mehr anzeigen · ${extra.length}</button>`;
     return `<section class="discover-list" aria-labelledby="liste-${list.id}" data-list="${list.id}">
           <h3 id="liste-${list.id}">${escapeHtml(list.title)}</h3>
           <div class="discover-grid">
