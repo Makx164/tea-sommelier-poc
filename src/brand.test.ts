@@ -35,7 +35,8 @@ describe('Teelotse', () => {
       expect(html.match(new RegExp(WORTMARKE_SLOT, 'g'))?.length, file).toBe(2);
     }
     const home = readFileSync('index.html', 'utf8');
-    expect(home).toContain('Find your taste.');
+    expect(home).toContain('hero-find">Find your</span>');
+    expect(home).toContain('hero-taste">taste.</span>');
     expect(home).toContain('id="finden"');
     expect(home).toContain('id="finder"');
     expect(home).not.toContain('Tee-Sommelier');

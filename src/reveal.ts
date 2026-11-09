@@ -1,4 +1,4 @@
-/** Dezentes Nachrücken der Bereiche. Ohne Skript und bei reduzierter Bewegung bleibt alles stehen. */
+/** Bereiche blenden kurz ein. Ohne Skript und bei reduzierter Bewegung bleibt alles sichtbar. */
 export function initReveal(): void {
   if (!('IntersectionObserver' in window)) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;

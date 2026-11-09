@@ -313,6 +313,35 @@ export function renderBlogList(posts: readonly Post[], includeDrafts: boolean): 
   return `<div class="blog-list">\n${cards}\n          </div>`;
 }
 
+function blogTileMedia(post: Post): string {
+  const image = post.images[0];
+  if (!image) return '';
+  const base = image.src.replace(/-1280\.webp$/, '');
+  const sizes = '(min-width: 900px) 32vw, (min-width: 640px) 46vw, calc(100vw - 2.5rem)';
+  return `<span class="blog-card-media"><picture><source type="image/avif" srcset="${base}-640.avif 640w, ${base}-1280.avif 1280w" sizes="${sizes}"><source type="image/webp" srcset="${base}-640.webp 640w, ${base}-1280.webp 1280w" sizes="${sizes}"><img src="${escapeHtml(image.src)}" alt="" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"></picture></span>\n            `;
+}
+
+/** Übersicht: nur Bild und Überschrift. Die Startseite behält die Textkarten. */
+export function renderBlogTiles(posts: readonly Post[], includeDrafts: boolean): string {
+  const visible = visiblePosts(posts, includeDrafts);
+  if (visible.length === 0) {
+    return '<p class="hint">Veröffentlichte Beiträge erscheinen hier.</p>';
+  }
+  const cards = visible
+    .map((post) => {
+      const flag = post.draft ? '\n            <p class="draft-flag">Entwurf</p>' : '';
+      return `          <a class="blog-card" href="/blog/${escapeHtml(post.slug)}">
+            ${blogTileMedia(post)}<span class="blog-card-copy">
+            <p class="blog-date"><time datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time></p>${flag}
+            <h3>${escapeHtml(post.title)}</h3>
+            <p>${escapeHtml(post.description)}</p>
+            </span>
+          </a>`;
+    })
+    .join('\n');
+  return `<div class="blog-list">\n${cards}\n          </div>`;
+}
+
 export function injectHome(html: string, posts: readonly Post[], includeDrafts: boolean): string {
   const withBlog = replaceMarked(html, 'blog:list', renderBlogList(posts, includeDrafts));
   return withBlog.replace('<!-- jsonld:home -->', jsonLdScript(homeJsonLd()));
@@ -373,7 +402,12 @@ export function renderSectionDocument(options: {
   scriptHref: string;
 }): string {
   const meta = SECTION_META[options.section];
-  const prepared = injectHome(options.sourceHtml, options.posts, options.includeDrafts);
+  const sourceHtml = options.section === 'blog'
+    ? replaceMarked(options.sourceHtml, 'blog:list', renderBlogTiles(options.posts, options.includeDrafts))
+    : options.sourceHtml;
+  const prepared = options.section === 'blog'
+    ? sourceHtml
+    : injectHome(sourceHtml, options.posts, options.includeDrafts);
   const header = markCurrent(sliceMarked(prepared, 'chrome:header'), meta.path);
   const footer = sliceMarked(prepared, 'chrome:footer');
   const sectionHtml = promoteFirstHeading(sliceMarked(prepared, `section:${options.section}`));

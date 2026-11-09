@@ -65,28 +65,60 @@
 
   <main id="inhalt" class="page">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-stage">
-        <picture>
-          <source
-            type="image/avif"
-            srcset="/hero/leuchtturm-640.avif 640w, /hero/leuchtturm-1120.avif 1120w, /hero/leuchtturm-1792.avif 1792w"
-            sizes="(min-width: 1180px) 1120px, 100vw">
-          <source
-            type="image/webp"
-            srcset="/hero/leuchtturm-640.webp 640w, /hero/leuchtturm-1120.webp 1120w, /hero/leuchtturm-1792.webp 1792w"
-            sizes="(min-width: 1180px) 1120px, 100vw">
-          <img
-            src="/hero/leuchtturm-1120.webp"
-            alt="Leuchtturm an einer Küste, dahinter Berge, davor ruhiges Wasser."
-            width="1792"
-            height="817"
-            decoding="async"
-            fetchpriority="high">
-        </picture>
-        <h1 id="hero-title">TEELOTSE</h1>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1 id="hero-title" class="hero-title">
+            <span class="hero-line"><span class="hero-find">Find your</span> <span class="hero-taste">taste.</span></span>
+            <span class="hero-line hero-line-moment"><span class="hero-find">Find your</span> <span class="hero-moment">moment.</span></span>
+            <span class="hero-line"><span class="hero-find">Find your</span> <span class="hero-tea">tea.</span></span>
+          </h1>
+          <div class="hero-actions">
+            <a class="btn btn-pill btn-fill" href="#finden">Los geht's</a>
+            <a class="btn btn-pill btn-outline" href="#entdecken">Entdecken</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" role="img">
+            <circle cx="210" cy="210" r="168" fill="#3A6358"/>
+            <g fill="#E9B6CC">
+              <g transform="translate(88,118)">
+                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
+                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
+                <circle cx="-15" cy="-5" r="10"/>
+                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
+              </g>
+              <g transform="translate(318,150) scale(0.85)">
+                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
+                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
+                <circle cx="-15" cy="-5" r="10"/>
+                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
+              </g>
+              <g transform="translate(290,292) scale(0.7)">
+                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
+                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
+                <circle cx="-15" cy="-5" r="10"/>
+                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
+              </g>
+            </g>
+            <g class="hero-cup" transform="translate(10 -21)">
+              <ellipse cx="200" cy="290" rx="98" ry="22" fill="#DCEFE0"/>
+              <ellipse cx="200" cy="286" rx="78" ry="14" fill="#C5E0CC"/>
+              <path d="M122 168 C122 168 128 268 200 268 C272 268 278 168 278 168 Z" fill="#FFFFFF"/>
+              <ellipse cx="200" cy="168" rx="78" ry="18" fill="#FFFFFF"/>
+              <ellipse cx="200" cy="168" rx="68" ry="13" fill="#D7F07A"/>
+              <path d="M130 210 H270" stroke="#D7F07A" stroke-width="14" stroke-linecap="round"/>
+              <circle cx="168" cy="210" r="3.2" fill="#2C4C43"/>
+              <circle cx="200" cy="210" r="3.2" fill="#2C4C43"/>
+              <circle cx="232" cy="210" r="3.2" fill="#2C4C43"/>
+              <path d="M278 190 C312 190 318 230 290 242" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+              <path d="M278 190 C308 190 314 228 290 238" fill="none" stroke="#F0C9B0" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
+              <path d="M176 148 C170 128 186 118 178 98" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M200 142 C196 122 210 112 204 94" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
+              <path d="M224 148 C230 128 214 118 222 98" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
+            </g>
+          </svg>
+        </div>
       </div>
-      <p class="hero-tagline">Find your taste. Find your moment. Find your <em>tea</em>.</p>
-      <p class="hero-actions"><a class="btn btn-hero" href="#finden">Los geht's</a></p>
     </section>
 
     <!-- section:finden -->

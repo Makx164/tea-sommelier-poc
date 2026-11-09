@@ -57,22 +57,25 @@ describe('Navigation und Kopf', () => {
 });
 
 describe('Hero', () => {
-  it('setzt Schriftzug und Tagline als Text über die Illustration, ohne Ecken-Labels', () => {
+  it('setzt die dunkle Zeile mit Tasse, ohne Kicker, Unterzeile und Ecken-Labels', () => {
     expect(h1Count(indexHtml)).toBe(1);
-    expect(indexHtml).toContain('<h1 id="hero-title">TEELOTSE</h1>');
-    expect(indexHtml).toContain('Find your taste.');
-    expect(indexHtml).toContain('Find your moment.');
-    expect(indexHtml).toContain('Find your <em>tea</em>.');
-    expect(indexHtml).toContain('href="#finden">Los geht\'s</a>');
-    expect(indexHtml).toContain('type="image/avif"');
-    expect(indexHtml).toContain('type="image/webp"');
-    expect(indexHtml).toContain('alt="Leuchtturm an einer Küste, dahinter Berge, davor ruhiges Wasser."');
+    const hero = indexHtml.slice(indexHtml.indexOf('<section class="hero"'), indexHtml.indexOf('id="finden"'));
+    expect(hero).toContain('id="hero-title"');
+    expect(hero).toContain('hero-find">Find your</span>');
+    expect(hero).toContain('hero-taste">taste.</span>');
+    expect(hero).toContain('hero-moment">moment.</span>');
+    expect(hero).toContain('hero-tea">tea.</span>');
+    expect(hero).toContain('hero-line-moment');
+    expect(hero).toContain('href="#finden">Los geht\'s</a>');
+    expect(hero).toContain('href="#entdecken">Entdecken</a>');
+    expect(hero).toContain('viewBox="0 0 420 420"');
+    expect(hero).toContain('class="hero-cup" transform="translate(10 -21)"');
+    expect(hero).not.toContain('TEELOTSE');
+    expect(hero).not.toContain('Tee für deinen Moment.');
+    expect(hero).not.toContain('hero-kicker');
+    expect(hero).not.toContain('leuchtturm');
     for (const label of ['DEIN KOMPASS', 'FÜR GUTEN TEE', 'NATÜRLICH', 'BEWUSST']) {
-      expect(indexHtml, label).not.toContain(label);
-    }
-    for (const file of ['640', '1120', '1792']) {
-      expect(existsSync(`public/hero/leuchtturm-${file}.avif`), file).toBe(true);
-      expect(existsSync(`public/hero/leuchtturm-${file}.webp`), file).toBe(true);
+      expect(hero, label).not.toContain(label);
     }
   });
 });
@@ -118,7 +121,10 @@ describe('Blog und Sitemap', () => {
     });
     expect(blog).toContain('/blog/tee-zubereiten');
     expect(blog).toContain('/blog/welche-teesorte-moment');
+    expect(blog).toContain('blog-card-media');
+    expect(blog).toContain('/bilder/blog/tee-zubereiten/wasser-1280.webp');
     expect(blog).not.toContain('Entwurf');
+    expect(renderBlogList(posts, false)).not.toContain('blog-card-media');
     expect(blog).not.toContain('Veröffentlichte Beiträge erscheinen hier.');
   });
 
