@@ -1,7 +1,7 @@
 ---
 title: "Tee zubereiten: Wasser, Menge, Ziehzeit im Überblick"
 date: 2026-10-20
-updated: 2026-10-27
+updated: 2026-11-10
 description: "Temperatur, Menge und Ziehzeit je Sorte aus dem Teelotse-Datensatz, mit den Handgriffen an Kanne, Sieb und Wasserkocher."
 draft: false
 tools: Wasserkocher; Waage; Teekanne; Teesieb; Teefilter; Teebecher; Thermoskanne; Bambusbesen
@@ -109,6 +109,10 @@ Weil das Blatt mitgetrunken wird, bleibt am Boden kein Satz, den du abgießen m�
 Ist die Zeit um, heb das Sieb heraus oder gieß durch den Filter in die Tasse. In eine [Thermoskanne](/go/thermokanne) kommt nur der fertige Aufguss, ohne Blätter. Mit Blättern in der Flasche zieht der Tee auf dem Weg weiter und wird oft bitter, auch wenn die Uhr schon abgelaufen war.
 
 Für unterwegs nimmst du den [Teebecher](/go/teebecher), für den Tisch die [Teekanne](/go/teekanne). Zucker, Milch oder eine Scheibe Zitrone stehen nicht im Datensatz. Wenn du sie nimmst, kommen sie in die Tasse, nicht in die Ziehzeit.
+
+## Dazu passt
+
+Die Stufe am Kocher steht in [Welcher Wasserkocher für Tee](/blog/wasserkocher-fuer-tee). Ob die Blätter lose oder im Beutel in die Kanne kommen, steht in [Loser Tee oder Teebeutel](/blog/loser-tee-oder-teebeutel). Sieb und Kanne stehen in [Teesieb oder Teekanne mit Sieb](/blog/teesieb-oder-teekanne).
 
 ## Häufige Fragen
 

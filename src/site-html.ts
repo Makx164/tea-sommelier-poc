@@ -40,7 +40,7 @@ export const SECTION_META: Record<SectionId, { title: string; description: strin
   },
   blog: {
     title: 'Blog – Teelotse',
-    description: 'Kurze Texte zu Moment, Geschmack und Zubereitung.',
+    description: 'Ratgeber zu Wasserkocher, Matcha, Sieb und losem Tee, dazu Sencha, Earl Grey und Rooibos.',
     path: '/blog',
     label: 'Blog',
   },
@@ -321,7 +321,7 @@ function blogTileMedia(post: Post): string {
   return `<span class="blog-card-media"><picture><source type="image/avif" srcset="${base}-640.avif 640w, ${base}-1280.avif 1280w" sizes="${sizes}"><source type="image/webp" srcset="${base}-640.webp 640w, ${base}-1280.webp 1280w" sizes="${sizes}"><img src="${escapeHtml(image.src)}" alt="" width="${image.width}" height="${image.height}" loading="lazy" decoding="async"></picture></span>\n            `;
 }
 
-/** Übersicht: nur Bild und Überschrift. Die Startseite behält die Textkarten. */
+/** Übersicht und Startseiten-Blog: nur Bild und Überschrift, für jeden Beitrag gleich. */
 export function renderBlogTiles(posts: readonly Post[], includeDrafts: boolean): string {
   const visible = visiblePosts(posts, includeDrafts);
   if (visible.length === 0) {
@@ -331,10 +331,8 @@ export function renderBlogTiles(posts: readonly Post[], includeDrafts: boolean):
     .map((post) => {
       const flag = post.draft ? '\n            <p class="draft-flag">Entwurf</p>' : '';
       return `          <a class="blog-card" href="/blog/${escapeHtml(post.slug)}">
-            ${blogTileMedia(post)}<span class="blog-card-copy">
-            <p class="blog-date"><time datetime="${escapeHtml(post.date)}">${escapeHtml(formatDate(post.date))}</time></p>${flag}
+            ${blogTileMedia(post)}<span class="blog-card-copy">${flag}
             <h3>${escapeHtml(post.title)}</h3>
-            <p>${escapeHtml(post.description)}</p>
             </span>
           </a>`;
     })
@@ -343,8 +341,19 @@ export function renderBlogTiles(posts: readonly Post[], includeDrafts: boolean):
 }
 
 export function injectHome(html: string, posts: readonly Post[], includeDrafts: boolean): string {
-  const withBlog = replaceMarked(html, 'blog:list', renderBlogList(posts, includeDrafts));
+  const withBlog = replaceMarked(html, 'blog:list', renderBlogTiles(posts, includeDrafts));
   return withBlog.replace('<!-- jsonld:home -->', jsonLdScript(homeJsonLd()));
+}
+
+function takeLeadFigure(html: string): { hero: string; rest: string } {
+  const start = html.indexOf('<figure class="post-figure">');
+  if (start < 0) return { hero: '', rest: html };
+  const end = html.indexOf('</figure>', start);
+  if (end < 0) return { hero: '', rest: html };
+  const figure = html.slice(start, end + '</figure>'.length);
+  const hero = figure.replace('class="post-figure"', 'class="post-figure post-hero"');
+  const rest = `${html.slice(0, start)}${html.slice(end + '</figure>'.length)}`.replace(/^\n+/, '');
+  return { hero, rest };
 }
 
 function markCurrent(headerHtml: string, path: string): string {
@@ -443,17 +452,21 @@ export function renderArticleDocument(options: {
   const updated = options.post.updated
     ? `\n      <p class="blog-date">Aktualisiert am <time datetime="${escapeHtml(options.post.updated)}">${escapeHtml(formatDate(options.post.updated))}</time></p>`
     : '';
+  const { hero, rest } = takeLeadFigure(options.post.bodyHtml);
   const main = `${crumbs([
     { name: 'Teelotse', path: '/' },
     { name: 'Blog', path: '/blog' },
     { name: options.post.title },
   ])}
-    <article class="wrap prose article">
+    <article class="article">
+      ${hero}
+      <div class="wrap prose article-copy">
       <p class="eyebrow">Blog</p>${flag}
       <h1>${escapeHtml(options.post.title)}</h1>
       <p class="blog-date"><time datetime="${escapeHtml(options.post.date)}">${escapeHtml(formatDate(options.post.date))}</time></p>${updated}
       <p class="area-lead">${escapeHtml(options.post.description)}</p>
-      ${options.post.bodyHtml}
+      ${rest}
+      </div>
     </article>`;
   return documentHtml({
     head: renderHead({
