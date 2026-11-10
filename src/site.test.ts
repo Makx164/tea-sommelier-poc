@@ -96,7 +96,17 @@ describe('Zubehör', () => {
 
 describe('Blog und Sitemap', () => {
   it('führt die veröffentlichten Artikel in Blog, Sitemap und llms.txt', () => {
-    expect(posts.map((post) => post.slug).sort()).toEqual(['tee-zubereiten', 'welche-teesorte-moment']);
+    expect(posts.map((post) => post.slug).sort()).toEqual([
+      'earl-grey',
+      'loser-tee-oder-teebeutel',
+      'matcha-starterset',
+      'rooibos',
+      'sencha',
+      'tee-zubereiten',
+      'teesieb-oder-teekanne',
+      'wasserkocher-fuer-tee',
+      'welche-teesorte-moment',
+    ]);
     expect(posts.every((post) => post.draft)).toBe(false);
     const sitemap = renderSitemap(sitemapPaths(posts));
     expect(sitemap).toContain('https://teelotse.de/blog');
@@ -121,6 +131,19 @@ describe('Blog und Sitemap', () => {
     });
     expect(blog).toContain('/blog/tee-zubereiten');
     expect(blog).toContain('/blog/welche-teesorte-moment');
+    for (const slug of [
+      'wasserkocher-fuer-tee',
+      'matcha-starterset',
+      'teesieb-oder-teekanne',
+      'loser-tee-oder-teebeutel',
+      'sencha',
+      'earl-grey',
+      'rooibos',
+    ]) {
+      expect(sitemap).toContain(`https://teelotse.de/blog/${slug}`);
+      expect(llms).toContain(`https://teelotse.de/blog/${slug}`);
+      expect(blog).toContain(`/blog/${slug}`);
+    }
     expect(blog).toContain('blog-card-media');
     expect(blog).toContain('/bilder/blog/tee-zubereiten/wasser-1280.webp');
     expect(blog).not.toContain('Entwurf');
@@ -378,5 +401,91 @@ describe('Beiträge mit Anleitung und Fragen', () => {
     expect(home).not.toContain('HowTo');
     const brewed = articleJsonLd(posts.find((post) => post.slug === 'tee-zubereiten')!);
     expect(JSON.stringify(brewed)).toContain('HowToTool');
+  });
+
+  it('setzt HowTo, FAQ und Canonical auf die Ratgeber und Porträts', () => {
+    const slugs = [
+      'wasserkocher-fuer-tee',
+      'matcha-starterset',
+      'teesieb-oder-teekanne',
+      'loser-tee-oder-teebeutel',
+      'sencha',
+      'earl-grey',
+      'rooibos',
+    ] as const;
+    const home = injectHome(indexHtml, posts, false);
+    const zubehoer = renderSectionDocument({
+      sourceHtml: indexHtml,
+      section: 'zubehoer',
+      posts,
+      includeDrafts: false,
+      styleHref: '/src/style.css',
+      scriptHref: '/src/main.ts',
+    });
+    for (const href of [
+      '/blog/wasserkocher-fuer-tee',
+      '/blog/matcha-starterset',
+      '/blog/teesieb-oder-teekanne',
+      '/blog/loser-tee-oder-teebeutel',
+    ]) {
+      expect(home, href).toContain(`href="${href}"`);
+      expect(zubehoer, href).toContain(`href="${href}"`);
+    }
+    expect(indexHtml).toContain(
+      'name="google-site-verification" content="qvQoba0fqIVe060UDYl-ltFRo2lQi76GWaGBifwHYfY"',
+    );
+    expect(JSON.stringify(affiliateLinks)).toContain('tag=teelotse-21');
+    expect(JSON.stringify(affiliateLinks)).not.toContain('tag=teelotse-20');
+
+    const photoIds = [
+      ...readFileSync('src/tea-photos.ts', 'utf8').matchAll(/pexels\.com\/photo\/[^"']*?(\d+)\//g),
+      ...readFileSync('src/accessory-photos.ts', 'utf8').matchAll(/pexels\.com\/photo\/[^"']*?(\d+)\//g),
+      ...readFileSync('content/blog/tee-zubereiten.md', 'utf8').matchAll(/pexels\.com\/photo\/[^"']*?(\d+)\//g),
+      ...readFileSync('content/blog/welche-teesorte-moment.md', 'utf8').matchAll(/pexels\.com\/photo\/[^"']*?(\d+)\//g),
+    ].map((match) => match[1]);
+
+    for (const slug of slugs) {
+      const post = posts.find((item) => item.slug === slug)!;
+      const html = article(slug);
+      const visible = `${post.title} ${post.description} ${visibleTextFromHtml(post.bodyHtml)}`;
+      const words = visible.split(/\s+/).filter((word) => word.length > 0);
+      expect(words.length, slug).toBeGreaterThanOrEqual(700);
+      expect(words.length, slug).toBeLessThanOrEqual(1100);
+      expect(html).toContain(`<link rel="canonical" href="https://teelotse.de/blog/${slug}">`);
+      expect(html).toContain(`<title>${post.title} – Teelotse</title>`);
+      expect(html).toContain('HowTo');
+      expect(html).toContain('FAQPage');
+      expect(html).toContain('BlogPosting');
+      expect(html).toContain('index, follow');
+      expect(post.steps.length, slug).toBeGreaterThanOrEqual(2);
+      expect(post.faqs.length, slug).toBeGreaterThanOrEqual(2);
+      expect(post.images.length, slug).toBeGreaterThanOrEqual(1);
+      expect(post.bodyHtml).toContain('rel="sponsored noopener"');
+      const blogLinks = new Set(post.bodyHtml.match(/href="\/blog\/[^"]+"/g) ?? []);
+      expect(blogLinks.size, slug).toBeGreaterThanOrEqual(2);
+      expect(post.bodyHtml, slug).toMatch(/href="\/(?:entdecken|zubehoer|create)/);
+      for (const name of [...post.tools, ...post.supplies]) {
+        expect(visible, `${slug} ${name}`).toContain(name);
+      }
+      const figures = [
+        ...visible.matchAll(/\d+(?:[–-]\d+)?\s*°C/g),
+        ...visible.matchAll(/\d+(?:[–-]\d+)?\s*(?:Min\.|Sek\.)/g),
+        ...visible.matchAll(/\d+(?:,\d+)?(?:[–-]\d+(?:,\d+)?)?\s*g auf(?: etwa)? \d+\s*ml/g),
+      ].map((match) => match[0]);
+      for (const figure of figures) expect(teaFigures, `${slug} ${figure}`).toContain(figure);
+      for (const href of post.bodyHtml.match(/href="(\/go\/[^"]+)"/g) ?? []) {
+        const slugOfLink = href.slice('href="/go/'.length, -1);
+        expect(goSlugs.has(slugOfLink), slugOfLink).toBe(true);
+      }
+      for (const image of post.images) {
+        expect(existsSync(`public${image.src}`)).toBe(true);
+        expect(html).toContain('Foto:');
+      }
+      for (const id of post.bodyHtml.match(/pexels\.com\/photo\/[^"']*?(\d+)\//g) ?? []) {
+        const photoId = id.match(/(\d+)\//)?.[1] ?? '';
+        expect(photoIds, `${slug} ${photoId}`).not.toContain(photoId);
+        photoIds.push(photoId);
+      }
+    }
   });
 });

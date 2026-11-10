@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 2026-11-10 – v1.5 Ratgeber und Sorten
+
+- Vier Kaufratgeber: Welcher Wasserkocher für Tee, Matcha-Starterset, Teesieb oder Teekanne mit Sieb, Loser Tee oder Teebeutel
+- Drei Sortenporträts: Sencha, Earl Grey, Rooibos. Herkunft, Geschmack, Koffein als Stufe aus dem Datensatz, Zubereitung, Zubehör über bestehende `/go/`-Links
+- Blogübersicht, Startseite und Zubehör verlinken die Ratgeber. Sitemap und `llms.txt` führen die neuen Adressen. Partner-Tag `teelotse-21` und das Google-Search-Console-Meta-Tag bleiben
+
 ## 2026-10-26 – Blog
 
 - Zwei Beiträge veröffentlicht: „Tee zubereiten: Wasser, Menge, Ziehzeit im Überblick“ unter `/blog/tee-zubereiten` und „Welche Teesorte passt zu welchem Moment“ unter `/blog/welche-teesorte-moment`. Beide stehen in der Übersicht, im Bau, in der Sitemap und in `llms.txt`

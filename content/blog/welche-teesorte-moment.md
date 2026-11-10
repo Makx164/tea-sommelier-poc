@@ -1,7 +1,7 @@
 ---
 title: Welche Teesorte passt zu welchem Moment
 date: 2026-10-20
-updated: 2026-10-27
+updated: 2026-11-10
 description: "Sechs Momente auf Teelotse, die Sorten in jeder Liste und wie Geschmack und Koffein die Auswahl eingrenzen."
 draft: false
 ---
@@ -128,6 +128,10 @@ Süßlich im Geschmack, ohne Zuckerzusatz. Das ist der Moment, kein Sirup. In de
 Dieselben vier tauchen in anderen Listen wieder auf: Apfel-Zimt bei kalten Tagen, Rooibos am Feierabend und nach dem Training, Fenchel nach dem Essen, Kamille am Feierabend. Die Zubereitung bleibt dieselbe.
 
 Die ganze Liste: [Etwas Süßes](/entdecken#liste-suesses).
+
+## Drei Sorten näher
+
+[Sencha](/blog/sencha) ist der grasige Grüntee aus Japan in der Liste für den fokussierten Start. [Earl Grey](/blog/earl-grey) ist der Schwarztee mit Bergamotte, in derselben Liste und bei Erfrischen. [Rooibos](/blog/rooibos) ist der koffeinfreie Rotbusch beim Feierabend, an kalten Tagen, nach dem Training und bei Etwas Süßes.
 
 ## Häufige Fragen
 

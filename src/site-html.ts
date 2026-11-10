@@ -40,7 +40,7 @@ export const SECTION_META: Record<SectionId, { title: string; description: strin
   },
   blog: {
     title: 'Blog – Teelotse',
-    description: 'Kurze Texte zu Moment, Geschmack und Zubereitung.',
+    description: 'Ratgeber zu Wasserkocher, Matcha, Sieb und losem Tee, dazu Sencha, Earl Grey und Rooibos.',
     path: '/blog',
     label: 'Blog',
   },
