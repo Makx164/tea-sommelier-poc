@@ -5,6 +5,7 @@
 - Vier Kaufratgeber: Welcher Wasserkocher für Tee, Matcha-Starterset, Teesieb oder Teekanne mit Sieb, Loser Tee oder Teebeutel
 - Drei Sortenporträts: Sencha, Earl Grey, Rooibos. Herkunft, Geschmack, Koffein als Stufe aus dem Datensatz, Zubereitung, Zubehör über bestehende `/go/`-Links
 - Blogübersicht, Startseite und Zubehör verlinken die Ratgeber. Sitemap und `llms.txt` führen die neuen Adressen. Partner-Tag `teelotse-21` und das Google-Search-Console-Meta-Tag bleiben
+- Blogübersicht: alle Beiträge als gleich große Kacheln, Foto oben, nur die Überschrift im dunkelgrünen Feld. Jede Artikelseite beginnt mit einem großen abgerundeten Titelbild, der Credit bleibt darunter
 
 ## 2026-10-26 – Blog
 

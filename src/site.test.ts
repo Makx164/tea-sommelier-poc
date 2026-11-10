@@ -145,6 +145,9 @@ describe('Blog und Sitemap', () => {
       expect(blog).toContain(`/blog/${slug}`);
     }
     expect(blog).toContain('blog-card-media');
+    expect(blog.match(/blog-card-media/g)?.length).toBe(posts.length);
+    expect(blog).not.toContain('Temperatur, Menge und Ziehzeit je Sorte');
+    expect(readFileSync('src/style.css', 'utf8')).toContain('repeat(2, minmax(0, 1fr))');
     expect(blog).toContain('/bilder/blog/tee-zubereiten/wasser-1280.webp');
     expect(blog).not.toContain('Entwurf');
     expect(renderBlogList(posts, false)).not.toContain('blog-card-media');
@@ -185,6 +188,8 @@ describe('Blog und Sitemap', () => {
     expect(html).not.toContain('noindex');
     expect(html).not.toContain('Entwurf');
     expect(html).toContain('BlogPosting');
+    expect(html).toContain('class="post-figure post-hero"');
+    expect(html.indexOf('post-hero')).toBeLessThan(html.indexOf('<h1>'));
     expect(html).toContain('https://teelotse.de/blog/tee-zubereiten');
   });
 
