@@ -43,7 +43,7 @@ Die Temperatur bleibt die der Sorte, egal welches Gefäß du nimmst. Sencha blei
 
 ## Dazu passt
 
-Die Handgriffe mit Menge und Uhr stehen in [Tee zubereiten](/blog/tee-zubereiten). Die Entscheidung Beutel oder lose Blätter steht in [Loser Tee oder Teebeutel](/blog/loser-tee-oder-teebeutel). Unter [Create](/create) stellst du bis zu fünf Sorten zusammen, noch ohne Bestellung. Für den Aufguss daraus brauchst du trotzdem Sieb oder Kanne, die Anteile ändern das Gefäß nicht.
+Die Handgriffe mit Menge und Uhr stehen in [Tee zubereiten](/blog/tee-zubereiten). Die Entscheidung Beutel oder lose Blätter steht in [Loser Tee oder Teebeutel](/blog/loser-tee-oder-teebeutel). Glas, Porzellan oder Gusseisen, Größe und Siebeinsatz stehen in [Welche Teekanne kaufen](/blog/welche-teekanne-kaufen). Unter [Create](/create) stellst du bis zu fünf Sorten zusammen, noch ohne Bestellung. Für den Aufguss daraus brauchst du trotzdem Sieb oder Kanne, die Anteile ändern das Gefäß nicht.
 
 ## Häufige Fragen
 

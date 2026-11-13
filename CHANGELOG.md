@@ -1,5 +1,11 @@
 # Änderungsprotokoll
 
+## 2026-11-13 – v1.6 Teilen, Pinterest, Kanne und Dose
+
+- Jeder Blogbeitrag teilt sein erstes Foto als `og:image` und `twitter:image`, mit Alt-Text, Breite und Höhe. Die übrigen Seiten behalten die Leuchtturm-Zeichnung. Beiträge setzen `article:published_time`, und wo ein Aktualisierungsdatum schon stand, auch `article:modified_time`
+- Auf den Bildern im Beitrag stehen `data-pin-description` und `data-pin-url`. Kein Pin-Button und kein Pinterest-Skript
+- Zwei Kaufratgeber: Welche Teekanne kaufen (Glas, Porzellan, Gusseisen) und Teedose für losen Tee. Beide in der Blogübersicht, in der Sitemap, in `llms.txt` und als BlogPosting. Partner-Tag `teelotse-21`, die `/go/`-Routen und das Google-Search-Console-Meta-Tag bleiben
+
 ## 2026-11-10 – v1.5 Ratgeber und Sorten
 
 - Vier Kaufratgeber: Welcher Wasserkocher für Tee, Matcha-Starterset, Teesieb oder Teekanne mit Sieb, Loser Tee oder Teebeutel

@@ -112,7 +112,7 @@ Für unterwegs nimmst du den [Teebecher](/go/teebecher), für den Tisch die [Tee
 
 ## Dazu passt
 
-Die Stufe am Kocher steht in [Welcher Wasserkocher für Tee](/blog/wasserkocher-fuer-tee). Ob die Blätter lose oder im Beutel in die Kanne kommen, steht in [Loser Tee oder Teebeutel](/blog/loser-tee-oder-teebeutel). Sieb und Kanne stehen in [Teesieb oder Teekanne mit Sieb](/blog/teesieb-oder-teekanne).
+Die Stufe am Kocher steht in [Welcher Wasserkocher für Tee](/blog/wasserkocher-fuer-tee). Ob die Blätter lose oder im Beutel in die Kanne kommen, steht in [Loser Tee oder Teebeutel](/blog/loser-tee-oder-teebeutel). Sieb und Kanne stehen in [Teesieb oder Teekanne mit Sieb](/blog/teesieb-oder-teekanne). Welche Kanne du für mehrere Tassen nimmst, steht in [Welche Teekanne kaufen](/blog/welche-teekanne-kaufen). Wo die losen Blätter zwischen den Aufgüssen liegen, steht in [Teedose für losen Tee](/blog/teedose-fuer-losen-tee).
 
 ## Häufige Fragen
 
