@@ -103,8 +103,10 @@ describe('Blog und Sitemap', () => {
       'rooibos',
       'sencha',
       'tee-zubereiten',
+      'teedose-fuer-losen-tee',
       'teesieb-oder-teekanne',
       'wasserkocher-fuer-tee',
+      'welche-teekanne-kaufen',
       'welche-teesorte-moment',
     ]);
     expect(posts.every((post) => post.draft)).toBe(false);
@@ -139,6 +141,8 @@ describe('Blog und Sitemap', () => {
       'sencha',
       'earl-grey',
       'rooibos',
+      'welche-teekanne-kaufen',
+      'teedose-fuer-losen-tee',
     ]) {
       expect(sitemap).toContain(`https://teelotse.de/blog/${slug}`);
       expect(llms).toContain(`https://teelotse.de/blog/${slug}`);
@@ -191,6 +195,64 @@ describe('Blog und Sitemap', () => {
     expect(html).toContain('class="post-figure post-hero"');
     expect(html.indexOf('post-hero')).toBeLessThan(html.indexOf('<h1>'));
     expect(html).toContain('https://teelotse.de/blog/tee-zubereiten');
+  });
+
+  it('teilt das erste Beitragsfoto und lässt die übrigen Seiten beim Leuchtturm', () => {
+    const home = indexHtml;
+    expect(home).toContain('property="og:image" content="https://teelotse.de/hero/leuchtturm-1120.webp"');
+    expect(home).toContain('name="twitter:image" content="https://teelotse.de/hero/leuchtturm-1120.webp"');
+    expect(home).toContain('property="og:image:alt" content="Zeichnung eines Leuchtturms auf einer Klippe, im Hintergrund Berge."');
+    expect(home).toContain('property="og:image:width" content="1120"');
+    expect(home).toContain('property="og:image:height" content="511"');
+    expect(home).toContain(
+      'name="google-site-verification" content="qvQoba0fqIVe060UDYl-ltFRo2lQi76GWaGBifwHYfY"',
+    );
+    const finden = renderSectionDocument({
+      sourceHtml: indexHtml,
+      section: 'finden',
+      posts,
+      includeDrafts: false,
+      styleHref: '/src/style.css',
+      scriptHref: '/src/main.ts',
+    });
+    expect(finden).toContain('property="og:image" content="https://teelotse.de/hero/leuchtturm-1120.webp"');
+    expect(finden).toContain('property="og:image:width" content="1120"');
+    expect(finden).not.toContain('article:published_time');
+    for (const post of posts) {
+      const html = renderArticleDocument({
+        sourceHtml: indexHtml,
+        post,
+        styleHref: '/src/style.css',
+        scriptHref: '/src/main.ts',
+      });
+      const image = post.images[0];
+      expect(image, post.slug).toBeTruthy();
+      expect(image!.width, post.slug).toBeGreaterThanOrEqual(1000);
+      const url = `https://teelotse.de${image!.src}`;
+      expect(html, post.slug).toContain(`property="og:image" content="${url}"`);
+      expect(html, post.slug).toContain(`property="og:image:alt" content="${image!.alt}"`);
+      expect(html, post.slug).toContain(`property="og:image:width" content="${image!.width}"`);
+      expect(html, post.slug).toContain(`property="og:image:height" content="${image!.height}"`);
+      expect(html, post.slug).toContain(`name="twitter:image" content="${url}"`);
+      expect(html, post.slug).not.toContain('leuchtturm-1120');
+      expect(html, post.slug).toContain('property="og:type" content="article"');
+      expect(html, post.slug).toContain(`property="article:published_time" content="${post.date}"`);
+      if (post.updated) {
+        expect(html, post.slug).toContain(`property="article:modified_time" content="${post.updated}"`);
+      } else {
+        expect(html, post.slug).not.toContain('article:modified_time');
+      }
+      const pinUrl = `data-pin-url="https://teelotse.de/blog/${post.slug}"`;
+      const pinDescription = `data-pin-description="${post.description}"`;
+      expect(html.split(pinUrl).length - 1, post.slug).toBe(post.images.length);
+      expect(html.split(pinDescription).length - 1, post.slug).toBe(post.images.length);
+      expect(html, post.slug).not.toContain('pinterest.com');
+      expect(html, post.slug).not.toContain('pin-it-button');
+      for (const picture of post.images) {
+        expect(picture.alt.trim().length, post.slug).toBeGreaterThan(12);
+        expect(html, post.slug).toContain(`alt="${picture.alt}"`);
+      }
+    }
   });
 
   it('setzt auf Entwurfsseiten noindex und genau eine h1', () => {
@@ -417,6 +479,8 @@ describe('Beiträge mit Anleitung und Fragen', () => {
       'sencha',
       'earl-grey',
       'rooibos',
+      'welche-teekanne-kaufen',
+      'teedose-fuer-losen-tee',
     ] as const;
     const home = injectHome(indexHtml, posts, false);
     const zubehoer = renderSectionDocument({
@@ -432,6 +496,8 @@ describe('Beiträge mit Anleitung und Fragen', () => {
       '/blog/matcha-starterset',
       '/blog/teesieb-oder-teekanne',
       '/blog/loser-tee-oder-teebeutel',
+      '/blog/welche-teekanne-kaufen',
+      '/blog/teedose-fuer-losen-tee',
     ]) {
       expect(home, href).toContain(`href="${href}"`);
       expect(zubehoer, href).toContain(`href="${href}"`);

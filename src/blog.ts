@@ -101,6 +101,11 @@ function loadFigure(logicalWebp: string): { width: number; height: number; src: 
   return { width: meta.width, height: meta.height, src: `${base}-1280.webp` };
 }
 
+function withPin(html: string, description: string, url: string): string {
+  const attrs = `data-pin-description="${escapeHtml(description)}" data-pin-url="${escapeHtml(url)}" `;
+  return html.replaceAll('<img ', `<img ${attrs}`);
+}
+
 function figureHtml(options: {
   alt: string;
   src: string;
@@ -276,6 +281,7 @@ export function parsePost(fileName: string, raw: string): Post {
   const slug = fileName.replace(/\.md$/, '');
   if (!SLUG.test(slug)) throw new Error(`${fileName}: Slug ungültig.`);
   const date = field(map, 'date', fileName);
+  const description = field(map, 'description', fileName);
   if (!DATE.test(date)) throw new Error(`${fileName}: Datum ist kein JJJJ-MM-TT.`);
   const updated = map.updated?.trim();
   if (updated && !DATE.test(updated)) throw new Error(`${fileName}: updated ist kein JJJJ-MM-TT.`);
@@ -292,7 +298,7 @@ export function parsePost(fileName: string, raw: string): Post {
     slug,
     title: field(map, 'title', fileName),
     date,
-    description: field(map, 'description', fileName),
+    description,
     draft: draftRaw === 'true',
     ...(updated ? { updated } : {}),
     tools: listField(map, 'tools'),
@@ -300,7 +306,7 @@ export function parsePost(fileName: string, raw: string): Post {
     steps: rendered.steps,
     faqs: rendered.faqs,
     images: rendered.images,
-    bodyHtml: rendered.html,
+    bodyHtml: withPin(rendered.html, description, `https://teelotse.de/blog/${slug}`),
   };
 }
 

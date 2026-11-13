@@ -45,7 +45,7 @@ Die Sorte suchst du vorher aus, nicht das Gefäß. Unter [Entdecken](/entdecken)
 
 ## Dazu passt
 
-Die Handgriffe mit Uhr und Gramm stehen in [Tee zubereiten](/blog/tee-zubereiten). Welches Sieb zur Tasse und welche Kanne zu mehreren Tassen passt, steht in [Teesieb oder Teekanne mit Sieb](/blog/teesieb-oder-teekanne). Welche Sorte zu welchem Moment passt, steht in [Welche Teesorte passt zu welchem Moment](/blog/welche-teesorte-moment).
+Die Handgriffe mit Uhr und Gramm stehen in [Tee zubereiten](/blog/tee-zubereiten). Welches Sieb zur Tasse und welche Kanne zu mehreren Tassen passt, steht in [Teesieb oder Teekanne mit Sieb](/blog/teesieb-oder-teekanne). Wie die losen Blätter in der Dose liegen, steht in [Teedose für losen Tee](/blog/teedose-fuer-losen-tee). Welche Sorte zu welchem Moment passt, steht in [Welche Teesorte passt zu welchem Moment](/blog/welche-teesorte-moment).
 
 ## Häufige Fragen
 

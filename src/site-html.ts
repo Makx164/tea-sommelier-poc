@@ -40,7 +40,7 @@ export const SECTION_META: Record<SectionId, { title: string; description: strin
   },
   blog: {
     title: 'Blog – Teelotse',
-    description: 'Ratgeber zu Wasserkocher, Matcha, Sieb und losem Tee, dazu Sencha, Earl Grey und Rooibos.',
+    description: 'Ratgeber zu Wasserkocher, Teekanne, Teedose, Matcha, Sieb und losem Tee, dazu Sencha, Earl Grey und Rooibos.',
     path: '/blog',
     label: 'Blog',
   },
@@ -238,6 +238,20 @@ export function articleJsonLd(post: Post): unknown {
   return { '@context': 'https://schema.org', '@graph': graph };
 }
 
+export type ShareImage = {
+  url: string;
+  alt: string;
+  width: number;
+  height: number;
+};
+
+const LIGHTHOUSE_IMAGE: ShareImage = {
+  url: 'https://teelotse.de/hero/leuchtturm-1120.webp',
+  alt: 'Zeichnung eines Leuchtturms auf einer Klippe, im Hintergrund Berge.',
+  width: 1120,
+  height: 511,
+};
+
 export function renderHead(options: {
   title: string;
   description: string;
@@ -246,10 +260,20 @@ export function renderHead(options: {
   jsonLd?: unknown;
   robots?: string;
   ogType?: string;
+  image?: ShareImage;
+  published?: string;
+  modified?: string;
 }): string {
   const url = pageUrl(options.path);
   const robots = options.robots ?? 'index, follow';
+  const image = options.image ?? LIGHTHOUSE_IMAGE;
   const json = options.jsonLd ? `\n  ${jsonLdScript(options.jsonLd)}` : '';
+  const published = options.ogType === 'article' && options.published
+    ? `\n  <meta property="article:published_time" content="${escapeHtml(options.published)}">`
+    : '';
+  const modified = published && options.modified
+    ? `\n  <meta property="article:modified_time" content="${escapeHtml(options.modified)}">`
+    : '';
   return `  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(options.title)}</title>
@@ -262,11 +286,14 @@ export function renderHead(options: {
   <meta property="og:title" content="${escapeHtml(options.title)}">
   <meta property="og:description" content="${escapeHtml(options.description)}">
   <meta property="og:url" content="${escapeHtml(url)}">
-  <meta property="og:image" content="https://teelotse.de/hero/leuchtturm-1120.webp">
+  <meta property="og:image" content="${escapeHtml(image.url)}">
+  <meta property="og:image:alt" content="${escapeHtml(image.alt)}">
+  <meta property="og:image:width" content="${image.width}">
+  <meta property="og:image:height" content="${image.height}">${published}${modified}
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(options.title)}">
   <meta name="twitter:description" content="${escapeHtml(options.description)}">
-  <meta name="twitter:image" content="https://teelotse.de/hero/leuchtturm-1120.webp">
+  <meta name="twitter:image" content="${escapeHtml(image.url)}">
   <meta name="theme-color" content="#FFFCF5">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -468,6 +495,7 @@ export function renderArticleDocument(options: {
       ${rest}
       </div>
     </article>`;
+  const lead = options.post.images[0];
   return documentHtml({
     head: renderHead({
       title: `${options.post.title} – Teelotse`,
@@ -477,6 +505,18 @@ export function renderArticleDocument(options: {
       jsonLd: articleJsonLd(options.post),
       robots: options.post.draft ? 'noindex, follow' : 'index, follow',
       ogType: 'article',
+      published: options.post.date,
+      ...(options.post.updated ? { modified: options.post.updated } : {}),
+      ...(lead
+        ? {
+            image: {
+              url: `${SITE}${lead.src}`,
+              alt: lead.alt,
+              width: lead.width,
+              height: lead.height,
+            },
+          }
+        : {}),
     }),
     header,
     main,
