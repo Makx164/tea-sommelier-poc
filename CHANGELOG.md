@@ -1,5 +1,12 @@
 # Änderungsprotokoll
 
+## 2026-11-16 – v1.7 Finder, Ingwertee, vier Ratgeber
+
+- Finder: Fenchel ist mild und süßlich, nicht würzig. Rooibos steht nicht mehr bei „Beliebt nach dem Training“. Gunpowder ohne malzig. Da Hong Pao weniger rauchig als Lapsang Souchong. Reifer Pu-Erh trägt den Geschmack erdig statt malzig. Abendtees mit Abendmoment haben eine Abendzeit, koffeinfreie bleiben in den Abendergebnissen vorn. Nach dem Essen, Aufwärmen und Etwas Süßes hängen nicht mehr an nur einer Tageszeit. Ein Tee ohne den gewählten Geschmack wird nicht der erste Treffer. Die Kachel Aufwärmen sagt nicht mehr pauschal würzig
+- Aufgeklappte Karten: die Zeile Zubereitung bleibt lesbar
+- Ingwertee, koffeinfrei, würzig, für Abend und Aufwärmen, 100 °C, 5–10 Min., mit eigenem Foto und `/go/ingwer`
+- Vier Ratgeber: Thermoskanne für Tee, Teethermometer, Cold-Brew-Flasche, Gaiwan. Partner-Tag `teelotse-21`, die `/go/`-Routen und das Google-Search-Console-Meta-Tag bleiben
+
 ## 2026-11-13 – v1.6 Teilen, Pinterest, Kanne und Dose
 
 - Jeder Blogbeitrag teilt sein erstes Foto als `og:image` und `twitter:image`, mit Alt-Text, Breite und Höhe. Die übrigen Seiten behalten die Leuchtturm-Zeichnung. Beiträge setzen `article:published_time`, und wo ein Aktualisierungsdatum schon stand, auch `article:modified_time`

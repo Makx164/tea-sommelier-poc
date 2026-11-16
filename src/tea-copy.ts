@@ -27,6 +27,7 @@ export const MOMENT_LINE: Record<string, string> = {
   lavendel: 'Floral und mild, weich für den Abend.',
   zitronenverbene: 'Zitronig und hell, spritzig und frisch.',
   fenchel: 'Mild und süßlich, aromatisch nach dem Essen.',
+  ingwer: 'Würzig und scharf, heiß für kalte Tage.',
   rooibos: 'Mild und holzig-süß, weich für den Abend.',
   hagebutte: 'Fruchtig und säuerlich, spritzig für unterwegs.',
   hibiskus: 'Säuerlich und fruchtig, spritzig und frisch.',

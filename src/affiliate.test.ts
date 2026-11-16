@@ -10,8 +10,8 @@ import { teas } from './recommender';
 const links = affiliateLinks as Record<string, string>;
 
 describe('Affiliate-Konfiguration', () => {
-  it('hat für jeden der 29 /go/-Slugs eine Amazon-Suche mit Partner-ID und passendem Begriff', () => {
-    expect(teas).toHaveLength(29);
+  it('hat für jeden der 30 /go/-Slugs eine Amazon-Suche mit Partner-ID und passendem Begriff', () => {
+    expect(teas).toHaveLength(30);
     const teaIds = teas.map((tea) => tea.id).sort();
     for (const id of teaIds) expect(links[id], id).toEqual(expect.any(String));
 

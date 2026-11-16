@@ -97,7 +97,9 @@ describe('Zubehör', () => {
 describe('Blog und Sitemap', () => {
   it('führt die veröffentlichten Artikel in Blog, Sitemap und llms.txt', () => {
     expect(posts.map((post) => post.slug).sort()).toEqual([
+      'cold-brew-flasche',
       'earl-grey',
+      'gaiwan',
       'loser-tee-oder-teebeutel',
       'matcha-starterset',
       'rooibos',
@@ -105,6 +107,8 @@ describe('Blog und Sitemap', () => {
       'tee-zubereiten',
       'teedose-fuer-losen-tee',
       'teesieb-oder-teekanne',
+      'teethermometer',
+      'thermoskanne-fuer-tee',
       'wasserkocher-fuer-tee',
       'welche-teekanne-kaufen',
       'welche-teesorte-moment',
@@ -143,6 +147,10 @@ describe('Blog und Sitemap', () => {
       'rooibos',
       'welche-teekanne-kaufen',
       'teedose-fuer-losen-tee',
+      'thermoskanne-fuer-tee',
+      'teethermometer',
+      'cold-brew-flasche',
+      'gaiwan',
     ]) {
       expect(sitemap).toContain(`https://teelotse.de/blog/${slug}`);
       expect(llms).toContain(`https://teelotse.de/blog/${slug}`);
@@ -481,6 +489,10 @@ describe('Beiträge mit Anleitung und Fragen', () => {
       'rooibos',
       'welche-teekanne-kaufen',
       'teedose-fuer-losen-tee',
+      'thermoskanne-fuer-tee',
+      'teethermometer',
+      'cold-brew-flasche',
+      'gaiwan',
     ] as const;
     const home = injectHome(indexHtml, posts, false);
     const zubehoer = renderSectionDocument({
@@ -498,6 +510,10 @@ describe('Beiträge mit Anleitung und Fragen', () => {
       '/blog/loser-tee-oder-teebeutel',
       '/blog/welche-teekanne-kaufen',
       '/blog/teedose-fuer-losen-tee',
+      '/blog/thermoskanne-fuer-tee',
+      '/blog/teethermometer',
+      '/blog/cold-brew-flasche',
+      '/blog/gaiwan',
     ]) {
       expect(home, href).toContain(`href="${href}"`);
       expect(zubehoer, href).toContain(`href="${href}"`);

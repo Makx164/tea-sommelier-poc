@@ -1148,9 +1148,11 @@ legend {
 
 .tea-card.is-open:is([data-tea], [data-accessory]) .tea-line {
   display: block;
+  -webkit-box-orient: unset;
   -webkit-line-clamp: unset;
   line-clamp: unset;
-  overflow: visible;
+  min-height: 0;
+  overflow: hidden;
 }
 
 .tea-more {
@@ -1162,9 +1164,12 @@ legend {
 }
 
 .tea-card.is-open .tea-more {
+  position: relative;
+  z-index: 1;
   grid-template-rows: 1fr;
   opacity: 1;
   visibility: visible;
+  background: var(--paper);
   transition: grid-template-rows 280ms ease, opacity 220ms ease, visibility 0s;
 }
 
@@ -1174,7 +1179,7 @@ legend {
 }
 
 .tea-card.is-open .tea-more-inner {
-  padding: 0 0.85rem 0.8rem;
+  padding: 0.7rem 0.85rem 0.8rem;
 }
 
 .tea-prep,
@@ -1192,7 +1197,7 @@ legend {
 
 @media (scripting: none) {
   .tea-more { grid-template-rows: 1fr; opacity: 1; visibility: visible; }
-  .tea-more-inner { padding: 0 0.85rem 0.8rem; }
+  .tea-more-inner { padding: 0.7rem 0.85rem 0.8rem; }
 }
 
 .step-fold {

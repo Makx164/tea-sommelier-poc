@@ -4,6 +4,7 @@ export const TASTES = [
   'fruchtig',
   'wuerzig',
   'malzig',
+  'erdig',
   'mild',
   'rauchig',
   'minzig',
@@ -71,12 +72,24 @@ export type Recommendation = {
 /**
  * Tageszeit kommt aus dem Moment, nicht aus einem eigenen Schritt.
  * Fokussierter Start ist Morgen, Abendritual ist Abend.
+ * Nach dem Essen gilt nach Mittag- und Abendessen, Aufwärmen an kalten Morgen,
+ * Nachmittagen und Abenden, Etwas Süßes am Nachmittag und am Abend.
  */
+export const OCCASION_TIMES: Record<Occasion, readonly TimeOfDay[]> = {
+  fokus: ['morgen'],
+  abend: ['abend'],
+  nach_essen: ['mittag', 'abend'],
+  aufwaermen: ['morgen', 'nachmittag', 'abend'],
+  erfrischen: ['nachmittag'],
+  suesses: ['nachmittag', 'abend'],
+};
+
+/** Erste Tageszeit eines Moments. Die Wertung nutzt `OCCASION_TIMES`. */
 export const OCCASION_TIME: Record<Occasion, TimeOfDay> = {
   fokus: 'morgen',
   abend: 'abend',
   nach_essen: 'mittag',
-  aufwaermen: 'nachmittag',
+  aufwaermen: 'morgen',
   erfrischen: 'nachmittag',
   suesses: 'nachmittag',
 };
@@ -84,8 +97,7 @@ export const OCCASION_TIME: Record<Occasion, TimeOfDay> = {
 export function timesForOccasions(occasions: readonly Occasion[]): TimeOfDay[] {
   const wanted = new Set<TimeOfDay>();
   for (const occasion of occasions) {
-    const time = OCCASION_TIME[occasion];
-    if (time) wanted.add(time);
+    for (const time of OCCASION_TIMES[occasion] ?? []) wanted.add(time);
   }
   return TIMES.filter((time) => wanted.has(time));
 }
@@ -96,6 +108,7 @@ export const TASTE_LABEL: Record<Taste, string> = {
   fruchtig: 'fruchtig',
   wuerzig: 'würzig',
   malzig: 'malzig',
+  erdig: 'erdig',
   mild: 'mild',
   rauchig: 'rauchig',
   minzig: 'minzig',
@@ -122,7 +135,7 @@ export const OCCASION_NOTE: Record<Occasion, string> = {
   fokus: 'Klar, kräftig, wach im Geschmack, Morgenritual',
   abend: 'Sanft, weich, ruhiger Ausklang',
   nach_essen: 'Frisch, aromatisch, Abschluss der Mahlzeit',
-  aufwaermen: 'Würzig, heiß, kuschelig, für kalte Tage',
+  aufwaermen: 'Heiß, kuschelig, für kalte Tage',
   erfrischen: 'Spritzig, frisch, nach dem Training, für unterwegs',
   suesses: 'Süßlich im Geschmack, ohne Zuckerzusatz',
 };

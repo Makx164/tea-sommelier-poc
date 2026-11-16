@@ -25,7 +25,7 @@ Die Karte sagt „Enthält Koffein“. Im Datensatz steht die Stufe auf mittel. 
 
 Sencha steht in zwei Listen unter [Entdecken](/entdecken). Vorn bei [Für den fokussierten Start](/entdecken#liste-fokus), neben Assam, Ceylon, Darjeeling, English Breakfast, Matcha und Mate. Und bei [Beliebt nach dem Training](/entdecken#liste-training), neben Hibiskus, Pfefferminze und Zitronenverbene. Die Zubereitung bleibt in beiden Listen dieselbe.
 
-Die Tageszeit folgt auf Teelotse aus dem Moment. Fokussierter Start zählt als Morgen. Die anderen Momente hängen an Mittag oder Nachmittag. Eine eigene Uhrzeit fragst du nicht ab. Wer abends eine Tasse ohne Koffein sucht, liegt bei Sencha daneben. Dafür steht [Rooibos](/go/rooibos) in der Liste für den Feierabend, koffeinfrei.
+Die Tageszeit folgt auf Teelotse aus dem Moment. Fokussierter Start zählt als Morgen. Abendritual zählt als Abend. Nach dem Essen, Aufwärmen und Etwas Süßes hängen an mehr als einer Tageszeit. Eine eigene Uhrzeit fragst du nicht ab. Wer abends eine Tasse ohne Koffein sucht, liegt bei Sencha daneben. Dafür steht [Rooibos](/go/rooibos) in der Liste für den Feierabend, koffeinfrei.
 
 ## So gießt du ihn auf {step}
 
