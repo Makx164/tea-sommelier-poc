@@ -285,24 +285,51 @@ export function recommend(prefs: Preferences): Recommendation[] {
         reason: buildReason(tea, normalized, times),
       };
     })
-    .sort((a, b) => {
-      if (b.score !== a.score) return b.score - a.score;
-      const byTaste = matchedWeight(b.tea, tastes) - matchedWeight(a.tea, tastes);
-      if (byTaste !== 0) return byTaste;
-      return a.tea.name.localeCompare(b.tea.name, 'de');
-    });
+    .sort((a, b) => compareRecommendations(a, b, normalized));
 
-  const best = ranked[0];
-  if (!best) return [];
+  const tasteMatches = tastes.length === 0 ? ranked : ranked.filter((item) => item.matchedTastes.length > 0);
+  const source = tasteMatches.length > 0 ? tasteMatches : ranked;
+  if (source.length === 0) return [];
+
+  const scores = source.map((item) => item.score).sort((a, b) => b - a);
+  const bestScore = scores[0] ?? 0;
+  const secondScore = scores[1] ?? bestScore;
+  // Ein einzelner Ausreißer darf die 60-%-Schwelle nicht so hoch setzen, dass alle anderen Treffer wegfallen.
+  // Liegt der Zweite klar darunter, bleibt die Schwelle am besten Wert, damit ein ferner Treffer nicht nachrückt.
+  const outlier =
+    scores.length >= 2 && secondScore < bestScore * DIVERSE_RATIO && secondScore >= bestScore * 0.45;
+  const cutoff = (outlier ? secondScore : bestScore) * DIVERSE_RATIO;
 
   const picks: Recommendation[] = [];
   const usedTypes = new Set<string>();
-  for (const item of ranked) {
+  for (const item of source) {
     if (picks.length >= 3) break;
-    if (picks.length > 0 && item.score < best.score * DIVERSE_RATIO) break;
+    if (picks.length > 0 && item.score < cutoff) continue;
     if (usedTypes.has(item.tea.type)) continue;
     picks.push(item);
     usedTypes.add(item.tea.type);
   }
   return picks;
+}
+
+function tasteRank(item: Recommendation, prefs: Preferences): number {
+  if (prefs.tastes.length === 0) return 1;
+  return item.matchedTastes.length > 0 ? 1 : 0;
+}
+
+/** Am Abend mit „Egal“ stehen koffeinfreie Tees vor Tees mit Koffein, bei gleichem Geschmackstreffer. */
+function eveningDecafRank(item: Recommendation, prefs: Preferences): number {
+  if (prefs.caffeine !== 'egal' || !prefs.occasions.includes('abend')) return 0;
+  return item.tea.caffeine === 'kein' ? 1 : 0;
+}
+
+function compareRecommendations(a: Recommendation, b: Recommendation, prefs: Preferences): number {
+  const byGuard = tasteRank(b, prefs) - tasteRank(a, prefs);
+  if (byGuard !== 0) return byGuard;
+  const byDecaf = eveningDecafRank(b, prefs) - eveningDecafRank(a, prefs);
+  if (byDecaf !== 0) return byDecaf;
+  if (b.score !== a.score) return b.score - a.score;
+  const byTaste = matchedWeight(b.tea, prefs.tastes) - matchedWeight(a.tea, prefs.tastes);
+  if (byTaste !== 0) return byTaste;
+  return a.tea.name.localeCompare(b.tea.name, 'de');
 }

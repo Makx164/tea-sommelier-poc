@@ -50,6 +50,9 @@ describe('Entdecken', () => {
         expect(next.weight).toBeLessThanOrEqual(prev.weight);
         expect(next.weight).toBeGreaterThanOrEqual(MIN_LIST_WEIGHT);
       }
+      if (list.occasion === 'erfrischen') {
+        expect(entries.map((entry) => entry.tea.id)).not.toContain('rooibos');
+      }
       for (const entry of entries) {
         expect(entry.tea.occasions[list.occasion]).toBeGreaterThanOrEqual(MIN_LIST_WEIGHT);
         expect(MOMENT_LINE[entry.tea.id], entry.tea.id).toBeTruthy();

@@ -31,8 +31,8 @@ const teas = JSON.parse(readFileSync(new URL('../src/data/teas.json', import.met
 const accessories = JSON.parse(readFileSync(new URL('../src/accessories.json', import.meta.url), 'utf8'));
 const links = JSON.parse(readFileSync(new URL('../src/affiliate.json', import.meta.url), 'utf8'));
 
-if (!Array.isArray(teas) || teas.length !== 29) {
-  console.error(`Erwartet 29 Tees, gefunden ${Array.isArray(teas) ? teas.length : 0}.`);
+if (!Array.isArray(teas) || teas.length !== 30) {
+  console.error(`Erwartet 30 Tees, gefunden ${Array.isArray(teas) ? teas.length : 0}.`);
   process.exit(1);
 }
 

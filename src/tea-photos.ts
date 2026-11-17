@@ -206,6 +206,14 @@ export const TEA_PHOTOS: readonly TeaPhoto[] = [
     licenseUrl: PEXELS_LICENSE,
   },
   {
+    key: 'ingwer',
+    label: 'Ingwertee',
+    creditName: 'Cup of Couple',
+    creditUrl: 'https://www.pexels.com/photo/person-holding-putting-sliced-ginger-in-a-cup-of-water-6962409/',
+    licenseName: 'Pexels',
+    licenseUrl: PEXELS_LICENSE,
+  },
+  {
     key: 'rooibos',
     label: 'Rooibos',
     creditName: 'Özgür Beşli',

@@ -23,14 +23,13 @@ Die Tasse wird rötlich bis braunrot, nicht hellgrün wie [Sencha](/go/sencha) u
 
 Im Datensatz steht die Stufe auf „kein“. Die Karte schreibt „Koffeinfrei“. „Enthält Koffein“ fasst die Stufen niedrig, mittel und hoch zusammen. Rooibos fällt in keine davon. Eine Menge in Milligramm steht auf der Karte nicht, auch nicht als Null mit einer Einheit, die der Datensatz nicht nennt.
 
-Rooibos steht in vier Listen unter [Entdecken](/entdecken):
+Rooibos steht in drei Listen unter [Entdecken](/entdecken):
 
 - [Für den Feierabend](/entdecken#liste-feierabend), neben Bai Hao Yinzhen, Jasmin, Jin Xuan, Kamille und Lavendel
 - [Für kalte Tage](/entdecken#liste-kalte-tage), neben Apfel-Zimt und Lapsang Souchong
-- [Beliebt nach dem Training](/entdecken#liste-training), neben Hibiskus und Pfefferminze
 - [Etwas Süßes](/entdecken#liste-suesses), neben Apfel-Zimt, Fenchel und Kamille
 
-Abendritual ist der Feierabend. Aufwärmen ist die Liste für kalte Tage. Die Zubereitung bleibt in allen vier Listen dieselbe: 100 °C, 5–7 Min., 2,5 g auf 200 ml. Welche Liste zu welchem Moment gehört, steht in [Welche Teesorte passt zu welchem Moment](/blog/welche-teesorte-moment).
+Abendritual ist der Feierabend. Aufwärmen ist die Liste für kalte Tage. Die Zubereitung bleibt in allen drei Listen dieselbe: 100 °C, 5–7 Min., 2,5 g auf 200 ml. In der Liste nach dem Training steht er nicht: dort liegen die spritzigen Sorten. Welche Liste zu welchem Moment gehört, steht in [Welche Teesorte passt zu welchem Moment](/blog/welche-teesorte-moment).
 
 Wer eine Tasse mit Koffein zum fokussierten Start sucht, liegt bei Rooibos daneben. Dafür stehen Assam, [Earl Grey](/go/earl-grey) und Sencha in der Morgenliste. Rooibos kannst du zu den anderen Momenten nehmen, ohne die Koffeinstufe umzustellen. „Nein“ bei Koffein lässt nur koffeinfreie Tees zu. Rooibos bleibt dann in der Auswahl.
 
@@ -66,4 +65,4 @@ Mild, holzig-süß und leicht erdig. Die Herkunft im Datensatz ist Südafrika, d
 
 ### In welchen Listen steht Rooibos? {faq}
 
-Feierabend, kalte Tage, nach dem Training und Etwas Süßes. Die Zubereitung bleibt in allen vier Listen 100 °C und 5–7 Min.
+Feierabend, kalte Tage und Etwas Süßes. Die Zubereitung bleibt in allen drei Listen 100 °C und 5–7 Min.

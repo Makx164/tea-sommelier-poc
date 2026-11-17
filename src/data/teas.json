@@ -196,8 +196,7 @@
     "origin": "China",
     "summary": "Zu Perlen gerollter Grüntee, herb und etwas kräftiger als feine Grüntees.",
     "tastes": {
-      "kraeutig": 2,
-      "malzig": 1
+      "kraeutig": 2
     },
     "times": {
       "morgen": 2,
@@ -225,7 +224,8 @@
     "times": {
       "morgen": 1,
       "mittag": 2,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "abend": 3
@@ -274,7 +274,8 @@
     },
     "times": {
       "mittag": 2,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "abend": 2,
@@ -322,7 +323,8 @@
     "times": {
       "morgen": 1,
       "mittag": 2,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "fokus": 1,
@@ -346,7 +348,8 @@
     "times": {
       "morgen": 1,
       "mittag": 1,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "abend": 3
@@ -369,7 +372,8 @@
     "times": {
       "morgen": 1,
       "mittag": 2,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "fokus": 2,
@@ -387,7 +391,7 @@
     "origin": "Wuyi, China",
     "summary": "Dunkler Felsen-Oolong, mineralisch, geröstet und erdig-kräftig.",
     "tastes": {
-      "rauchig": 2,
+      "rauchig": 1,
       "malzig": 2
     },
     "times": {
@@ -414,7 +418,8 @@
     },
     "times": {
       "mittag": 2,
-      "nachmittag": 3
+      "nachmittag": 3,
+      "abend": 2
     },
     "occasions": {
       "abend": 3,
@@ -432,7 +437,7 @@
     "origin": "Yunnan, China",
     "summary": "Nachgereifter Tee, deutlich erdig, holzig und kräftig.",
     "tastes": {
-      "malzig": 2
+      "erdig": 3
     },
     "times": {
       "morgen": 1,
@@ -552,8 +557,7 @@
     "origin": "Fenchelsamen",
     "summary": "Milder, süßlicher Tee aus Fenchelsamen, ohne Herbe.",
     "tastes": {
-      "mild": 3,
-      "wuerzig": 2
+      "mild": 3
     },
     "times": {
       "nachmittag": 1,
@@ -568,6 +572,29 @@
     "temperature": "100 °C",
     "steepTime": "6–8 Min.",
     "amount": "2 g auf 200 ml"
+  },
+  {
+    "id": "ingwer",
+    "name": "Ingwertee",
+    "type": "Kräutertee",
+    "origin": "Ingwerwurzel",
+    "summary": "Würziger Aufguss aus Ingwer, scharf und wärmend im Geschmack.",
+    "tastes": {
+      "wuerzig": 3
+    },
+    "times": {
+      "nachmittag": 2,
+      "abend": 3
+    },
+    "occasions": {
+      "abend": 2,
+      "aufwaermen": 2
+    },
+    "caffeine": "kein",
+    "temperature": "100 °C",
+    "steepTime": "5–10 Min.",
+    "amount": "2 g auf 200 ml",
+    "brewNote": "Frische Scheiben oder getrocknete Stücke mit sprudelndem Wasser aufgießen."
   },
   {
     "id": "rooibos",
@@ -587,7 +614,6 @@
     "occasions": {
       "abend": 3,
       "aufwaermen": 2,
-      "erfrischen": 2,
       "suesses": 3
     },
     "caffeine": "kein",

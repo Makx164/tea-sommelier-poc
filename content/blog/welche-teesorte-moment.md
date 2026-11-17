@@ -14,7 +14,7 @@ Der Moment kommt zuerst. Teelotse hat sechs: Fokussierter Start, Abendritual, Na
 
 Ein Moment reicht, mehrere sind erlaubt. Ohne Moment gibt es keinen Vorschlag. Die sechs Kacheln heißen Fokussierter Start, Abendritual, Nach dem Essen, Aufwärmen, Erfrischen & Aktiv und Etwas Süßes.
 
-Fokussierter Start zählt als Morgen, Abendritual als Abend. Die anderen Momente hängen an Mittag oder Nachmittag, eine eigene Uhrzeit fragst du nicht ab. Such dir den Anlass: eine klare Tasse zum Anfang des Tages, ein weicher Ausklang, etwas nach dem Essen, eine heiße Tasse bei Kälte, etwas Spritziges, etwas Süßliches.
+Fokussierter Start zählt als Morgen, Abendritual als Abend. Nach dem Essen zählt nach dem Mittag- und nach dem Abendessen. Aufwärmen zählt am Morgen, am Nachmittag und am Abend. Etwas Süßes zählt am Nachmittag und am Abend. Erfrischen zählt am Nachmittag. Eine eigene Uhrzeit fragst du nicht ab. Such dir den Anlass: eine klare Tasse zum Anfang des Tages, ein weicher Ausklang, etwas nach dem Essen, eine heiße Tasse bei Kälte, etwas Spritziges, etwas Süßliches.
 
 Die Listen unter Entdecken tragen andere Überschriften als die Kacheln und meinen dasselbe:
 
@@ -125,23 +125,23 @@ Süßlich im Geschmack, ohne Zuckerzusatz. Das ist der Moment, kein Sirup. In de
 
 [Apfel-Zimt-Tee](/go/apfel-zimt): 100 °C, 8 Min., 3 g auf 200 ml. [Rooibos](/go/rooibos): 100 °C, 5–7 Min., 2,5 g auf 200 ml. [Fencheltee](/go/fenchel): 100 °C, 6–8 Min., 2 g auf 200 ml. [Kamillentee](/go/kamille) ist honigartig und mild: 100 °C, 5–7 Min., 2 g auf 200 ml.
 
-Dieselben vier tauchen in anderen Listen wieder auf: Apfel-Zimt bei kalten Tagen, Rooibos am Feierabend und nach dem Training, Fenchel nach dem Essen, Kamille am Feierabend. Die Zubereitung bleibt dieselbe.
+Dieselben vier tauchen in anderen Listen wieder auf: Apfel-Zimt bei kalten Tagen, Rooibos am Feierabend, Fenchel nach dem Essen, Kamille am Feierabend. Die Zubereitung bleibt dieselbe.
 
 Die ganze Liste: [Etwas Süßes](/entdecken#liste-suesses).
 
 ## Drei Sorten näher
 
-[Sencha](/blog/sencha) ist der grasige Grüntee aus Japan in der Liste für den fokussierten Start. [Earl Grey](/blog/earl-grey) ist der Schwarztee mit Bergamotte, in derselben Liste und bei Erfrischen. [Rooibos](/blog/rooibos) ist der koffeinfreie Rotbusch beim Feierabend, an kalten Tagen, nach dem Training und bei Etwas Süßes.
+[Sencha](/blog/sencha) ist der grasige Grüntee aus Japan in der Liste für den fokussierten Start. [Earl Grey](/blog/earl-grey) ist der Schwarztee mit Bergamotte, in derselben Liste und bei Erfrischen. [Rooibos](/blog/rooibos) ist der koffeinfreie Rotbusch beim Feierabend, an kalten Tagen und bei Etwas Süßes.
 
 ## Häufige Fragen
 
 ### Kann eine Sorte in zwei Momenten stehen? {faq}
 
-Ja. Rooibos steht zum Beispiel beim Feierabend, bei kalten Tagen, nach dem Training und bei Etwas Süßes. Die Zubereitung bleibt 100 °C, 5–7 Min., 2,5 g auf 200 ml.
+Ja. Rooibos steht zum Beispiel beim Feierabend, bei kalten Tagen und bei Etwas Süßes. Die Zubereitung bleibt 100 °C, 5–7 Min., 2,5 g auf 200 ml.
 
 ### Muss ich einen Geschmack wählen? {faq}
 
-Nein. Pflicht ist nur der Moment. Geschmack kannst du leer lassen. Die Richtungen sind kräutig, blumig, fruchtig, würzig, malzig, mild, rauchig und minzig.
+Nein. Pflicht ist nur der Moment. Geschmack kannst du leer lassen. Die Richtungen sind kräutig, blumig, fruchtig, würzig, malzig, erdig, mild, rauchig und minzig.
 
 ### Was bedeutet koffeinfrei auf der Karte? {faq}
 

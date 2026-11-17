@@ -119,17 +119,16 @@ const teaById = (id: string): Tea => {
 };
 
 describe('Datensatz', () => {
-  it('enthält 29 Tees mit eindeutigen Ids', () => {
-    expect(teas).toHaveLength(29);
+  it('enthält 30 Tees mit eindeutigen Ids', () => {
+    expect(teas).toHaveLength(30);
     expect(new Set(teas.map((tea) => tea.id)).size).toBe(teas.length);
   });
 
-  it('nutzt die acht Geschmäcker und jeden Anlass, ohne Richtung', () => {
+  it('nutzt die neun Geschmäcker und jeden Anlass, ohne Richtung', () => {
     for (const tea of teas) {
       expect(Object.keys(tea.tastes).length, tea.id).toBeGreaterThan(0);
       for (const key of Object.keys(tea.tastes)) expect(TASTES, tea.id).toContain(key);
       expect(tea, tea.id).not.toHaveProperty('moods');
-      expect(tea.tastes, tea.id).not.toHaveProperty('erdig');
       expect(tea.tastes, tea.id).not.toHaveProperty('herb');
       expect(tea.tastes, tea.id).not.toHaveProperty('kraeftig');
       expect(Object.keys(tea.occasions).length, tea.id).toBeGreaterThan(0);
@@ -140,6 +139,48 @@ describe('Datensatz', () => {
     }
     for (const occasion of OCCASIONS) {
       expect(teas.some((tea) => (tea.occasions[occasion] ?? 0) > 0), occasion).toBe(true);
+    }
+  });
+
+  it('korrigiert Fenchel, Rooibos, Gunpowder, Da Hong Pao und Pu-Erh', () => {
+    const fenchel = teaById('fenchel');
+    expect(fenchel.tastes.wuerzig).toBeUndefined();
+    expect(fenchel.tastes.mild).toBeGreaterThan(0);
+    expect(fenchel.occasions.suesses).toBeGreaterThan(0);
+
+    const rooibos = teaById('rooibos');
+    expect(rooibos.occasions.erfrischen).toBeUndefined();
+    expect(rooibos.tastes.mild).toBeGreaterThan(0);
+    expect(rooibos.occasions.suesses).toBeGreaterThan(0);
+
+    expect(teaById('gunpowder').tastes.malzig).toBeUndefined();
+    expect(teaById('da-hong-pao').tastes.rauchig ?? 0).toBeLessThan(teaById('lapsang-souchong').tastes.rauchig ?? 0);
+
+    const puerh = teaById('pu-erh');
+    expect(puerh.tastes.erdig).toBeGreaterThan(0);
+    expect(puerh.tastes.malzig).toBeUndefined();
+    expect(puerh.tastes.rauchig).toBeUndefined();
+
+    const ingwer = teaById('ingwer');
+    expect(ingwer.caffeine).toBe('kein');
+    expect(ingwer.tastes.wuerzig).toBeGreaterThan(0);
+    expect(ingwer.occasions.abend).toBeGreaterThan(0);
+    expect(ingwer.occasions.aufwaermen).toBeGreaterThan(0);
+    expect(ingwer.times.abend).toBeGreaterThan(0);
+    expect(ingwer.temperature).toBe('100 °C');
+    expect(ingwer.steepTime).toBe('5–10 Min.');
+  });
+
+  it('setzt eine Abendzeit, wo ein Abendmoment steht', () => {
+    for (const id of ['jasmin', 'genmaicha', 'bai-mu-dan', 'silver-needle', 'tie-guan-yin', 'jin-xuan']) {
+      const tea = teaById(id);
+      expect(tea.occasions.abend, id).toBeGreaterThan(0);
+      expect(tea.times.abend, id).toBeGreaterThan(0);
+      expect(tea.caffeine, id).not.toBe('kein');
+      expect(tea.times.abend ?? 0, id).toBeLessThan(3);
+    }
+    for (const tea of teas) {
+      if ((tea.occasions.abend ?? 0) > 0) expect(tea.times.abend, tea.id).toBeGreaterThan(0);
     }
   });
 
@@ -174,6 +215,13 @@ describe('Tageszeit aus dem Anlass', () => {
     expect(OCCASION_TIME.fokus).toBe('morgen');
   });
 
+  it('hängt Nach dem Essen, Aufwärmen und Etwas Süßes nicht an eine einzige Tageszeit', () => {
+    expect(timesForOccasions(['nach_essen'])).toEqual(['mittag', 'abend']);
+    expect(timesForOccasions(['aufwaermen'])).toEqual(['morgen', 'nachmittag', 'abend']);
+    expect(timesForOccasions(['suesses'])).toEqual(['nachmittag', 'abend']);
+    expect(timesForOccasions(['erfrischen'])).toEqual(['nachmittag']);
+  });
+
   it('mittelt mehrere abgeleitete Tageszeiten und zählt Momente nur einmal', () => {
     expect(timesForOccasions(['fokus', 'abend'])).toEqual(['morgen', 'abend']);
     expect(timesForOccasions(['fokus', 'fokus'])).toEqual(['morgen']);
@@ -194,10 +242,32 @@ describe('recommend', () => {
       for (const tastes of tasteSets) {
         for (const caffeine of CAFFEINE_CHOICES) {
           const result = recommend({ occasions: [occasion], tastes, caffeine });
-          expect(result.length, `${occasion} ${tastes.join('+')} ${caffeine}`).toBeGreaterThanOrEqual(1);
+          const label = `${occasion} ${tastes.join('+')} ${caffeine}`;
+          expect(result.length, label).toBeGreaterThanOrEqual(1);
           expect(result.length).toBeLessThanOrEqual(3);
+          if (tastes.length > 0) {
+            const pool = teas.filter((tea) => {
+              if (caffeine === 'nein' && tea.caffeine !== 'kein') return false;
+              if (caffeine === 'ja' && tea.caffeine === 'kein') return false;
+              return tastes.some((taste) => (tea.tastes[taste] ?? 0) > 0);
+            });
+            if (pool.length > 0) expect(result[0]?.matchedTastes.length, label).toBeGreaterThan(0);
+          }
           for (let i = 1; i < result.length; i += 1) {
-            expect(result[i]!.score).toBeLessThanOrEqual(result[i - 1]!.score);
+            const prev = result[i - 1]!;
+            const next = result[i]!;
+            const prevHit = tastes.length === 0 || prev.matchedTastes.length > 0;
+            const nextHit = tastes.length === 0 || next.matchedTastes.length > 0;
+            expect(prevHit || !nextHit, label).toBe(true);
+            const sameGuard = prevHit === nextHit;
+            const prevDecaf = prev.tea.caffeine === 'kein';
+            const nextDecaf = next.tea.caffeine === 'kein';
+            if (occasion === 'abend' && caffeine === 'egal' && sameGuard) {
+              expect(!nextDecaf || prevDecaf, `${prev.tea.id} vor ${next.tea.id}`).toBe(true);
+            }
+            if (sameGuard && !(occasion === 'abend' && caffeine === 'egal' && prevDecaf !== nextDecaf)) {
+              expect(next.score, label).toBeLessThanOrEqual(prev.score);
+            }
           }
           expect(new Set(result.map((item) => item.tea.type)).size).toBe(result.length);
           for (const item of result) {
@@ -317,6 +387,24 @@ describe('recommend', () => {
     expect(result[0]?.reason).not.toMatch(/Abend/);
   });
 
+  it('setzt Abendritual, würzig und koffeinfrei nicht auf Fenchel', () => {
+    const result = recommend({ occasions: ['abend'], tastes: ['wuerzig'], caffeine: 'nein' });
+    expect(result[0]?.tea.id).toBe('ingwer');
+    expect(result[0]?.tea.id).not.toBe('fenchel');
+    expect(result[0]?.tea.caffeine).toBe('kein');
+    expect(result[0]?.matchedTastes).toContain('wuerzig');
+    expect(result.every((item) => item.tea.id !== 'fenchel' || item.matchedTastes.includes('wuerzig'))).toBe(true);
+  });
+
+  it('stellt am Abend koffeinfreie Treffer vor Tees mit Koffein', () => {
+    const result = recommend({ occasions: ['abend'], tastes: ['mild'], caffeine: 'egal' });
+    expect(result[0]?.tea.caffeine).toBe('kein');
+    const firstWithCaffeine = result.findIndex((item) => item.tea.caffeine !== 'kein');
+    if (firstWithCaffeine !== -1) {
+      expect(result.slice(0, firstWithCaffeine).every((item) => item.tea.caffeine === 'kein')).toBe(true);
+    }
+  });
+
   it('ordnet Start, Erfrischen, Aufwärmen und Nach dem Essen passend', () => {
     expect(recommend({ occasions: ['fokus'], tastes: ['blumig'], caffeine: 'egal' })[0]?.tea.id).toBe('darjeeling');
     expect(recommend({ occasions: ['erfrischen'], tastes: ['minzig'], caffeine: 'egal' })[0]?.tea.id).toBe('pfefferminze');
@@ -412,6 +500,9 @@ describe('Öffentliche Texte', () => {
     expect(html).toContain('Für den fokussierten Start');
     expect(html).toContain('Für den Feierabend');
     expect(html).toContain('Für kalte Tage');
+    expect(html).toContain('Heiß, kuschelig, für kalte Tage');
+    expect(html).not.toContain('Würzig, heiß, kuschelig');
+    expect(html).toContain('value="erdig"');
     expect(html).toContain('Beliebt nach dem Training');
     expect(html).toContain('Mehrere möglich.');
     expect(html).toContain('Optional.');
