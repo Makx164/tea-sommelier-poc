@@ -6,9 +6,11 @@ import { accessoryCreditsHtml } from './accessory-photos';
 import affiliateLinks from './affiliate.json';
 import { loadPosts, parsePost } from './blog';
 import { FORBIDDEN_COPY, visibleTextFromHtml } from './copy-guard';
+import { readPublisher } from './publisher';
 import {
   NAV,
   articleJsonLd,
+  homeJsonLd,
   injectHome,
   renderArticleDocument,
   renderBlogList,
@@ -29,7 +31,7 @@ function h1Count(html: string): number {
 
 describe('Navigation und Kopf', () => {
   it('nennt Finden, Entdecken, Create, Zubehör und Blog', () => {
-    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
+    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html', 'ueber-uns.html']) {
       const html = readFileSync(file, 'utf8');
       const nav = html.slice(html.indexOf('<nav class="topnav"'), html.indexOf('</nav>'));
       for (const item of NAV) {
@@ -65,8 +67,20 @@ describe('Hero', () => {
     expect(hero).toContain('hero-taste">taste.</span>');
     expect(hero).toContain('hero-moment">moment.</span>');
     expect(hero).toContain('hero-tea">tea.</span>');
-    expect(hero).toContain('hero-line-moment');
+    expect(hero.indexOf('hero-moment')).toBeLessThan(hero.indexOf('hero-taste'));
+    expect(hero.indexOf('hero-taste')).toBeLessThan(hero.indexOf('hero-tea'));
+    expect(hero).not.toContain('hero-line-moment');
+    expect(hero).not.toContain('font-style: italic');
+    expect(hero).toContain('class="hero-ornament"');
+    expect(hero).toContain('r="200"');
+    expect(hero).toContain('class="hero-scroll" href="#finden"');
+    expect(hero).toContain('Weiter zu Finden');
     expect(hero).toContain('href="#finden">Los geht\'s</a>');
+    const css = readFileSync('src/style.css', 'utf8');
+    expect(css).toContain('min-height: calc(100svh - 4.5rem)');
+    expect(css).toContain('scroll-behavior: smooth');
+    expect(css).toContain('scroll-behavior: auto');
+    expect(css).not.toContain('.hero-line-moment');
     expect(hero).toContain('href="#entdecken">Entdecken</a>');
     expect(hero).toContain('viewBox="0 0 420 420"');
     expect(hero).toContain('class="hero-cup" transform="translate(10 -21)"');
@@ -118,12 +132,17 @@ describe('Blog und Sitemap', () => {
     expect(sitemap).toContain('https://teelotse.de/blog');
     expect(sitemap).toContain('https://teelotse.de/finden');
     expect(sitemap).toContain('https://teelotse.de/kontakt');
+    expect(sitemap).toContain('https://teelotse.de/ueber-uns');
     expect(sitemap).toContain('https://teelotse.de/blog/tee-zubereiten');
     expect(sitemap).toContain('https://teelotse.de/blog/welche-teesorte-moment');
     expect(sitemap).not.toContain('/go/');
     const llms = renderLlms(posts);
     expect(llms).toContain('https://teelotse.de/blog/tee-zubereiten');
     expect(llms).toContain('https://teelotse.de/blog/welche-teesorte-moment');
+    expect(llms).toContain('## Wann teelotse nutzen');
+    expect(llms).toContain('https://teelotse.de/ueber-uns');
+    expect(llms).toContain('tee_finden');
+    expect(llms).toContain('Accept: text/markdown');
     expect(llms).toContain('Tee zubereiten: Wasser, Menge, Ziehzeit im Überblick');
     expect(llms).toContain('Welche Teesorte passt zu welchem Moment');
     expect(llms).not.toContain('/go/');
@@ -574,5 +593,40 @@ describe('Beiträge mit Anleitung und Fragen', () => {
         photoIds.push(photoId);
       }
     }
+  });
+});
+
+describe('Vertrauen und strukturierte Daten', () => {
+  it('übernimmt Anschrift und E-Mail aus dem Impressum', () => {
+    const facts = readPublisher();
+    const graph = (homeJsonLd() as { '@graph': Record<string, unknown>[] })['@graph'];
+    const org = graph.find((node) => node['@type'] === 'Organization');
+    expect(org?.description).toBe('Teelotse ist ein deutscher Teeratgeber mit Teefinder, Zubereitung und Kaufratgebern.');
+    expect(org?.email).toBe(facts.email);
+    expect(org?.contactPoint).toEqual({
+      '@type': 'ContactPoint',
+      email: facts.email,
+      contactType: 'customer support',
+      availableLanguage: 'de',
+    });
+    expect(org?.address).toEqual({
+      '@type': 'PostalAddress',
+      streetAddress: facts.street,
+      postalCode: facts.postalCode,
+      addressLocality: facts.locality,
+      addressCountry: 'DE',
+    });
+    for (const file of ['kontakt.html', 'ueber-uns.html']) {
+      const text = visibleTextFromHtml(readFileSync(file, 'utf8'));
+      expect(text.length, file).toBeGreaterThanOrEqual(500);
+      expect(text, file).toContain(facts.name);
+      expect(text, file).toContain(facts.street);
+      expect(text, file).toContain(`${facts.postalCode} ${facts.locality}`);
+      expect(text, file).toContain(facts.email);
+    }
+    const vercel = readFileSync('vercel.json', 'utf8');
+    expect(vercel).toContain('"key": "Vary"');
+    expect(vercel).toContain('"value": "Accept"');
+    expect(indexHtml).toContain('name="google-site-verification" content="qvQoba0fqIVe060UDYl-ltFRo2lQi76GWaGBifwHYfY"');
   });
 });

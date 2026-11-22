@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { DISCOVER_LISTS, MIN_LIST_WEIGHT, teasForList } from './collections';
+import { teas } from './recommender';
 import { discoverListsHtml, ingredientFactHtml } from './discover-html';
 import { MOMENT_LINE } from './tea-copy';
 import { caffeineFact } from './types';
@@ -85,6 +86,10 @@ describe('Entdecken', () => {
     expect(html).not.toContain('tea-visual');
     expect(html).not.toContain('liegt nicht vor');
     expect(html).toContain('class="tea-kind"');
+    const lists = discoverListsHtml();
+    for (const tea of teas) {
+      expect(lists.match(new RegExp(`id="tee-${tea.id}"`, 'g'))?.length).toBe(1);
+    }
   });
 
   it('lässt die Zutatenzeile weg, solange das Feld leer ist', () => {
