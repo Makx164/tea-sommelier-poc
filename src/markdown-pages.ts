@@ -5,9 +5,10 @@ import { formatDate, loadPosts, visiblePosts, type Post } from './blog';
 import { DISCOVER_LISTS, teasForList } from './collections';
 import { MIXER_TEXT } from './mixer';
 import { teas } from './recommender';
+import { MARKDOWN_TYPE, notFoundMarkdown, wantsMarkdown } from './markdown-negotiate';
 import { OCCASIONS, OCCASION_LABEL, OCCASION_NOTE, TASTES, TASTE_LABEL } from './types';
 
-export const MARKDOWN_TYPE = 'text/markdown; charset=utf-8';
+export { MARKDOWN_TYPE, notFoundMarkdown, wantsMarkdown };
 
 const STATIC_PAGES = ['/impressum', '/datenschutz', '/kontakt', '/ueber-uns'] as const;
 
@@ -24,18 +25,6 @@ function normalize(pathname: string): string {
   return path || '/';
 }
 
-export function wantsMarkdown(accept: string | null | undefined): boolean {
-  if (!accept) return false;
-  return accept.split(',').some((part) => {
-    const [type, ...params] = part.trim().toLowerCase().split(';');
-    if (type?.trim() !== 'text/markdown') return false;
-    const quality = params.map((item) => item.trim()).find((item) => item.startsWith('q='));
-    if (!quality) return true;
-    const value = Number(quality.slice(2));
-    return Number.isFinite(value) && value > 0;
-  });
-}
-
 function hasPrefix(path: string, prefix: string): boolean {
   return path === prefix || path.startsWith(`${prefix}/`);
 }
@@ -48,16 +37,6 @@ export function isPageLike(pathname: string): boolean {
     if (hasPrefix(path, prefix)) return false;
   }
   return true;
-}
-
-export function notFoundMarkdown(): string {
-  return `# Seite nicht gefunden
-
-Diese Adresse gibt es auf Teelotse nicht. Die Sitemap listet die vorhandenen Seiten. Ein Überblick für Assistenten steht in llms.txt.
-
-- [Sitemap](/sitemap.xml)
-- [Überblick für Assistenten](/llms.txt)
-`;
 }
 
 function decode(value: string): string {

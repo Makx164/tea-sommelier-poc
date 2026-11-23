@@ -1,5 +1,5 @@
 import { next } from '@vercel/functions';
-import { notFoundMarkdown, wantsMarkdown } from './src/markdown-pages';
+import { notFoundMarkdown, wantsMarkdown } from './src/markdown-negotiate';
 
 const TYPE = 'text/markdown; charset=utf-8';
 
@@ -50,6 +50,5 @@ export default async function middleware(request: Request): Promise<Response> {
 }
 
 export const config = {
-  runtime: 'nodejs',
   matcher: ['/((?!agent-md/|assets/|bilder/|brand/|go/|favicon|src/|hero/).*)'],
 };
