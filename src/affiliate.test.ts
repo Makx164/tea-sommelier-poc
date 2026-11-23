@@ -142,7 +142,10 @@ describe('Affiliate-Konfiguration', () => {
   });
 
   it('lässt Impressum und Datenschutz ohne .html-Endung zu', () => {
-    const config = JSON.parse(readFileSync('vercel.json', 'utf8')) as { cleanUrls?: boolean };
-    expect(config.cleanUrls).toBe(true);
+    const config = JSON.parse(readFileSync('vercel.json', 'utf8')) as {
+      routes?: { dest?: string; headers?: { Location?: string } }[];
+    };
+    expect(config.routes?.some((route) => route.dest === '/$1.html')).toBe(true);
+    expect(config.routes?.some((route) => route.headers?.Location === '/$1')).toBe(true);
   });
 });

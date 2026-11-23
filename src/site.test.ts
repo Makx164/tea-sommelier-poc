@@ -625,8 +625,7 @@ describe('Vertrauen und strukturierte Daten', () => {
       expect(text, file).toContain(facts.email);
     }
     const vercel = readFileSync('vercel.json', 'utf8');
-    expect(vercel).toContain('"key": "Vary"');
-    expect(vercel).toContain('"value": "Accept"');
+    expect(vercel).toContain('"Vary": "Accept"');
     expect(indexHtml).toContain('name="google-site-verification" content="qvQoba0fqIVe060UDYl-ltFRo2lQi76GWaGBifwHYfY"');
   });
 });

@@ -37,7 +37,7 @@ Die Auswahl bleibt im Browser und wird nicht gespeichert. Es werden keine Cookie
 
 ## Veröffentlichung
 
-Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. Die öffentliche Website läuft auf Vercel. `vercel.json` setzt `cleanUrls`, damit `/impressum`, `/datenschutz` und `/go/<Tee>` ohne Dateiendung erreichbar sind. Links mit `.html` funktionieren weiter.
+Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. Die öffentliche Website läuft auf Vercel. `vercel.json` leitet `.html` auf die Endung ohne Datei und liefert `/impressum`, `/datenschutz` und `/go/<Tee>` aus der HTML-Datei. Links mit `.html` bleiben gültig. Eine Anfrage mit `Accept: text/markdown` wird vor dem Dateisystem auf die gebaute Markdown-Datei gelegt.
 
 ## Offene Punkte
 

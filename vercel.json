@@ -1,56 +1,68 @@
 {
-  "cleanUrls": true,
-  "headers": [
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
     {
-      "source": "/",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(?:(.+)/)?index(?:\\.html)?/?$",
+      "headers": { "Location": "/$1" },
+      "status": 308
     },
     {
-      "source": "/finden",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(.*)\\.html/?$",
+      "headers": { "Location": "/$1" },
+      "status": 308
     },
     {
-      "source": "/entdecken",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(.+)/$",
+      "headers": { "Location": "/$1" },
+      "status": 308
     },
     {
-      "source": "/create",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(?!assets/|bilder/|brand/|hero/|favicon).*$",
+      "headers": { "Vary": "Accept" },
+      "continue": true
     },
     {
-      "source": "/zubehoer",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "dest": "/agent-md/index.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
     },
     {
-      "source": "/blog",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(?!go(?:/|$)|agent-md(?:/|$)|assets(?:/|$)|bilder(?:/|$)|brand(?:/|$)|hero(?:/|$)|favicon)((?:[a-z0-9-]+/)*[a-z0-9-]+)$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "dest": "/agent-md/$1.md",
+      "check": true,
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
     },
     {
-      "source": "/blog/:slug",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/(?!go(?:/|$)|agent-md(?:/|$)|assets(?:/|$)|bilder(?:/|$)|brand(?:/|$)|hero(?:/|$)|favicon)((?:[a-z0-9-]+/)*[a-z0-9-]+)$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "status": 404,
+      "dest": "/agent-md/404.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
     },
     {
-      "source": "/ueber-uns",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
+      "src": "^/agent-md/(.*)\\.md$",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "X-Robots-Tag": "noindex"
+      },
+      "continue": true
     },
+    { "handle": "filesystem" },
     {
-      "source": "/kontakt",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
-    },
-    {
-      "source": "/impressum",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
-    },
-    {
-      "source": "/datenschutz",
-      "headers": [{ "key": "Vary", "value": "Accept" }]
-    },
-    {
-      "source": "/agent-md/(.*)",
-      "headers": [
-        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
-        { "key": "X-Robots-Tag", "value": "noindex" }
-      ]
+      "src": "^/(.+)$",
+      "dest": "/$1.html",
+      "headers": { "Vary": "Accept" }
     }
   ]
 }
