@@ -397,28 +397,22 @@ a { color: var(--teeblatt); }
   color: #fff;
 }
 
-.hero-line { display: block; font-style: normal; }
-.hero-line-quiet {
-  font-weight: 500;
-  font-size: clamp(1.45rem, 2.35vw, 2.15rem);
-  line-height: 1.18;
-}
+.hero-line { display: block; font-style: normal; font-weight: 560; }
+.hero-line-quiet,
 .hero-line-tea {
-  font-weight: 650;
-  font-size: clamp(2.45rem, 4.5vw, 4.05rem);
-  line-height: 0.98;
-  letter-spacing: -0.03em;
-  margin-top: 0.22em;
+  font-size: clamp(1.7rem, 3.1vw, 2.65rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
 }
+.hero-line-tea { font-size: clamp(1.8rem, 3.25vw, 2.8rem); }
 .hero-find,
 .hero-moment,
 .hero-taste,
-.hero-tea { font-style: normal; font-weight: inherit; }
+.hero-tea { font-style: normal; font-weight: 560; }
 .hero-find { color: #fff; }
 .hero-moment { color: #DCEFE0; }
 .hero-taste { color: #FAF6EF; }
-.hero-line-tea .hero-find,
-.hero-tea { color: #D7F07A; font-weight: 650; }
+.hero-tea { color: #D7F07A; font-weight: 700; }
 
 .hero-art {
   display: grid;
@@ -1667,7 +1661,6 @@ address.contact {
 
 @media (max-width: 640px) {
   .hero-scroll { font-size: 0.8rem; }
-  .hero-line-tea { font-size: clamp(2.35rem, 11vw, 2.85rem); }
 }
 
 @media (min-width: 560px) {
