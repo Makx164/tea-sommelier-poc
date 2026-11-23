@@ -1,8 +1,10 @@
 import { readFileSync } from 'node:fs';
+import type { ServerResponse } from 'node:http';
 import { resolve } from 'node:path';
 import type { Plugin } from 'vite';
 import { applyBrandHtml } from './brand-html';
 import { loadPosts, type Post } from './blog';
+import { isPageLike, markdownPages, negotiate } from './markdown-pages';
 import {
   injectHome,
   renderArticleDocument,
@@ -57,6 +59,12 @@ export function sitePages(): Plugin {
     configureServer(server) {
       server.middlewares.use((req, res, next) => {
         const path = normalize(req.url ?? '');
+        if (isPageLike(path)) res.setHeader('Vary', 'Accept');
+        const markdown = negotiate(path, headerValue(req.headers.accept), true);
+        if (markdown) {
+          writeMarkdown(res, markdown.status, markdown.body);
+          return;
+        }
         const body = routeBody(path, source(), posts(), true, '/src/style.css', '/src/main.ts');
         if (!body) return next();
         res.statusCode = 200;
@@ -65,9 +73,15 @@ export function sitePages(): Plugin {
       });
     },
     configurePreviewServer(server) {
-      server.middlewares.use((req, _res, next) => {
+      server.middlewares.use((req, res, next) => {
         const url = req.url ?? '';
         const path = normalize(url);
+        if (isPageLike(path)) res.setHeader('Vary', 'Accept');
+        const markdown = negotiate(path, headerValue(req.headers.accept), draftsInThisBuild());
+        if (markdown) {
+          writeMarkdown(res, markdown.status, markdown.body);
+          return;
+        }
         const query = url.includes('?') ? url.slice(url.indexOf('?')) : '';
         const mapped = CLEAN[path] ?? blogFile(path);
         if (mapped) req.url = `${mapped}${query}`;
@@ -127,8 +141,25 @@ export function sitePages(): Plugin {
       });
       this.emitFile({ type: 'asset', fileName: 'robots.txt', source: renderRobots() });
       this.emitFile({ type: 'asset', fileName: 'llms.txt', source: renderLlms(allPosts) });
+      for (const [route, body] of markdownPages(includeDrafts)) {
+        const fileName = route === '/' ? 'agent-md/index.md' : `agent-md${route}.md`;
+        this.emitFile({ type: 'asset', fileName, source: body });
+      }
+      this.emitFile({ type: 'asset', fileName: 'agent-md/404.md', source: negotiate('/fehlt', 'text/markdown', includeDrafts)?.body ?? '' });
     },
   };
+}
+
+function headerValue(value: string | string[] | undefined): string | null {
+  if (Array.isArray(value)) return value.join(',');
+  return value ?? null;
+}
+
+function writeMarkdown(res: ServerResponse, status: number, body: string): void {
+  res.statusCode = status;
+  res.setHeader('Content-Type', 'text/markdown; charset=utf-8');
+  res.setHeader('Vary', 'Accept');
+  res.end(body);
 }
 
 function blogFile(path: string): string | null {
