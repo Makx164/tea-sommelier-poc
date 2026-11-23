@@ -420,11 +420,11 @@ a { color: var(--teeblatt); }
   min-height: 340px;
 }
 
-.hero-art svg {
-  width: min(100%, 420px);
+.hero-art picture { display: block; width: min(100%, 420px); }
+.hero-art img {
+  width: 100%;
   height: auto;
   display: block;
-  overflow: visible;
 }
 
 .hero-scroll {
@@ -1655,7 +1655,7 @@ address.contact {
   .hero { padding-top: 0.85rem; }
   .hero-grid { grid-template-columns: 1fr; gap: 0.75rem; }
   .hero-art { order: -1; min-height: 0; }
-  .hero-art svg { width: min(72vw, 280px); }
+  .hero-art picture { width: min(72vw, 280px); }
   .hero-title { margin-bottom: 0.85rem; }
 }
 

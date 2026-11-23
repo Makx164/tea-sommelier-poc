@@ -72,8 +72,11 @@ describe('Hero', () => {
     expect(hero.indexOf('hero-taste')).toBeLessThan(hero.indexOf('hero-tea'));
     expect(hero).not.toContain('hero-line-moment');
     expect(hero).not.toContain('font-style: italic');
-    expect(hero).toContain('class="hero-ornament"');
-    expect(hero).toContain('r="200"');
+    expect(hero).toContain('alt="Illustration einer Teetasse mit Kirschblüten"');
+    expect(hero).toContain('fetchpriority="high"');
+    expect(hero).toContain('width="1288"');
+    expect(hero).toContain('height="1221"');
+    expect(hero).not.toContain('loading="lazy"');
     expect(hero).toContain('class="hero-scroll" href="#finden"');
     expect(hero).toContain('Weiter zu Finden');
     expect(hero).toContain('href="#finden">Los geht\'s</a>');
@@ -83,8 +86,9 @@ describe('Hero', () => {
     expect(css).toContain('scroll-behavior: auto');
     expect(css).not.toContain('.hero-line-moment');
     expect(hero).toContain('href="#entdecken">Entdecken</a>');
-    expect(hero).toContain('viewBox="0 0 420 420"');
-    expect(hero).toContain('class="hero-cup" transform="translate(10 -21)"');
+    expect(hero).toContain('/hero/tasse-kirschbluete-1288.avif');
+    expect(hero).toContain('/hero/tasse-kirschbluete-1288.webp');
+    expect(hero).toContain('/hero/tasse-kirschbluete-1288.png');
     expect(hero).not.toContain('TEELOTSE');
     expect(hero).not.toContain('Tee für deinen Moment.');
     expect(hero).not.toContain('hero-kicker');
