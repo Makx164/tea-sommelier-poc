@@ -20,7 +20,7 @@ function pngSize(file: string): [number, number] {
   return [bytes.readUInt32BE(ihdr + 4), bytes.readUInt32BE(ihdr + 8)];
 }
 
-const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html', 'ueber-uns.html'];
+const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html'];
 
 describe('Teelotse', () => {
   it('benennt die Seiten um und nimmt den Vorschau-Hinweis weg', () => {

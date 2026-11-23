@@ -1,9 +1,7 @@
 import { formatDate, visiblePosts, type Post } from './blog';
 import { DISCOVER_LISTS, teasForList } from './collections';
-import { readPublisher } from './publisher';
-import { SITE } from './site-origin';
 
-export { SITE };
+export const SITE = 'https://teelotse.de';
 
 export const NAV = [
   { href: '/finden', label: 'Finden' },
@@ -73,25 +71,17 @@ export function jsonLdScript(data: unknown): string {
 }
 
 function organization(): Record<string, unknown> {
-  const facts = readPublisher();
   return {
     '@type': 'Organization',
     name: 'Teelotse',
-    description: 'Teelotse ist ein deutscher Teeratgeber mit Teefinder, Zubereitung und Kaufratgebern.',
     url: `${SITE}/`,
     logo: `${SITE}/brand/teelotse-logo-b-icon.svg`,
-    email: facts.email,
-    contactPoint: {
-      '@type': 'ContactPoint',
-      email: facts.email,
-      contactType: 'customer support',
-      availableLanguage: 'de',
-    },
+    email: 'maximilianhillert@mail.grokbot.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: facts.street,
-      postalCode: facts.postalCode,
-      addressLocality: facts.locality,
+      streetAddress: 'Illgnerstraße 35',
+      postalCode: '04442',
+      addressLocality: 'Zwenkau',
       addressCountry: 'DE',
     },
   };
@@ -536,7 +526,7 @@ export function renderArticleDocument(options: {
 }
 
 export function sitemapPaths(posts: readonly Post[]): string[] {
-  const paths = ['/', ...NAV.map((item) => item.href), '/ueber-uns', '/impressum', '/datenschutz', '/kontakt'];
+  const paths = ['/', ...NAV.map((item) => item.href), '/impressum', '/datenschutz', '/kontakt'];
   for (const post of visiblePosts(posts, false)) paths.push(`/blog/${post.slug}`);
   return paths;
 }
@@ -594,8 +584,6 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-Disallow: /agent-md/
-
 Sitemap: ${SITE}/sitemap.xml
 `;
 }
@@ -609,18 +597,6 @@ export function renderLlms(posts: readonly Post[] = []): string {
 
 Teelotse ist eine Website für Tee nach Moment, Geschmack und Koffein. Sie schlägt aus einem festen Satz gängiger Tees ein bis drei Sorten vor und listet Tees nach Anlass. Create ist eine Vorschau zum Zusammenstellen, noch ohne Bestellung. Zubehör verlinkt auf Shop-Suchen und ist als Werbung gekennzeichnet. Es gibt keine eigenen Produkte. Die Texte bleiben bei Geschmack, Aroma, Temperatur, Moment, Herkunft und Zubereitung.
 
-## Wann teelotse nutzen
-
-Teelotse passt, wenn ein Tee nach Geschmack, Moment oder Koffein gesucht wird, wenn die Zubereitung einer Sorte gebraucht wird (Temperatur, Ziehzeit und Menge je Tee) oder wenn ein Kaufratgeber zu Tee-Zubehör gesucht wird.
-
-So lässt sich die Website nutzen:
-
-- Die Seiten: Start, Finden, Entdecken, Create, Zubehör, Blog, Über uns und Kontakt. Beiträge liegen unter Blog.
-- Dieselbe Adresse liefert eine Markdown-Fassung, wenn die Anfrage \`Accept: text/markdown\` sendet. Der Typ ist \`text/markdown; charset=utf-8\`. Die Antwort trägt \`Vary: Accept\`, auch die HTML-Fassung dieser Seiten.
-- Im Browser stehen lesende WebMCP-Werkzeuge bereit, sobald \`navigator.modelContext\` vorhanden ist: \`tee_finden\`, \`zubereitung_abrufen\` und \`ratgeber_suchen\`. Sie lesen nur, speichern nichts und brauchen kein Konto.
-
-Wofür Teelotse nicht gedacht ist: keine Beratung zu Gesundheit und keine Heilaussagen.
-
 ## Seiten
 
 - Start: ${SITE}/
@@ -629,7 +605,6 @@ Wofür Teelotse nicht gedacht ist: keine Beratung zu Gesundheit und keine Heilau
 - Create: ${SITE}/create
 - Zubehör: ${SITE}/zubehoer
 - Blog: ${SITE}/blog
-- Über uns: ${SITE}/ueber-uns
 - Impressum: ${SITE}/impressum
 - Datenschutz: ${SITE}/datenschutz
 - Kontakt: ${SITE}/kontakt

@@ -25,7 +25,7 @@ npm run build
 npm run preview
 ```
 
-`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website: Start, die Bereiche unter `/finden`, `/entdecken`, `/create`, `/zubehoer` und `/blog`, Über uns, Impressum, Datenschutz, Kontakt, `sitemap.xml`, `robots.txt`, `llms.txt` und eine Weiterleitung je Tee und je Zubehör unter `go/`. Eine Anfrage mit `Accept: text/markdown` erhält für die Inhaltsseiten Markdown. Entwürfe im Blog (`draft: true`) fehlen in diesem Bau und in der Sitemap. Auf einer Vercel-Vorschau (`VERCEL_ENV=preview`) sind sie mit dem Hinweis „Entwurf“ sichtbar.
+`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website: Start, die Bereiche unter `/finden`, `/entdecken`, `/create`, `/zubehoer` und `/blog`, Impressum, Datenschutz, `sitemap.xml`, `robots.txt`, `llms.txt` und eine Weiterleitung je Tee und je Zubehör unter `go/`. Entwürfe im Blog (`draft: true`) fehlen in diesem Bau und in der Sitemap. Auf einer Vercel-Vorschau (`VERCEL_ENV=preview`) sind sie mit dem Hinweis „Entwurf“ sichtbar.
 
 ## Empfehlung
 

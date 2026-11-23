@@ -109,7 +109,7 @@ describe('Affiliate-Konfiguration', () => {
   });
 
   it('setzt den Affiliate-Hinweis genau einmal in den Footer jeder Seite', () => {
-    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html', 'ueber-uns.html']) {
+    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
       const html = readFileSync(file, 'utf8');
       expect(html.split(AFFILIATE_NOTE).length - 1, file).toBe(1);
       const footer = html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));

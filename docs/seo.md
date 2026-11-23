@@ -9,8 +9,7 @@ Stand der technischen Umsetzung im Code. Konten und Webmaster-Tools sind hier ni
 - Die Startseite bleibt die lange Seite mit Hero und allen Bereichen.
 - Jede Seite hat genau eine Hauptüberschrift, `lang="de"`, eigenen Titel, eigene Beschreibung, Canonical-URL, Open-Graph- und Twitter-Angaben. Auf einem Beitrag ist das Bild fürs Teilen das erste Foto des Beitrags, mit Alt-Text, Breite und Höhe. Die übrigen Seiten behalten die Leuchtturm-Zeichnung. Beides liegt als WebP vor, die Beiträge zusätzlich als AVIF.
 - Strukturierte Daten: WebSite und Organization auf der Startseite, BreadcrumbList auf den Unterseiten, ItemList für die Tee-Listen und das Zubehör, BlogPosting für veröffentlichte Artikel. Es gibt keine Sterne und keine erfundenen Bewertungen.
-- `sitemap.xml`, `robots.txt` und `llms.txt` werden beim Bau erzeugt. `/go/` ist in der Sitemap ausgelassen und für Crawler gesperrt, weil das nur Weiterleitungen sind. Suchmaschinen und gängige Assistenten-Crawler sind erlaubt. Über uns und Kontakt stehen in der Sitemap.
-- Dieselbe Adresse einer Inhaltsseite liefert Markdown, wenn die Anfrage `Accept: text/markdown` sendet. HTML und Markdown tragen `Vary: Accept`. `llms.txt` beschreibt, wann die Seite passt.
+- `sitemap.xml`, `robots.txt` und `llms.txt` werden beim Bau erzeugt. `/go/` ist in der Sitemap ausgelassen und für Crawler gesperrt, weil das nur Weiterleitungen sind. Suchmaschinen und gängige Assistenten-Crawler sind erlaubt.
 - Veröffentlichte Beiträge (`draft: false`) stehen in der Sitemap und in `llms.txt`. Entwürfe (`draft: true`) fehlen dort. Auf der Vorschau-Umgebung von Vercel sind Entwürfe mit dem Hinweis „Entwurf“ sichtbar und auf `noindex` gesetzt. Im normalen Bau, auch für die Live-Seite, fehlen sie.
 
 ## Was der Inhaber außerhalb des Codes tun müsste

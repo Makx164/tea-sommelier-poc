@@ -449,7 +449,6 @@ describe('Öffentliche Texte', () => {
       'impressum.html',
       'datenschutz.html',
       'kontakt.html',
-      'ueber-uns.html',
       'src/main.ts',
       'src/style.css',
       'src/collections.ts',
