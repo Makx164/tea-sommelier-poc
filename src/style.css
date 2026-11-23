@@ -381,7 +381,7 @@ a { color: var(--teeblatt); }
 
 .hero-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.12fr);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.18fr);
   gap: 2rem;
   align-items: center;
   flex: 1;
@@ -446,7 +446,7 @@ a { color: var(--teeblatt); }
   position: relative;
   z-index: 1;
   display: block;
-  width: min(100%, 600px);
+  width: min(100%, 630px);
 }
 .hero-art img {
   width: 100%;
@@ -1679,12 +1679,19 @@ address.contact {
 }
 
 @media (max-width: 900px) {
-  .hero { padding-top: 0.85rem; }
-  .hero-grid { grid-template-columns: 1fr; gap: 0.75rem; }
-  .hero-art { order: -1; min-height: 0; }
-  .hero-art picture { width: min(88vw, 560px); }
-  .hero-art::before { width: min(104%, 640px); }
+  .hero { padding-top: 0.35rem; justify-content: flex-start; overflow-x: clip; }
+  .hero-grid {
+    flex: none;
+    grid-template-columns: 1fr;
+    align-content: start;
+    align-items: start;
+    gap: 0;
+  }
+  .hero-art { order: -1; width: 100vw; margin-left: calc(50% - 50vw); }
+  .hero-art picture { width: 100%; margin-bottom: -10vw; }
+  .hero-art::before { width: 112%; }
   .hero-title { margin-bottom: 0.85rem; }
+  .hero-scroll { margin-top: auto; }
 }
 
 @media (max-width: 640px) {
