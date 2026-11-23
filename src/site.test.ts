@@ -66,6 +66,7 @@ describe('Hero', () => {
     expect(hero).toContain('hero-find">Find your</span>');
     expect(hero).toContain('hero-taste">taste.</span>');
     expect(hero).toContain('hero-moment">moment.</span>');
+    expect(hero).toContain('hero-line-tea');
     expect(hero).toContain('hero-tea">tea.</span>');
     expect(hero.indexOf('hero-moment')).toBeLessThan(hero.indexOf('hero-taste'));
     expect(hero.indexOf('hero-taste')).toBeLessThan(hero.indexOf('hero-tea'));
