@@ -30,11 +30,13 @@ function teaCardHtml(
   caffeine: string,
   ingredients: string | undefined,
   noteId: string,
+  anchor: boolean,
 ): string {
   const ingredient = ingredientFactHtml(ingredients);
   const ingredientBlock = ingredient ? `\n                <div class="tea-ingredients">${ingredient}</div>` : '';
   const moreId = `mehr-${noteId}-${teaId}`;
-  return `<article class="tea-card" data-tea="${escapeHtml(teaId)}" data-type="${escapeHtml(type)}">
+  const idAttr = anchor ? ` id="tee-${escapeHtml(teaId)}"` : '';
+  return `<article class="tea-card"${idAttr} data-tea="${escapeHtml(teaId)}" data-type="${escapeHtml(type)}">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="${escapeHtml(moreId)}">
                 ${teaPhotoMarkup({ id: teaId })}
@@ -57,11 +59,14 @@ function teaCardHtml(
 
 /** Karten stehen im HTML, damit sie ohne JavaScript sichtbar sind. */
 export function discoverListsHtml(): string {
+  const anchored = new Set<string>();
   return DISCOVER_LISTS.map((list) => {
     const noteId = `werbung-${list.id}`;
     const cards = teasForList(list).map(({ tea }) => {
       const line = MOMENT_LINE[tea.id];
       if (!line) throw new Error(`Satz fehlt: ${tea.id}`);
+      const anchor = !anchored.has(tea.id);
+      anchored.add(tea.id);
       return teaCardHtml(
         tea.id,
         tea.name,
@@ -71,6 +76,7 @@ export function discoverListsHtml(): string {
         caffeineFact(tea.caffeine),
         tea.ingredients,
         noteId,
+        anchor,
       );
     });
     const visible = cards.slice(0, VISIBLE_COUNT).join('\n');
