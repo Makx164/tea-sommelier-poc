@@ -1,3 +1,4 @@
+import { initReveal } from './reveal';
 import { initWebMcp } from './webmcp';
 
 /** Kopfzeile bleibt stehen und wird nach dem Scrollen kompakter. */
@@ -12,3 +13,4 @@ export function initHeader(): void {
 }
 
 initWebMcp();
+initReveal();

@@ -58,6 +58,27 @@ describe('Navigation und Kopf', () => {
   });
 });
 
+describe('Einblendung', () => {
+  it('blendet Blöcke nur mit Skript und Bewegung ein', () => {
+    const reveal = readFileSync('src/reveal.ts', 'utf8');
+    const css = readFileSync('src/style.css', 'utf8');
+    const header = readFileSync('src/header.ts', 'utf8');
+    expect(reveal).toContain('IntersectionObserver');
+    expect(reveal).toContain('prefers-reduced-motion: reduce');
+    expect(reveal).toContain('threshold: 0.15');
+    expect(reveal).toContain('0px 0px -10% 0px');
+    expect(reveal).toContain('.tea-card');
+    expect(reveal).toContain('.blog-card');
+    expect(reveal).toContain('.hero');
+    expect(css).toContain('.will-reveal:not(.is-in)');
+    expect(css).toContain('translateY(14px)');
+    expect(css).toContain('450ms ease-out');
+    expect(css).not.toContain('.area.will-reveal');
+    expect(header).toContain('initReveal');
+    expect(readFileSync('src/main.ts', 'utf8')).not.toContain('initReveal');
+  });
+});
+
 describe('Hero', () => {
   it('setzt die dunkle Zeile mit Tasse, ohne Kicker, Unterzeile und Ecken-Labels', () => {
     expect(h1Count(indexHtml)).toBe(1);

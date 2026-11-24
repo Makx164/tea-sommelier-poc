@@ -1715,12 +1715,15 @@ address.contact {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .area.will-reveal {
+  .will-reveal:not(.is-in) {
     opacity: 0;
-    transform: translateY(0.6rem);
-    transition: opacity 280ms ease, transform 280ms ease;
+    transform: translateY(14px);
   }
-  .area.will-reveal.is-in { opacity: 1; transform: none; }
+  .will-reveal.is-in,
+  #blog .blog-card.will-reveal.is-in {
+    transition: opacity 450ms ease-out, transform 450ms ease-out;
+    transition-delay: var(--reveal-delay, 0ms);
+  }
   #blog .blog-card:has(.blog-card-media) {
     transition: transform 180ms ease, box-shadow 180ms ease;
   }
