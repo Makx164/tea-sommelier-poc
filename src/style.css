@@ -1681,20 +1681,21 @@ address.contact {
 @media (max-width: 900px) {
   .hero { padding-top: 0; overflow-x: clip; }
   .hero-grid {
-    flex: none;
+    flex: 1;
     grid-template-columns: 1fr;
-    align-content: start;
+    align-content: safe center;
     gap: 0;
+    padding-block: 24px;
   }
   .hero-art { order: -1; width: 100vw; margin-left: calc(50% - 50vw); }
   .hero-art picture {
     width: 100%;
-    margin-top: calc(56px - 9.22vw);
+    margin-top: -9.22vw;
     margin-bottom: -10vw;
   }
   .hero-art::before { width: 112%; }
   .hero-title { margin-bottom: 0.85rem; }
-  .hero-scroll { margin-top: auto; }
+  .hero-scroll { margin-top: 0; }
 }
 
 @media (max-width: 640px) {
