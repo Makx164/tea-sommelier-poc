@@ -1687,13 +1687,15 @@ address.contact {
     gap: 0;
     padding-block: 24px;
   }
-  .hero-art { order: -1; width: 100vw; margin-left: calc(50% - 50vw); }
+  .hero-art { order: -1; width: 100vw; margin-left: calc(50% - 50vw); transform: translateY(-18px); }
   .hero-art picture {
     width: 100%;
     margin-top: -9.22vw;
     margin-bottom: calc(38px - 16.69vw);
   }
   .hero-art::before { width: 112%; }
+  .hero-copy { text-align: center; }
+  .hero-actions { justify-content: center; }
   .hero-title { margin-bottom: 0.85rem; }
   .hero-scroll { margin-top: 0; }
 }
