@@ -1691,7 +1691,7 @@ address.contact {
   .hero-art picture {
     width: 100%;
     margin-top: -9.22vw;
-    margin-bottom: -10vw;
+    margin-bottom: calc(38px - 16.69vw);
   }
   .hero-art::before { width: 112%; }
   .hero-title { margin-bottom: 0.85rem; }
