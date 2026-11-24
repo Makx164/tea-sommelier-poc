@@ -1679,17 +1679,22 @@ address.contact {
 }
 
 @media (max-width: 900px) {
-  .hero { padding-top: 0.35rem; overflow-x: clip; }
+  .hero { padding-top: 0; overflow-x: clip; }
   .hero-grid {
-    flex: 1;
+    flex: none;
     grid-template-columns: 1fr;
-    align-content: center;
+    align-content: start;
     gap: 0;
   }
   .hero-art { order: -1; width: 100vw; margin-left: calc(50% - 50vw); }
-  .hero-art picture { width: 100%; margin-bottom: -10vw; }
+  .hero-art picture {
+    width: 100%;
+    margin-top: -9.22vw;
+    margin-bottom: -10vw;
+  }
   .hero-art::before { width: 112%; }
   .hero-title { margin-bottom: 0.85rem; }
+  .hero-scroll { margin-top: auto; }
 }
 
 @media (max-width: 640px) {
