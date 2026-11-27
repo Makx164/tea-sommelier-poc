@@ -15,7 +15,7 @@ import {
   TIME_LABEL,
 } from './types';
 
-const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html'];
+const PAGES = ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html', 'ueber-uns.html'];
 
 function corpus(): { label: string; text: string }[] {
   const parts: { label: string; text: string }[] = [];

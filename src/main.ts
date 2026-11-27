@@ -1,7 +1,6 @@
 import './analytics';
 import { initHeader } from './header';
 import { initMixer } from './mixer-ui';
-import { initReveal } from './reveal';
 import { MOMENT_LINE } from './tea-copy';
 import { teaPhotoMarkup } from './tea-photos';
 import { contradictionHints, recommend } from './recommender';
@@ -31,7 +30,6 @@ function required<T extends Element>(selector: string): T {
 }
 
 initHeader();
-initReveal();
 initDiscover();
 initTeaCards();
 initMixer();

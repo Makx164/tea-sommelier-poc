@@ -71,57 +71,29 @@
       <div class="wrap hero-grid">
         <div class="hero-copy">
           <h1 id="hero-title" class="hero-title">
-            <span class="hero-line"><span class="hero-find">Find your</span> <span class="hero-taste">taste.</span></span>
-            <span class="hero-line hero-line-moment"><span class="hero-find">Find your</span> <span class="hero-moment">moment.</span></span>
-            <span class="hero-line"><span class="hero-find">Find your</span> <span class="hero-tea">tea.</span></span>
+            <span class="hero-line hero-line-quiet"><span class="hero-find">Find your</span> <span class="hero-moment">moment.</span></span>
+            <span class="hero-line hero-line-quiet"><span class="hero-find">Find your</span> <span class="hero-taste">taste.</span></span>
+            <span class="hero-line hero-line-tea"><span class="hero-find">Find your</span> <span class="hero-tea">tea.</span></span>
           </h1>
           <div class="hero-actions">
             <a class="btn btn-pill btn-fill" href="#finden">Los geht's</a>
             <a class="btn btn-pill btn-outline" href="#entdecken">Entdecken</a>
           </div>
         </div>
-        <div class="hero-art" aria-hidden="true">
-          <svg viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg" role="img">
-            <circle cx="210" cy="210" r="168" fill="#3A6358"/>
-            <g fill="#E9B6CC">
-              <g transform="translate(88,118)">
-                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
-                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
-                <circle cx="-15" cy="-5" r="10"/>
-                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
-              </g>
-              <g transform="translate(318,150) scale(0.85)">
-                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
-                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
-                <circle cx="-15" cy="-5" r="10"/>
-                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
-              </g>
-              <g transform="translate(290,292) scale(0.7)">
-                <circle cx="0" cy="-16" r="10"/><circle cx="15" cy="-5" r="10"/>
-                <circle cx="9" cy="12" r="10"/><circle cx="-9" cy="12" r="10"/>
-                <circle cx="-15" cy="-5" r="10"/>
-                <circle cx="0" cy="0" r="7" fill="#D7F07A"/>
-              </g>
-            </g>
-            <g class="hero-cup" transform="translate(10 -21)">
-              <ellipse cx="200" cy="290" rx="98" ry="22" fill="#DCEFE0"/>
-              <ellipse cx="200" cy="286" rx="78" ry="14" fill="#C5E0CC"/>
-              <path d="M122 168 C122 168 128 268 200 268 C272 268 278 168 278 168 Z" fill="#FFFFFF"/>
-              <ellipse cx="200" cy="168" rx="78" ry="18" fill="#FFFFFF"/>
-              <ellipse cx="200" cy="168" rx="68" ry="13" fill="#D7F07A"/>
-              <path d="M130 210 H270" stroke="#D7F07A" stroke-width="14" stroke-linecap="round"/>
-              <circle cx="168" cy="210" r="3.2" fill="#2C4C43"/>
-              <circle cx="200" cy="210" r="3.2" fill="#2C4C43"/>
-              <circle cx="232" cy="210" r="3.2" fill="#2C4C43"/>
-              <path d="M278 190 C312 190 318 230 290 242" fill="none" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
-              <path d="M278 190 C308 190 314 228 290 238" fill="none" stroke="#F0C9B0" stroke-width="10" stroke-linecap="round" opacity="0.9"/>
-              <path d="M176 148 C170 128 186 118 178 98" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M200 142 C196 122 210 112 204 94" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
-              <path d="M224 148 C230 128 214 118 222 98" fill="none" stroke="#B7C8BF" stroke-width="3.5" stroke-linecap="round"/>
-            </g>
-          </svg>
+        <div class="hero-art">
+          <picture>
+            <source type="image/avif" srcset="/hero/tasse-kirschbluete-480.avif 480w, /hero/tasse-kirschbluete-840.avif 840w, /hero/tasse-kirschbluete-1288.avif 1288w" sizes="(max-width: 900px) 100vw, 630px">
+            <source type="image/webp" srcset="/hero/tasse-kirschbluete-480.webp 480w, /hero/tasse-kirschbluete-840.webp 840w, /hero/tasse-kirschbluete-1288.webp 1288w" sizes="(max-width: 900px) 100vw, 630px">
+            <img src="/hero/tasse-kirschbluete-1288.png" alt="Illustration einer Teetasse mit Kirschblüten" width="1288" height="1221" decoding="async" fetchpriority="high">
+          </picture>
         </div>
       </div>
+      <a class="hero-scroll" href="#finden">
+        <span>Weiter zu Finden</span>
+        <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+          <path d="M3 6l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
     </section>
 
     <!-- section:finden -->
@@ -243,7 +215,7 @@
 <section class="discover-list" aria-labelledby="liste-fokus" data-list="fokus">
           <h3 id="liste-fokus">Für den fokussierten Start</h3>
           <div class="discover-grid">
-            <article class="tea-card" data-tea="assam" data-type="Schwarztee">
+            <article class="tea-card" id="tee-assam" data-tea="assam" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-assam">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/assam-320.avif 320w, /bilder/tees/assam-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/assam-320.webp 320w, /bilder/tees/assam-640.webp 640w" sizes="5rem"><img src="/bilder/tees/assam-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -262,7 +234,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="ceylon" data-type="Schwarztee">
+<article class="tea-card" id="tee-ceylon" data-tea="ceylon" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-ceylon">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/ceylon-320.avif 320w, /bilder/tees/ceylon-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/ceylon-320.webp 320w, /bilder/tees/ceylon-640.webp 640w" sizes="5rem"><img src="/bilder/tees/ceylon-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -281,7 +253,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="darjeeling" data-type="Schwarztee">
+<article class="tea-card" id="tee-darjeeling" data-tea="darjeeling" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-darjeeling">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/darjeeling-320.avif 320w, /bilder/tees/darjeeling-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/darjeeling-320.webp 320w, /bilder/tees/darjeeling-640.webp 640w" sizes="5rem"><img src="/bilder/tees/darjeeling-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -303,7 +275,7 @@
           </div>
           <div class="discover-rest" id="rest-fokus">
           <div class="discover-grid">
-            <article class="tea-card" data-tea="english-breakfast" data-type="Schwarztee">
+            <article class="tea-card" id="tee-english-breakfast" data-tea="english-breakfast" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-english-breakfast">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/english-breakfast-320.avif 320w, /bilder/tees/english-breakfast-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/english-breakfast-320.webp 320w, /bilder/tees/english-breakfast-640.webp 640w" sizes="5rem"><img src="/bilder/tees/english-breakfast-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -322,7 +294,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="matcha" data-type="Grüntee">
+<article class="tea-card" id="tee-matcha" data-tea="matcha" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-matcha">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/matcha-320.avif 320w, /bilder/tees/matcha-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/matcha-320.webp 320w, /bilder/tees/matcha-640.webp 640w" sizes="5rem"><img src="/bilder/tees/matcha-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -341,7 +313,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="mate" data-type="Mate">
+<article class="tea-card" id="tee-mate" data-tea="mate" data-type="Mate">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-mate">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/mate-320.avif 320w, /bilder/tees/mate-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/mate-320.webp 320w, /bilder/tees/mate-640.webp 640w" sizes="5rem"><img src="/bilder/tees/mate-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -360,7 +332,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="sencha" data-type="Grüntee">
+<article class="tea-card" id="tee-sencha" data-tea="sencha" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-sencha">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/sencha-320.avif 320w, /bilder/tees/sencha-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/sencha-320.webp 320w, /bilder/tees/sencha-640.webp 640w" sizes="5rem"><img src="/bilder/tees/sencha-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -379,7 +351,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="earl-grey" data-type="Schwarztee">
+<article class="tea-card" id="tee-earl-grey" data-tea="earl-grey" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-earl-grey">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/earl-grey-320.avif 320w, /bilder/tees/earl-grey-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/earl-grey-320.webp 320w, /bilder/tees/earl-grey-640.webp 640w" sizes="5rem"><img src="/bilder/tees/earl-grey-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -398,7 +370,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="gunpowder" data-type="Grüntee">
+<article class="tea-card" id="tee-gunpowder" data-tea="gunpowder" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-gunpowder">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/gunpowder-320.avif 320w, /bilder/tees/gunpowder-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/gunpowder-320.webp 320w, /bilder/tees/gunpowder-640.webp 640w" sizes="5rem"><img src="/bilder/tees/gunpowder-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -417,7 +389,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="tie-guan-yin" data-type="Oolong">
+<article class="tea-card" id="tee-tie-guan-yin" data-tea="tie-guan-yin" data-type="Oolong">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-fokus-tie-guan-yin">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/tie-guan-yin-320.avif 320w, /bilder/tees/tie-guan-yin-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/tie-guan-yin-320.webp 320w, /bilder/tees/tie-guan-yin-640.webp 640w" sizes="5rem"><img src="/bilder/tees/tie-guan-yin-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -443,7 +415,7 @@
 <section class="discover-list" aria-labelledby="liste-feierabend" data-list="feierabend">
           <h3 id="liste-feierabend">Für den Feierabend</h3>
           <div class="discover-grid">
-            <article class="tea-card" data-tea="silver-needle" data-type="Weißtee">
+            <article class="tea-card" id="tee-silver-needle" data-tea="silver-needle" data-type="Weißtee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-silver-needle">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/silver-needle-320.avif 320w, /bilder/tees/silver-needle-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/silver-needle-320.webp 320w, /bilder/tees/silver-needle-640.webp 640w" sizes="5rem"><img src="/bilder/tees/silver-needle-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -462,7 +434,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="jasmin" data-type="Grüntee">
+<article class="tea-card" id="tee-jasmin" data-tea="jasmin" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-jasmin">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/jasmin-320.avif 320w, /bilder/tees/jasmin-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/jasmin-320.webp 320w, /bilder/tees/jasmin-640.webp 640w" sizes="5rem"><img src="/bilder/tees/jasmin-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -481,7 +453,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="jin-xuan" data-type="Oolong">
+<article class="tea-card" id="tee-jin-xuan" data-tea="jin-xuan" data-type="Oolong">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-jin-xuan">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/jin-xuan-320.avif 320w, /bilder/tees/jin-xuan-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/jin-xuan-320.webp 320w, /bilder/tees/jin-xuan-640.webp 640w" sizes="5rem"><img src="/bilder/tees/jin-xuan-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -503,7 +475,7 @@
           </div>
           <div class="discover-rest" id="rest-feierabend">
           <div class="discover-grid">
-            <article class="tea-card" data-tea="kamille" data-type="Kräutertee">
+            <article class="tea-card" id="tee-kamille" data-tea="kamille" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-kamille">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/kamille-320.avif 320w, /bilder/tees/kamille-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/kamille-320.webp 320w, /bilder/tees/kamille-640.webp 640w" sizes="5rem"><img src="/bilder/tees/kamille-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -522,7 +494,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="lavendel" data-type="Kräutertee">
+<article class="tea-card" id="tee-lavendel" data-tea="lavendel" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-lavendel">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/lavendel-320.avif 320w, /bilder/tees/lavendel-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/lavendel-320.webp 320w, /bilder/tees/lavendel-640.webp 640w" sizes="5rem"><img src="/bilder/tees/lavendel-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -541,7 +513,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="rooibos" data-type="Rooibos">
+<article class="tea-card" id="tee-rooibos" data-tea="rooibos" data-type="Rooibos">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-rooibos">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/rooibos-320.avif 320w, /bilder/tees/rooibos-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/rooibos-320.webp 320w, /bilder/tees/rooibos-640.webp 640w" sizes="5rem"><img src="/bilder/tees/rooibos-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -560,7 +532,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="bai-mu-dan" data-type="Weißtee">
+<article class="tea-card" id="tee-bai-mu-dan" data-tea="bai-mu-dan" data-type="Weißtee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-bai-mu-dan">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/bai-mu-dan-320.avif 320w, /bilder/tees/bai-mu-dan-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/bai-mu-dan-320.webp 320w, /bilder/tees/bai-mu-dan-640.webp 640w" sizes="5rem"><img src="/bilder/tees/bai-mu-dan-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -579,7 +551,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="fenchel" data-type="Kräutertee">
+<article class="tea-card" id="tee-fenchel" data-tea="fenchel" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-fenchel">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/fenchel-320.avif 320w, /bilder/tees/fenchel-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/fenchel-320.webp 320w, /bilder/tees/fenchel-640.webp 640w" sizes="5rem"><img src="/bilder/tees/fenchel-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -598,7 +570,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="genmaicha" data-type="Grüntee">
+<article class="tea-card" id="tee-genmaicha" data-tea="genmaicha" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-genmaicha">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/genmaicha-320.avif 320w, /bilder/tees/genmaicha-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/genmaicha-320.webp 320w, /bilder/tees/genmaicha-640.webp 640w" sizes="5rem"><img src="/bilder/tees/genmaicha-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -617,7 +589,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="hojicha" data-type="Grüntee">
+<article class="tea-card" id="tee-hojicha" data-tea="hojicha" data-type="Grüntee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-hojicha">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/hojicha-320.avif 320w, /bilder/tees/hojicha-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/hojicha-320.webp 320w, /bilder/tees/hojicha-640.webp 640w" sizes="5rem"><img src="/bilder/tees/hojicha-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -636,7 +608,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="ingwer" data-type="Kräutertee">
+<article class="tea-card" id="tee-ingwer" data-tea="ingwer" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-feierabend-ingwer">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/ingwer-320.avif 320w, /bilder/tees/ingwer-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/ingwer-320.webp 320w, /bilder/tees/ingwer-640.webp 640w" sizes="5rem"><img src="/bilder/tees/ingwer-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -700,7 +672,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="pfefferminze" data-type="Kräutertee">
+<article class="tea-card" id="tee-pfefferminze" data-tea="pfefferminze" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-pfefferminze">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/pfefferminze-320.avif 320w, /bilder/tees/pfefferminze-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/pfefferminze-320.webp 320w, /bilder/tees/pfefferminze-640.webp 640w" sizes="5rem"><img src="/bilder/tees/pfefferminze-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -719,7 +691,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="pu-erh" data-type="Pu-Erh">
+<article class="tea-card" id="tee-pu-erh" data-tea="pu-erh" data-type="Pu-Erh">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-pu-erh">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/pu-erh-320.avif 320w, /bilder/tees/pu-erh-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/pu-erh-320.webp 320w, /bilder/tees/pu-erh-640.webp 640w" sizes="5rem"><img src="/bilder/tees/pu-erh-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -760,7 +732,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="masala-chai" data-type="Schwarztee">
+<article class="tea-card" id="tee-masala-chai" data-tea="masala-chai" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-nach-essen-masala-chai">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/masala-chai-320.avif 320w, /bilder/tees/masala-chai-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/masala-chai-320.webp 320w, /bilder/tees/masala-chai-640.webp 640w" sizes="5rem"><img src="/bilder/tees/masala-chai-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -786,7 +758,7 @@
 <section class="discover-list" aria-labelledby="liste-kalte-tage" data-list="kalte-tage">
           <h3 id="liste-kalte-tage">Für kalte Tage</h3>
           <div class="discover-grid">
-            <article class="tea-card" data-tea="apfel-zimt" data-type="Früchtetee">
+            <article class="tea-card" id="tee-apfel-zimt" data-tea="apfel-zimt" data-type="Früchtetee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-apfel-zimt">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/apfel-zimt-320.avif 320w, /bilder/tees/apfel-zimt-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/apfel-zimt-320.webp 320w, /bilder/tees/apfel-zimt-640.webp 640w" sizes="5rem"><img src="/bilder/tees/apfel-zimt-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -805,7 +777,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="lapsang-souchong" data-type="Schwarztee">
+<article class="tea-card" id="tee-lapsang-souchong" data-tea="lapsang-souchong" data-type="Schwarztee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-lapsang-souchong">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/lapsang-souchong-320.avif 320w, /bilder/tees/lapsang-souchong-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/lapsang-souchong-320.webp 320w, /bilder/tees/lapsang-souchong-640.webp 640w" sizes="5rem"><img src="/bilder/tees/lapsang-souchong-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -865,7 +837,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="da-hong-pao" data-type="Oolong">
+<article class="tea-card" id="tee-da-hong-pao" data-tea="da-hong-pao" data-type="Oolong">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-kalte-tage-da-hong-pao">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/da-hong-pao-320.avif 320w, /bilder/tees/da-hong-pao-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/da-hong-pao-320.webp 320w, /bilder/tees/da-hong-pao-640.webp 640w" sizes="5rem"><img src="/bilder/tees/da-hong-pao-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -967,7 +939,7 @@
 <section class="discover-list" aria-labelledby="liste-training" data-list="training">
           <h3 id="liste-training">Beliebt nach dem Training</h3>
           <div class="discover-grid">
-            <article class="tea-card" data-tea="hibiskus" data-type="Früchtetee">
+            <article class="tea-card" id="tee-hibiskus" data-tea="hibiskus" data-type="Früchtetee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-hibiskus">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/hibiskus-320.avif 320w, /bilder/tees/hibiskus-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/hibiskus-320.webp 320w, /bilder/tees/hibiskus-640.webp 640w" sizes="5rem"><img src="/bilder/tees/hibiskus-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -1005,7 +977,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="zitronenverbene" data-type="Kräutertee">
+<article class="tea-card" id="tee-zitronenverbene" data-tea="zitronenverbene" data-type="Kräutertee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-zitronenverbene">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/zitronenverbene-320.avif 320w, /bilder/tees/zitronenverbene-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/zitronenverbene-320.webp 320w, /bilder/tees/zitronenverbene-640.webp 640w" sizes="5rem"><img src="/bilder/tees/zitronenverbene-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -1046,7 +1018,7 @@
               </div>
             </div>
           </article>
-<article class="tea-card" data-tea="hagebutte" data-type="Früchtetee">
+<article class="tea-card" id="tee-hagebutte" data-tea="hagebutte" data-type="Früchtetee">
             <h3 class="tea-heading">
               <button type="button" class="tea-toggle" aria-expanded="false" aria-controls="mehr-werbung-training-hagebutte">
                 <span class="tea-photo"><picture><source type="image/avif" srcset="/bilder/tees/hagebutte-320.avif 320w, /bilder/tees/hagebutte-640.avif 640w" sizes="5rem"><source type="image/webp" srcset="/bilder/tees/hagebutte-320.webp 320w, /bilder/tees/hagebutte-640.webp 640w" sizes="5rem"><img src="/bilder/tees/hagebutte-320.webp" alt="" width="320" height="320" loading="lazy" decoding="async"></picture></span>
@@ -1384,6 +1356,7 @@
       <nav aria-label="Rechtliches">
         <a href="/impressum">Impressum</a>
         <a href="/datenschutz">Datenschutz</a>
+        <a href="/ueber-uns">Über uns</a>
         <a href="/kontakt">Kontakt</a>
       </nav>
     </div>

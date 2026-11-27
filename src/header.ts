@@ -1,3 +1,6 @@
+import { initReveal } from './reveal';
+import { initWebMcp } from './webmcp';
+
 /** Kopfzeile bleibt stehen und wird nach dem Scrollen kompakter. */
 export function initHeader(): void {
   const head = document.querySelector<HTMLElement>('.site-head');
@@ -8,3 +11,6 @@ export function initHeader(): void {
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 }
+
+initWebMcp();
+initReveal();

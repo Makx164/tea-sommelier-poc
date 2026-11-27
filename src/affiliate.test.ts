@@ -109,7 +109,7 @@ describe('Affiliate-Konfiguration', () => {
   });
 
   it('setzt den Affiliate-Hinweis genau einmal in den Footer jeder Seite', () => {
-    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html']) {
+    for (const file of ['index.html', 'impressum.html', 'datenschutz.html', 'kontakt.html', 'ueber-uns.html']) {
       const html = readFileSync(file, 'utf8');
       expect(html.split(AFFILIATE_NOTE).length - 1, file).toBe(1);
       const footer = html.slice(html.indexOf('<footer'), html.indexOf('</footer>'));
@@ -142,7 +142,10 @@ describe('Affiliate-Konfiguration', () => {
   });
 
   it('lässt Impressum und Datenschutz ohne .html-Endung zu', () => {
-    const config = JSON.parse(readFileSync('vercel.json', 'utf8')) as { cleanUrls?: boolean };
-    expect(config.cleanUrls).toBe(true);
+    const config = JSON.parse(readFileSync('vercel.json', 'utf8')) as {
+      routes?: { dest?: string; headers?: { Location?: string } }[];
+    };
+    expect(config.routes?.some((route) => route.dest === '/$1.html')).toBe(true);
+    expect(config.routes?.some((route) => route.headers?.Location === '/$1')).toBe(true);
   });
 });

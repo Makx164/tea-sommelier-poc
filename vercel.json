@@ -1,3 +1,68 @@
 {
-  "cleanUrls": true
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "routes": [
+    {
+      "src": "^/(?:(.+)/)?index(?:\\.html)?/?$",
+      "headers": { "Location": "/$1" },
+      "status": 308
+    },
+    {
+      "src": "^/(.*)\\.html/?$",
+      "headers": { "Location": "/$1" },
+      "status": 308
+    },
+    {
+      "src": "^/(.+)/$",
+      "headers": { "Location": "/$1" },
+      "status": 308
+    },
+    {
+      "src": "^/(?!assets/|bilder/|brand/|hero/|favicon).*$",
+      "headers": { "Vary": "Accept" },
+      "continue": true
+    },
+    {
+      "src": "^/$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "dest": "/agent-md/index.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
+    },
+    {
+      "src": "^/(?!go(?:/|$)|agent-md(?:/|$)|assets(?:/|$)|bilder(?:/|$)|brand(?:/|$)|hero(?:/|$)|favicon)((?:[a-z0-9-]+/)*[a-z0-9-]+)$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "dest": "/agent-md/$1.md",
+      "check": true,
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
+    },
+    {
+      "src": "^/(?!go(?:/|$)|agent-md(?:/|$)|assets(?:/|$)|bilder(?:/|$)|brand(?:/|$)|hero(?:/|$)|favicon)((?:[a-z0-9-]+/)*[a-z0-9-]+)$",
+      "has": [{ "type": "header", "key": "accept", "value": ".*text/markdown.*" }],
+      "status": 404,
+      "dest": "/agent-md/404.md",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "Vary": "Accept"
+      }
+    },
+    {
+      "src": "^/agent-md/(.*)\\.md$",
+      "headers": {
+        "Content-Type": "text/markdown; charset=utf-8",
+        "X-Robots-Tag": "noindex"
+      },
+      "continue": true
+    },
+    { "handle": "filesystem" },
+    {
+      "src": "^/(.+)$",
+      "dest": "/$1.html",
+      "headers": { "Vary": "Accept" }
+    }
+  ]
 }

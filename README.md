@@ -25,7 +25,7 @@ npm run build
 npm run preview
 ```
 
-`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website: Start, die Bereiche unter `/finden`, `/entdecken`, `/create`, `/zubehoer` und `/blog`, Impressum, Datenschutz, `sitemap.xml`, `robots.txt`, `llms.txt` und eine Weiterleitung je Tee und je Zubehör unter `go/`. Entwürfe im Blog (`draft: true`) fehlen in diesem Bau und in der Sitemap. Auf einer Vercel-Vorschau (`VERCEL_ENV=preview`) sind sie mit dem Hinweis „Entwurf“ sichtbar.
+`npm run build` schreibt nach `dist/`. Diese Dateien sind die Website: Start, die Bereiche unter `/finden`, `/entdecken`, `/create`, `/zubehoer` und `/blog`, Über uns, Impressum, Datenschutz, Kontakt, `sitemap.xml`, `robots.txt`, `llms.txt` und eine Weiterleitung je Tee und je Zubehör unter `go/`. Eine Anfrage mit `Accept: text/markdown` erhält für die Inhaltsseiten Markdown. Entwürfe im Blog (`draft: true`) fehlen in diesem Bau und in der Sitemap. Auf einer Vercel-Vorschau (`VERCEL_ENV=preview`) sind sie mit dem Hinweis „Entwurf“ sichtbar.
 
 ## Empfehlung
 
@@ -37,7 +37,7 @@ Die Auswahl bleibt im Browser und wird nicht gespeichert. Es werden keine Cookie
 
 ## Veröffentlichung
 
-Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. Die öffentliche Website läuft auf Vercel. `vercel.json` setzt `cleanUrls`, damit `/impressum`, `/datenschutz` und `/go/<Tee>` ohne Dateiendung erreichbar sind. Links mit `.html` funktionieren weiter.
+Der Workflow `.github/workflows/pages.yml` baut die Seite und kann sie auf GitHub Pages legen. Er startet nur manuell (`workflow_dispatch`), nicht bei Push auf `main`. Die öffentliche Website läuft auf Vercel. `vercel.json` leitet `.html` auf die Endung ohne Datei und liefert `/impressum`, `/datenschutz` und `/go/<Tee>` aus der HTML-Datei. Links mit `.html` bleiben gültig. Eine Anfrage mit `Accept: text/markdown` wird vor dem Dateisystem auf die gebaute Markdown-Datei gelegt.
 
 ## Offene Punkte
 
